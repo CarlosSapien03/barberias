@@ -1,0 +1,2106 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Antigua Barbería · Hermosillo, Sonora</title>
+    <!--
+  ═══════════════════════════════════════════════════
+  GUÍA DE IMÁGENES — coloca los archivos en la misma
+  carpeta que este HTML y usa estos nombres:
+
+    foto-hero.jpg        → Foto principal del hero (fondo grande)
+    foto-local.jpg       → Interior o fachada de la barbería
+    foto-galeria-1.jpg   → Galería: sillas / ambiente
+    foto-galeria-2.jpg   → Galería: afeitado / navaja
+    foto-galeria-3.jpg   → Galería: exterior / local
+    foto-galeria-4.jpg   → Galería: diseño de barba
+    foto-galeria-5.jpg   → Galería: corte / estilo
+
+  Formatos aceptados: .jpg  .jpeg  .png  .webp
+  Mientras no existan los archivos, se muestra el
+  fondo oscuro vintage original sin errores.
+  ═══════════════════════════════════════════════════
+-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --espresso: #1a1008;
+        --dark: #211508;
+        --mahogany: #2e1a0e;
+        --brown: #3d2410;
+        --leather: #5c3520;
+        --red: #9b2020;
+        --red2: #c0342a;
+        --cream: #f2e8d5;
+        --cream2: #e8d9c0;
+        --parchment: #d4c4a0;
+        --gold: #c8a84b;
+        --gold2: #e2c068;
+        --muted: #8a7560;
+        --light: #bfab90;
+        --white: #fff8ef;
+        --border: rgba(200, 168, 75, 0.25);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--espresso);
+        color: var(--light);
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+      }
+
+      /* ── Grain overlay ── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        pointer-events: none;
+        opacity: 0.028;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-size: 256px;
+      }
+
+      /* ══════════════════════════════════════ NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 3rem;
+        height: 70px;
+        background: rgba(26, 16, 8, 0.96);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        animation: slideDown 0.6s ease both;
+      }
+      @keyframes slideDown {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .nav-brand {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 1.15rem;
+        letter-spacing: 0.08em;
+        color: var(--cream);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .nav-brand .pole {
+        font-size: 1.1rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        align-items: center;
+      }
+      .nav-links a {
+        text-decoration: none;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--gold2);
+      }
+
+      .nav-cta {
+        background: var(--red) !important;
+        color: var(--cream) !important;
+        padding: 0.45rem 1.4rem !important;
+        letter-spacing: 0.18em !important;
+        transition: background 0.2s !important;
+      }
+      .nav-cta:hover {
+        background: var(--red2) !important;
+      }
+
+      /* ══════════════════════════════════════ HERO */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 9rem 2rem 6rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Rich layered background */
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% 40%,
+            rgba(62, 36, 16, 0.6) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 100% 50% at 50% 100%,
+            rgba(26, 16, 8, 1) 0%,
+            transparent 60%
+          ),
+          linear-gradient(170deg, #1a1008 0%, #2e1a0e 50%, #1a1008 100%);
+      }
+
+      /* Decorative border frame */
+      .hero-frame {
+        position: absolute;
+        top: 90px;
+        left: 30px;
+        right: 30px;
+        bottom: 30px;
+        border: 1px solid rgba(200, 168, 75, 0.15);
+        pointer-events: none;
+      }
+      .hero-frame::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        border: 1px solid rgba(200, 168, 75, 0.08);
+      }
+
+      /* Corner ornaments */
+      .corner {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-color: var(--gold);
+        border-style: solid;
+        border-width: 0;
+      }
+      .corner-tl {
+        top: 90px;
+        left: 30px;
+        border-top-width: 2px;
+        border-left-width: 2px;
+      }
+      .corner-tr {
+        top: 90px;
+        right: 30px;
+        border-top-width: 2px;
+        border-right-width: 2px;
+      }
+      .corner-bl {
+        bottom: 30px;
+        left: 30px;
+        border-bottom-width: 2px;
+        border-left-width: 2px;
+      }
+      .corner-br {
+        bottom: 30px;
+        right: 30px;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
+      }
+
+      /* Barber pole SVG */
+      .hero-pole {
+        position: absolute;
+        left: 50px;
+        top: 90px;
+        bottom: 30px;
+        width: 18px;
+        overflow: hidden;
+        opacity: 0.5;
+      }
+      .pole-inner {
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          180deg,
+          var(--red2) 0px,
+          var(--red2) 14px,
+          var(--white) 14px,
+          var(--white) 28px,
+          #1a6fa8 28px,
+          #1a6fa8 42px
+        );
+        animation: poleScroll 3s linear infinite;
+      }
+      @keyframes poleScroll {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: 0 42px;
+        }
+      }
+      .hero-pole-r {
+        right: 50px;
+        left: auto;
+      }
+
+      .hero-inner {
+        position: relative;
+        max-width: 820px;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gold2);
+        margin-bottom: 1.8rem;
+        animation: fadeUp 0.6s 0.1s both;
+      }
+      .badge-rule {
+        width: 30px;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      /* Main title with ornate style */
+      .hero-title-wrap {
+        position: relative;
+        margin-bottom: 1rem;
+        animation: fadeUp 0.6s 0.25s both;
+      }
+
+      .hero-title-top {
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+        font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+        letter-spacing: 0.55em;
+        text-transform: uppercase;
+        color: var(--cream2);
+        display: block;
+        margin-bottom: 0.6rem;
+      }
+
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: clamp(4rem, 10vw, 9rem);
+        line-height: 0.92;
+        color: var(--cream);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        text-shadow: 0 4px 40px rgba(0, 0, 0, 0.8);
+      }
+      h1 .antigua {
+        display: block;
+      }
+      h1 .barberia {
+        font-style: italic;
+        font-size: 0.65em;
+        color: var(--gold2);
+        letter-spacing: 0.12em;
+        display: block;
+      }
+
+      /* Ornamental divider */
+      .ornament {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+        margin: 1.5rem 0;
+        animation: fadeUp 0.6s 0.45s both;
+      }
+      .orn-line {
+        flex: 1;
+        max-width: 120px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+      .orn-symbol {
+        font-size: 1.2rem;
+        color: var(--gold);
+      }
+
+      .hero-sub {
+        font-size: 0.95rem;
+        font-weight: 300;
+        line-height: 1.8;
+        color: var(--muted);
+        max-width: 480px;
+        margin: 0 auto 2.5rem;
+        letter-spacing: 0.04em;
+        animation: fadeUp 0.6s 0.55s both;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        animation: fadeUp 0.6s 0.7s both;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.9rem 2.2rem;
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 600;
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.22s;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-red {
+        background: var(--red);
+        color: var(--cream);
+      }
+      .btn-red:hover {
+        background: var(--red2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(155, 32, 32, 0.4);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--cream2);
+        border: 1px solid var(--border);
+      }
+      .btn-outline:hover {
+        border-color: var(--gold2);
+        color: var(--gold2);
+        transform: translateY(-2px);
+      }
+
+      /* Rating pill */
+      .hero-rating {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        background: rgba(200, 168, 75, 0.08);
+        border: 1px solid var(--border);
+        padding: 0.6rem 1.4rem;
+        margin-top: 2.5rem;
+        animation: fadeUp 0.6s 0.85s both;
+      }
+      .rating-stars {
+        color: var(--gold2);
+        font-size: 1rem;
+        letter-spacing: 0.05em;
+      }
+      .rating-text {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--cream2);
+      }
+      .rating-sep {
+        width: 1px;
+        height: 18px;
+        background: var(--border);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ══════════════════════════════════════ MARQUEE STRIP */
+      .strip {
+        background: var(--red);
+        padding: 0.65rem 0;
+        overflow: hidden;
+        white-space: nowrap;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .strip-inner {
+        display: inline-flex;
+        animation: marquee 22s linear infinite;
+      }
+      .strip-inner span {
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 700;
+        font-size: 0.72rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--cream);
+        padding: 0 2.5rem;
+      }
+      .strip-inner span::before {
+        content: "✦  ";
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ══════════════════════════════════════ SECTION BASE */
+      section {
+        padding: 7rem 3rem;
+      }
+      .s-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gold2);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+      .s-label::before,
+      .s-label::after {
+        content: "—";
+        color: var(--gold);
+      }
+
+      h2 {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        color: var(--cream);
+        line-height: 1.1;
+        text-align: center;
+        margin-bottom: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      h2 em {
+        font-style: italic;
+        color: var(--gold2);
+      }
+      .s-intro {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.85;
+        text-align: center;
+        max-width: 500px;
+        margin: 0 auto 4rem;
+        letter-spacing: 0.04em;
+      }
+
+      /* ══════════════════════════════════════ NOSOTROS */
+      #nosotros {
+        background: var(--dark);
+        position: relative;
+      }
+      #nosotros::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        opacity: 0.3;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      @media (max-width: 800px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+      }
+
+      .about-text h2 {
+        text-align: left;
+      }
+      .about-text .s-label {
+        justify-content: flex-start;
+      }
+      .about-text .s-label::before {
+        display: none;
+      }
+
+      .about-text p {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.9;
+        margin-bottom: 1.4rem;
+        letter-spacing: 0.03em;
+      }
+      .about-text p strong {
+        color: var(--cream2);
+        font-weight: 600;
+      }
+
+      .about-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .feat {
+        background: rgba(200, 168, 75, 0.06);
+        border: 1px solid rgba(200, 168, 75, 0.15);
+        padding: 1.2rem 1rem;
+        text-align: center;
+      }
+      .feat-icon {
+        font-size: 1.4rem;
+        margin-bottom: 0.4rem;
+      }
+      .feat-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--cream2);
+      }
+
+      /* About visual */
+      .about-visual {
+        position: relative;
+      }
+      .visual-card {
+        background: var(--mahogany);
+        border: 1px solid var(--border);
+        padding: 3rem 2.5rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .visual-card::before {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border: 1px solid rgba(200, 168, 75, 0.12);
+        pointer-events: none;
+      }
+      .vc-num {
+        font-family: "Playfair Display", serif;
+        font-size: 6rem;
+        font-weight: 900;
+        color: rgba(200, 168, 75, 0.12);
+        line-height: 1;
+        margin-bottom: 0.5rem;
+      }
+      .vc-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold2);
+      }
+      .vc-desc {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 0.4rem;
+        line-height: 1.6;
+      }
+      .visual-accent {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--red),
+          var(--gold),
+          var(--red),
+          transparent
+        );
+      }
+
+      .stat-trio {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 1.5rem;
+      }
+      .stat-b {
+        background: var(--mahogany);
+        padding: 1.5rem 1rem;
+        text-align: center;
+      }
+      .stat-b .n {
+        font-family: "Playfair Display", serif;
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--cream);
+        line-height: 1;
+      }
+      .stat-b .n span {
+        color: var(--gold2);
+      }
+      .stat-b .l {
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.3rem;
+      }
+
+      /* ══════════════════════════════════════ SERVICIOS */
+      #servicios {
+        background: var(--espresso);
+        text-align: center;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        background: rgba(200, 168, 75, 0.1);
+        border: 2px solid rgba(200, 168, 75, 0.1);
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      @media (max-width: 900px) {
+        .services-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 540px) {
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .svc-card {
+        background: var(--espresso);
+        padding: 3rem 2rem 2.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s;
+        cursor: default;
+      }
+      .svc-card:hover {
+        background: var(--mahogany);
+      }
+      .svc-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.35s;
+      }
+      .svc-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      .svc-icon-wrap {
+        width: 56px;
+        height: 56px;
+        margin: 0 auto 1.4rem;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        background: rgba(200, 168, 75, 0.06);
+        position: relative;
+      }
+      .svc-icon-wrap::before {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        border: 1px solid rgba(200, 168, 75, 0.08);
+      }
+
+      .svc-card h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--cream);
+        margin-bottom: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .svc-card p {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.82;
+        letter-spacing: 0.03em;
+      }
+      .svc-price {
+        margin-top: 1.4rem;
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--gold2);
+      }
+      .svc-price small {
+        font-size: 0.65rem;
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        display: block;
+        margin-top: 0.1rem;
+        text-transform: uppercase;
+      }
+
+      /* ══════════════════════════════════════ ESTILO GALLERY */
+      #estilo {
+        background: var(--dark);
+        text-align: center;
+        padding-bottom: 0;
+      }
+
+      .gallery-strip {
+        display: flex;
+        gap: 0;
+        overflow: hidden;
+        margin-top: 0;
+        height: 320px;
+      }
+      .gallery-item {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        background: var(--mahogany);
+        transition: flex 0.4s ease;
+        border-right: 1px solid rgba(200, 168, 75, 0.12);
+      }
+      .gallery-item:last-child {
+        border-right: none;
+      }
+      .gallery-item:hover {
+        flex: 2;
+      }
+      .gallery-item-bg {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+        opacity: 0.12;
+        transition: opacity 0.4s;
+      }
+      .gallery-item:hover .gallery-item-bg {
+        opacity: 0.2;
+      }
+      .gallery-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem 1.5rem 1.5rem;
+        background: linear-gradient(
+          0deg,
+          rgba(26, 16, 8, 0.95) 0%,
+          transparent 100%
+        );
+      }
+      .gallery-label h4 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--cream);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .gallery-label p {
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        margin-top: 0.2rem;
+      }
+      .gallery-label span {
+        display: inline-block;
+        margin-top: 0.6rem;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold2);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .gallery-item:hover .gallery-label span {
+        opacity: 1;
+      }
+
+      /* Gallery image covers */
+      .gallery-item {
+        background: var(--mahogany);
+      }
+      .gallery-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.75;
+        transition:
+          opacity 0.4s,
+          transform 0.5s;
+        display: block;
+      }
+      .gallery-item:hover .gallery-img {
+        opacity: 0.9;
+        transform: scale(1.04);
+      }
+
+      /* ══════════════════════════════════════ PHOTO PLACEHOLDERS */
+      .photo-placeholder {
+        position: relative;
+        overflow: hidden;
+        background: var(--mahogany);
+        display: block;
+      }
+      .photo-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .photo-placeholder:hover img {
+        transform: scale(1.03);
+      }
+
+      /* Hero bg photo */
+      .hero-photo {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.18;
+        filter: sepia(60%) brightness(0.5);
+      }
+      .hero-bg {
+        z-index: 1;
+      }
+      .hero-frame,
+      .corner,
+      .hero-pole,
+      .hero-inner {
+        z-index: 2;
+      }
+
+      /* Nosotros photo */
+      .nosotros-photo {
+        width: 100%;
+        aspect-ratio: 4/3;
+        border: 1px solid var(--border);
+        margin-bottom: 1.5rem;
+      }
+
+      /* ══════════════════════════════════════ RESEÑAS */
+      #resenas {
+        background: var(--espresso);
+        text-align: center;
+      }
+
+      .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5px;
+        background: rgba(200, 168, 75, 0.08);
+        border: 1px solid rgba(200, 168, 75, 0.08);
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      @media (max-width: 800px) {
+        .reviews-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .review-card {
+        background: var(--espresso);
+        padding: 2.5rem 2rem;
+        transition: background 0.3s;
+        text-align: left;
+      }
+      .review-card:hover {
+        background: var(--dark);
+      }
+      .rev-stars {
+        color: var(--gold2);
+        font-size: 1rem;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.9rem;
+      }
+      .rev-quote {
+        font-family: "Libre Baskerville", serif;
+        font-style: italic;
+        font-size: 0.95rem;
+        color: var(--cream2);
+        line-height: 1.75;
+        margin-bottom: 1.2rem;
+      }
+      .rev-name {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .rev-source {
+        font-size: 0.65rem;
+        color: var(--muted);
+        margin-top: 0.2rem;
+        letter-spacing: 0.08em;
+      }
+
+      /* Overall rating */
+      .rating-big {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+        margin-bottom: 3.5rem;
+      }
+      .rb-num {
+        font-family: "Playfair Display", serif;
+        font-size: 5rem;
+        font-weight: 900;
+        color: var(--cream);
+        line-height: 1;
+      }
+      .rb-stars {
+        font-size: 1.6rem;
+        color: var(--gold2);
+        letter-spacing: 0.1em;
+      }
+      .rb-sub {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.4rem;
+      }
+      .rb-divider {
+        width: 1px;
+        height: 60px;
+        background: var(--border);
+      }
+
+      /* ══════════════════════════════════════ CONTACTO */
+      #contacto {
+        background: var(--mahogany);
+        position: relative;
+        overflow: hidden;
+      }
+      #contacto::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        opacity: 0.5;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        align-items: start;
+      }
+      @media (max-width: 800px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+      }
+
+      .contact-left h2 {
+        text-align: left;
+        font-size: 2.8rem;
+      }
+      .contact-left .s-label {
+        justify-content: flex-start;
+      }
+      .contact-left .s-label::before {
+        display: none;
+      }
+
+      .contact-items {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+        margin-top: 2.2rem;
+      }
+      .ci {
+        display: flex;
+        gap: 1.2rem;
+        align-items: flex-start;
+      }
+      .ci-icon {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        background: rgba(200, 168, 75, 0.06);
+      }
+      .ci-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.2rem;
+      }
+      .ci-val {
+        font-size: 0.9rem;
+        color: var(--cream2);
+        line-height: 1.6;
+      }
+      .ci-val a {
+        color: var(--cream2);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .ci-val a:hover {
+        color: var(--gold2);
+      }
+
+      /* Hours table */
+      .hours-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+      }
+      .hours-table td {
+        padding: 0.75rem 0;
+        font-size: 0.85rem;
+        border-bottom: 1px solid rgba(200, 168, 75, 0.1);
+      }
+      .hours-table td:last-child {
+        text-align: right;
+        color: var(--muted);
+      }
+      .hours-table tr.today td {
+        color: var(--gold2) !important;
+      }
+      .hours-table tr.closed td {
+        color: rgba(138, 117, 96, 0.35);
+      }
+      .hours-table tr.closed td:last-child {
+        color: rgba(138, 117, 96, 0.3);
+      }
+
+      /* Phone CTA */
+      .phone-cta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(200, 168, 75, 0.06);
+        border: 1px solid var(--border);
+        padding: 1.4rem 1.8rem;
+        margin-top: 2rem;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .phone-cta:hover {
+        background: rgba(200, 168, 75, 0.12);
+      }
+      .phone-icon {
+        font-size: 1.4rem;
+        color: var(--gold2);
+      }
+      .phone-num {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--cream);
+      }
+      .phone-label {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      /* Contact right — decorative */
+      .contact-right {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .info-card {
+        background: rgba(26, 16, 8, 0.5);
+        border: 1px solid var(--border);
+        padding: 2.5rem 2rem;
+        text-align: center;
+        position: relative;
+      }
+      .info-card::before {
+        content: "✦";
+        position: absolute;
+        top: -1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--mahogany);
+        padding: 0 0.5rem;
+        color: var(--gold);
+        font-size: 0.8rem;
+      }
+      .info-card h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: var(--cream);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.5rem;
+      }
+      .info-card p {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.7;
+        letter-spacing: 0.04em;
+      }
+      .info-card .highlight {
+        color: var(--gold2);
+        font-weight: 600;
+        margin-top: 0.6rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+      }
+
+      .social-row {
+        display: flex;
+        gap: 1rem;
+      }
+      .soc-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        padding: 1rem;
+        background: rgba(26, 16, 8, 0.5);
+        border: 1px solid var(--border);
+        text-decoration: none;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--cream2);
+        transition: all 0.2s;
+      }
+      .soc-btn:hover {
+        border-color: var(--gold2);
+        color: var(--gold2);
+        background: rgba(200, 168, 75, 0.06);
+      }
+
+      /* ══════════════════════════════════════ MAP */
+      #mapa {
+        padding: 0;
+      }
+      .map-wrap {
+        position: relative;
+        height: 380px;
+        overflow: hidden;
+      }
+      .map-wrap iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        filter: grayscale(80%) sepia(20%) brightness(0.7);
+      }
+      .map-badge {
+        position: absolute;
+        top: 2rem;
+        left: 3rem;
+        background: var(--espresso);
+        border: 1px solid var(--border);
+        padding: 1rem 1.6rem;
+      }
+      .map-badge strong {
+        display: block;
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--cream);
+      }
+      .map-badge span {
+        font-size: 0.74rem;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+      }
+      .map-badge .park {
+        display: inline-block;
+        margin-top: 0.4rem;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold2);
+        background: rgba(200, 168, 75, 0.1);
+        padding: 0.2rem 0.6rem;
+        border: 1px solid rgba(200, 168, 75, 0.2);
+      }
+
+      /* ══════════════════════════════════════ FOOTER */
+      footer {
+        background: var(--espresso);
+        border-top: 1px solid var(--border);
+        padding: 3.5rem 3rem 2rem;
+      }
+      .footer-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2.5rem;
+        border-bottom: 1px solid rgba(200, 168, 75, 0.1);
+      }
+      .footer-brand {
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: var(--cream);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        line-height: 1.1;
+      }
+      .footer-brand em {
+        font-style: italic;
+        color: var(--gold2);
+        font-size: 0.65em;
+        display: block;
+      }
+      .footer-brand p {
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 300;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        margin-top: 0.6rem;
+        font-style: normal;
+        max-width: 240px;
+        line-height: 1.6;
+      }
+
+      .footer-col h5 {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--gold2);
+        margin-bottom: 1rem;
+      }
+      .footer-col ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+      }
+      .footer-col ul li {
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+      .footer-col ul li a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-col ul li a:hover {
+        color: var(--cream2);
+      }
+
+      .footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-bottom p {
+        font-size: 0.72rem;
+        color: rgba(138, 117, 96, 0.45);
+        letter-spacing: 0.05em;
+      }
+      .footer-pole {
+        font-size: 1.2rem;
+      }
+
+      /* ══════════════════════════════════════ REVEAL */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ══════════════════════════════════════ RESPONSIVE */
+      @media (max-width: 700px) {
+        nav {
+          padding: 0 1.25rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        section {
+          padding: 5rem 1.25rem;
+        }
+        #hero {
+          padding: 8rem 1.25rem 5rem;
+        }
+        .hero-pole,
+        .hero-pole-r {
+          display: none;
+        }
+        .corner {
+          display: none;
+        }
+        .hero-frame {
+          display: none;
+        }
+        .contact-left h2 {
+          font-size: 2.2rem;
+        }
+        .map-badge {
+          left: 1.25rem;
+        }
+        footer {
+          padding: 3rem 1.25rem 2rem;
+        }
+        .gallery-strip {
+          height: 200px;
+        }
+        .gallery-item {
+          flex: 1 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══ NAV ══ -->
+    <nav>
+      <div class="nav-brand">
+        <span class="pole">💈</span>
+        La Antigua Barbería
+      </div>
+      <ul class="nav-links">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#resenas">Reseñas</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="tel:6623124199" class="nav-cta">662 312 4199</a></li>
+      </ul>
+    </nav>
+
+    <!-- ══ HERO ══ -->
+    <section id="hero">
+      <!-- Imagen de fondo hero — reemplazar src con tu foto -->
+      <div class="hero-photo">
+        <img
+          src="foto-hero.jpg"
+          alt="La Antigua Barbería"
+          onerror="this.style.display = 'none'"
+        />
+      </div>
+      <div class="hero-bg"></div>
+      <div class="hero-frame"></div>
+      <div class="corner corner-tl"></div>
+      <div class="corner corner-tr"></div>
+      <div class="corner corner-bl"></div>
+      <div class="corner corner-br"></div>
+
+      <!-- Animated barber poles -->
+      <div class="hero-pole"><div class="pole-inner"></div></div>
+      <div class="hero-pole hero-pole-r"><div class="pole-inner"></div></div>
+
+      <div class="hero-inner">
+        <div class="hero-badge">
+          <span class="badge-rule"></span>
+          Desde la vieja escuela · Hermosillo, Sonora
+          <span class="badge-rule"></span>
+        </div>
+
+        <div class="hero-title-wrap">
+          <span class="hero-title-top">La Antigua</span>
+          <h1>
+            <span class="antigua">Barbería</span>
+            <span class="barberia">Corte · Afeitado · Estilo</span>
+          </h1>
+        </div>
+
+        <div class="ornament">
+          <span class="orn-line"></span>
+          <span class="orn-symbol">✦</span>
+          <span class="orn-line"></span>
+        </div>
+
+        <p class="hero-sub">
+          Una barbería a la vieja escuela en el corazón del Centro de
+          Hermosillo. Cortes de caballero, afeitados tradicionales y el ambiente
+          de antaño que nunca pasa de moda.
+        </p>
+
+        <div class="hero-actions">
+          <a href="tel:6623124199" class="btn btn-red">Llamar para cita</a>
+          <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+        </div>
+
+        <div class="hero-rating">
+          <div class="rating-stars">★★★★★</div>
+          <div class="rating-sep"></div>
+          <div class="rating-text">4.7 · 334 reseñas en Google</div>
+          <div class="rating-sep"></div>
+          <div class="rating-text" style="color: var(--muted)">
+            Estacionamiento gratis
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ MARQUEE ══ -->
+    <div class="strip">
+      <div class="strip-inner">
+        <span>Corte Clásico</span><span>Afeitado Tradicional</span
+        ><span>Diseño de Barba</span><span>Peinados Vintage</span
+        ><span>Tratamientos Capilares</span><span>Barbería para Niños</span
+        ><span>Estacionamiento Gratis</span><span>Centro de Hermosillo</span>
+        <span>Corte Clásico</span><span>Afeitado Tradicional</span
+        ><span>Diseño de Barba</span><span>Peinados Vintage</span
+        ><span>Tratamientos Capilares</span><span>Barbería para Niños</span
+        ><span>Estacionamiento Gratis</span><span>Centro de Hermosillo</span>
+      </div>
+    </div>
+
+    <!-- ══ NOSOTROS ══ -->
+    <section id="nosotros">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="s-label">Nuestra historia</div>
+          <h2 style="text-align: left; font-size: 2.6rem">
+            La barbería<br /><em>de siempre.</em>
+          </h2>
+          <div
+            class="ornament"
+            style="justify-content: flex-start; margin: 1rem 0 1.5rem"
+          >
+            <span class="orn-line" style="max-width: 60px"></span>
+            <span class="orn-symbol" style="font-size: 0.8rem">✦</span>
+          </div>
+          <p>
+            <strong>La Antigua Barbería</strong> es un rincón del Hermosillo de
+            antes, ubicada en el corazón del Centro histórico. Aquí el tiempo se
+            detiene: sillas de barbero clásicas, espejos biselados, el aroma a
+            talco y lociones de la vieja guardia.
+          </p>
+          <p>
+            Nos dedicamos al
+            <strong>corte de caballero y el afeitado tradicional</strong> con
+            navaja, preservando las técnicas de los años 50 y 60 que hicieron de
+            las barberías un espacio de encuentro, conversación y cuidado
+            personal para el hombre.
+          </p>
+          <p>
+            Contamos con <strong>estacionamiento gratuito</strong> para que tu
+            visita sea cómoda desde el primer momento.
+          </p>
+          <div class="about-features">
+            <div class="feat">
+              <div class="feat-icon">✂️</div>
+              <div class="feat-label">Corte Clásico</div>
+            </div>
+            <div class="feat">
+              <div class="feat-icon">🪒</div>
+              <div class="feat-label">Afeitado Navaja</div>
+            </div>
+            <div class="feat">
+              <div class="feat-icon">🧔</div>
+              <div class="feat-label">Diseño de Barba</div>
+            </div>
+            <div class="feat">
+              <div class="feat-icon">🅿️</div>
+              <div class="feat-label">Estacionamiento</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-visual reveal">
+          <!-- Imagen del local / ambiente — reemplazar src -->
+          <div class="photo-placeholder nosotros-photo">
+            <img
+              src="antigua1.png"
+              alt="Interior La Antigua Barbería"
+              onerror="
+                this.parentElement.style.background = 'var(--brown)';
+                this.style.display = 'none';
+              "
+            />
+          </div>
+          <div class="visual-card">
+            <div class="vc-num">1950</div>
+            <div class="vc-label">El estilo de siempre</div>
+            <div class="vc-desc">
+              Técnicas tradicionales que han sobrevivido décadas, preservadas
+              con el mismo rigor y pasión de los barberos clásicos.
+            </div>
+            <div class="visual-accent"></div>
+          </div>
+          <div class="stat-trio">
+            <div class="stat-b">
+              <div class="n">4.7<span>★</span></div>
+              <div class="l">Google</div>
+            </div>
+            <div class="stat-b">
+              <div class="n">334<span>+</span></div>
+              <div class="l">Reseñas</div>
+            </div>
+            <div class="stat-b">
+              <div class="n">12<span>k</span></div>
+              <div class="l">Facebook</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SERVICIOS ══ -->
+    <section id="servicios">
+      <div class="s-label">Lo que ofrecemos</div>
+      <h2>Nuestros <em>Servicios</em></h2>
+      <p class="s-intro">
+        Cada visita a La Antigua es una experiencia completa. Ofrecemos los
+        servicios de la barbería clásica, ejecutados con precisión y los mejores
+        productos.
+      </p>
+
+      <div class="services-grid">
+        <div class="svc-card reveal">
+          <div class="svc-icon-wrap">✂️</div>
+          <h3>Corte Clásico</h3>
+          <p>
+            El corte de caballero de la vieja escuela. Tijera, máquina y navaja
+            para terminar, con el delineado perfecto que define tu estilo.
+          </p>
+          <div class="svc-price">Desde $180<small>Corte de cabello</small></div>
+        </div>
+        <div class="svc-card reveal" style="transition-delay: 0.1s">
+          <div class="svc-icon-wrap">🪒</div>
+          <h3>Afeitado Tradicional</h3>
+          <p>
+            Afeitado con navaja a la antigua usanza. Toalla caliente, espuma
+            artesanal y el rasurdo suave y preciso que no tiene igual.
+          </p>
+          <div class="svc-price">
+            Desde $150<small>Afeitado completo</small>
+          </div>
+        </div>
+        <div class="svc-card reveal" style="transition-delay: 0.2s">
+          <div class="svc-icon-wrap">🧔</div>
+          <h3>Diseño de Barba</h3>
+          <p>
+            Delineado, recorte y perfilado de barba para que luzcas definido y
+            cuidado. Incluye tratamiento con aceites y bálsamos premium.
+          </p>
+          <div class="svc-price">Desde $120<small>Diseño y recorte</small></div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-icon-wrap">💆</div>
+          <h3>Corte + Barba</h3>
+          <p>
+            La combinación perfecta: corte de cabello y diseño de barba en una
+            sola sesión. El look completo del caballero moderno.
+          </p>
+          <div class="svc-price">
+            Desde $280<small>Servicio combinado</small>
+          </div>
+        </div>
+        <div class="svc-card reveal" style="transition-delay: 0.1s">
+          <div class="svc-icon-wrap">👦</div>
+          <h3>Corte Infantil</h3>
+          <p>
+            Corte especializado para los más jóvenes, con la paciencia y el
+            cuidado que los niños merecen. Ambiente amigable y seguro.
+          </p>
+          <div class="svc-price">
+            Desde $130<small>Niños hasta 12 años</small>
+          </div>
+        </div>
+        <div class="svc-card reveal" style="transition-delay: 0.2s">
+          <div class="svc-icon-wrap">✨</div>
+          <h3>Tratamientos</h3>
+          <p>
+            Masajes capilares, tratamientos de hidratación, tintes para barba y
+            servicios de cuidado facial para el caballero completo.
+          </p>
+          <div class="svc-price">
+            Desde $100<small>Consultar disponibilidad</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ESTILO GALLERY ══ -->
+    <section id="estilo" style="padding-bottom: 0">
+      <div class="s-label">Nuestro ambiente</div>
+      <h2>El espíritu de <em>La Antigua</em></h2>
+      <p class="s-intro">
+        Una barbería de hacienda en el Centro de Hermosillo. Donde el estilo
+        clásico vive todos los días.
+      </p>
+    </section>
+    <div class="gallery-strip">
+      <!-- Imagen 1 — reemplazar src con tu foto -->
+      <div class="gallery-item">
+        <img
+          class="gallery-img"
+          src="/silla.png"
+          alt="Sillas clásicas La Antigua"
+          onerror="this.style.opacity = '0'"
+        />
+
+        <div class="gallery-label">
+          <h4>Sillas Clásicas</h4>
+          <p>Ambiente de época</p>
+          <span>Ver más →</span>
+        </div>
+      </div>
+      <!-- Imagen 2 — reemplazar src con tu foto -->
+      <div class="gallery-item">
+        <img
+          class="gallery-img"
+          src="afeitado.png"
+          alt="Afeitado con navaja"
+          onerror="this.style.opacity = '0'"
+        />
+
+        <div class="gallery-label">
+          <h4>Navaja Tradicional</h4>
+          <p>Afeitado artesanal</p>
+          <span>Ver más →</span>
+        </div>
+      </div>
+      <!-- Imagen 3 — reemplazar src con tu foto -->
+      <div class="gallery-item">
+        <img
+          class="gallery-img"
+          src="centro.png"
+          alt="La Antigua Barbería"
+          onerror="this.style.opacity = '0'"
+        />
+        <div class="gallery-label">
+          <h4>La Antigua</h4>
+          <p>Desde el centro</p>
+          <span>Ver más →</span>
+        </div>
+      </div>
+      <!-- Imagen 4 — reemplazar src con tu foto -->
+      <div class="gallery-item">
+        <img
+          class="gallery-img"
+          src="barba.png"
+          alt="Diseño de barba"
+          onerror="this.style.opacity = '0'"
+        />
+        <div class="gallery-label">
+          <h4>Diseño de Barba</h4>
+          <p>Precisión y estilo</p>
+          <span>Ver más →</span>
+        </div>
+      </div>
+      <!-- Imagen 5 — reemplazar src con tu foto -->
+      <div class="gallery-item">
+        <img
+          class="gallery-img"
+          src="vintage.png"
+          alt="Estilo vintage"
+          onerror="this.style.opacity = '0'"
+        />
+        <div class="gallery-label">
+          <h4>Estilo Vintage</h4>
+          <p>El look de siempre</p>
+          <span>Ver más →</span>
+        </div>
+      </div>
+    </div>
+    <div style="background: var(--dark); height: 6rem"></div>
+
+    <!-- ══ RESEÑAS ══ -->
+    <section id="resenas">
+      <div class="s-label">Lo que dicen</div>
+      <h2>Reseñas de <em>clientes</em></h2>
+
+      <div class="rating-big reveal">
+        <div>
+          <div class="rb-num">4.7</div>
+          <div class="rb-stars">★★★★★</div>
+          <div class="rb-sub">Calificación Google</div>
+        </div>
+        <div class="rb-divider"></div>
+        <div>
+          <div class="rb-num" style="font-size: 3rem">334</div>
+          <div class="rb-sub" style="margin-top: 0.5rem">
+            Reseñas verificadas
+          </div>
+        </div>
+        <div class="rb-divider"></div>
+        <div>
+          <div class="rb-num" style="font-size: 3rem">12k</div>
+          <div class="rb-sub" style="margin-top: 0.5rem">
+            Seguidores Facebook
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">
+            "El mejor lugar para cortarse el cabello en Hermosillo. El ambiente
+            es increíble, como viajar al pasado. Los barberos saben exactamente
+            lo que hacen y el trato es excepcional."
+          </p>
+          <div class="rev-name">Carlos M.</div>
+          <div class="rev-source">Reseña de Google</div>
+        </div>
+        <div class="review-card reveal" style="transition-delay: 0.12s">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">
+            "Llevo años viniendo aquí. El afeitado con navaja es simplemente
+            incomparable. La atención, el lugar, todo está a otro nivel. No iría
+            a ninguna otra parte."
+          </p>
+          <div class="rev-name">Roberto A.</div>
+          <div class="rev-source">Reseña de Google</div>
+        </div>
+        <div class="review-card reveal" style="transition-delay: 0.24s">
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-quote">
+            "Vine con mi hijo por primera vez y quedó encantado. Los barberos
+            son pacientes, profesionales y el resultado fue perfecto. Ya somos
+            clientes fijos de La Antigua."
+          </p>
+          <div class="rev-name">Miguel R.</div>
+          <div class="rev-source">Reseña de Facebook</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CONTACTO ══ -->
+    <section id="contacto">
+      <div class="contact-grid">
+        <div class="contact-left">
+          <div class="s-label">Visítanos</div>
+          <h2>Dónde<br /><em>encontrarnos.</em></h2>
+          <div
+            class="ornament"
+            style="justify-content: flex-start; margin: 1rem 0 0"
+          >
+            <span class="orn-line" style="max-width: 50px"></span>
+            <span class="orn-symbol" style="font-size: 0.8rem">✦</span>
+          </div>
+
+          <div class="contact-items">
+            <div class="ci">
+              <div class="ci-icon">📍</div>
+              <div>
+                <div class="ci-label">Dirección</div>
+                <div class="ci-val">
+                  Av. Dr. Alberto G. Noriega 136C<br />Centro, 83000 Hermosillo,
+                  Son.
+                </div>
+              </div>
+            </div>
+            <div class="ci">
+              <div class="ci-icon">📞</div>
+              <div>
+                <div class="ci-label">Teléfono</div>
+                <div class="ci-val">
+                  <a href="tel:6623124199">662 312 4199</a>
+                </div>
+              </div>
+            </div>
+            <div class="ci">
+              <div class="ci-icon">📘</div>
+              <div>
+                <div class="ci-label">Facebook</div>
+                <div class="ci-val">
+                  <a
+                    href="https://www.facebook.com/antiguabarberia"
+                    target="_blank"
+                    >La Antigua Barbería</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="ci">
+              <div class="ci-icon">📸</div>
+              <div>
+                <div class="ci-label">Instagram</div>
+                <div class="ci-val">
+                  <a
+                    href="https://www.instagram.com/laantiguabarberia/"
+                    target="_blank"
+                    >@laantiguabarberia</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <table class="hours-table">
+            <tr>
+              <td>Lunes</td>
+              <td>09:00 — 19:00</td>
+            </tr>
+            <tr>
+              <td>Martes</td>
+              <td>09:00 — 19:00</td>
+            </tr>
+            <tr>
+              <td>Miércoles</td>
+              <td>09:00 — 19:00</td>
+            </tr>
+            <tr>
+              <td>Jueves</td>
+              <td>09:00 — 19:00</td>
+            </tr>
+            <tr>
+              <td>Viernes</td>
+              <td>09:00 — 19:00</td>
+            </tr>
+            <tr>
+              <td>Sábado</td>
+              <td>09:00 — 19:00</td>
+            </tr>
+            <tr class="closed">
+              <td>Domingo</td>
+              <td>Cerrado</td>
+            </tr>
+          </table>
+
+          <a href="tel:6623124199" class="phone-cta">
+            <span class="phone-icon">📞</span>
+            <div>
+              <div class="phone-num">662 312 4199</div>
+              <div class="phone-label">Llama para agendar</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="contact-right reveal">
+          <div class="info-card">
+            <h3>Estacionamiento<br />Gratuito</h3>
+            <p>
+              No te preocupes por dónde dejar tu auto. Contamos con
+              estacionamiento disponible sin costo para todos nuestros clientes.
+            </p>
+            <div class="highlight">🅿️ Sin costo · Disponible siempre</div>
+          </div>
+
+          <div class="info-card">
+            <h3>En el Corazón<br />del Centro</h3>
+            <p>
+              Ubicados en la Av. Dr. Noriega 136C, en el Centro histórico de
+              Hermosillo. Fácil acceso desde cualquier punto de la ciudad.
+            </p>
+            <div class="highlight">📍 Av. Noriega 136C, Centro</div>
+          </div>
+
+          <div class="social-row">
+            <a
+              href="https://www.facebook.com/antiguabarberia"
+              target="_blank"
+              class="soc-btn"
+            >
+              Facebook
+            </a>
+            <a
+              href="https://www.instagram.com/laantiguabarberia/"
+              target="_blank"
+              class="soc-btn"
+            >
+              Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ MAP ══ -->
+    <div id="mapa">
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3487.8!2d-110.9650!3d29.0820!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86ce84f0a1234567%3A0x0!2sAv.+Dr.+Alberto+G.+Noriega+136C%2C+Centro%2C+Hermosillo!5e0!3m2!1ses!2smx!4v1"
+          allowfullscreen=""
+          loading="lazy"
+        >
+        </iframe>
+        <div class="map-badge">
+          <strong>La Antigua Barbería</strong>
+          <span>Av. Noriega 136C · Centro · Hermosillo</span>
+          <div class="park">Estacionamiento Gratis</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ FOOTER ══ -->
+    <footer>
+      <div class="footer-top">
+        <div class="footer-brand">
+          La Antigua
+          <em>Barbería</em>
+          <p>
+            Barbería a la vieja escuela en el corazón del Centro de Hermosillo,
+            Sonora. Corte · Afeitado · Estilo.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h5>Servicios</h5>
+          <ul>
+            <li><a href="#servicios">Corte Clásico</a></li>
+            <li><a href="#servicios">Afeitado Tradicional</a></li>
+            <li><a href="#servicios">Diseño de Barba</a></li>
+            <li><a href="#servicios">Corte + Barba</a></li>
+            <li><a href="#servicios">Corte Infantil</a></li>
+            <li><a href="#servicios">Tratamientos</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contacto</h5>
+          <ul>
+            <li><a href="tel:6623124199">662 312 4199</a></li>
+            <li>Av. Noriega 136C, Centro</li>
+            <li>Hermosillo, Sonora</li>
+            <li>
+              <a href="https://www.facebook.com/antiguabarberia" target="_blank"
+                >Facebook</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/laantiguabarberia/"
+                target="_blank"
+                >Instagram</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          © 2025 La Antigua Barbería · Hermosillo, Sonora · Todos los derechos
+          reservados.
+        </p>
+        <span class="footer-pole">💈</span>
+      </div>
+    </footer>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
