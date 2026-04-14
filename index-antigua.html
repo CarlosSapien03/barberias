@@ -2047,13 +2047,11 @@
 
       <!-- Banner modo demo (visible cuando Firebase no está configurado) -->
       <div id="res-demo-badge" class="res-demo-badge" style="display: none">
-        ✦ &nbsp;Modo Demo activo — Las reservas se guardan localmente.
-        Conecta Firebase para almacenamiento en la nube.
+        ✦ &nbsp;Modo Demo
       </div>
 
       <!-- ── Flujo de 3 pasos ── -->
       <div class="res-flow">
-
         <!-- PASO 1: Barbero -->
         <div class="res-step" id="res-step-1">
           <div class="res-step-head">
@@ -2083,8 +2081,8 @@
           </div>
           <div class="res-step-body" id="res-body-3"></div>
         </div>
-
-      </div><!-- /.res-flow -->
+      </div>
+      <!-- /.res-flow -->
 
       <!-- Botón principal (siempre visible, activo sólo con los 3 pasos completos) -->
       <div class="res-confirm-wrap">
@@ -2104,12 +2102,23 @@
       aria-labelledby="res-modal-heading"
     >
       <div class="res-modal">
-        <button class="res-modal-close" id="res-modal-close" aria-label="Cerrar">✕</button>
+        <button
+          class="res-modal-close"
+          id="res-modal-close"
+          aria-label="Cerrar"
+        >
+          ✕
+        </button>
 
-        <div class="s-label" style="justify-content: flex-start; margin-bottom: 0.5rem">
+        <div
+          class="s-label"
+          style="justify-content: flex-start; margin-bottom: 0.5rem"
+        >
           Confirma tu cita
         </div>
-        <h3 class="res-modal-title" id="res-modal-heading">Resumen de tu Reserva</h3>
+        <h3 class="res-modal-title" id="res-modal-heading">
+          Resumen de tu Reserva
+        </h3>
 
         <!-- Resumen de barbero · fecha · hora -->
         <div id="res-summary" class="res-summary"></div>
@@ -2154,7 +2163,11 @@
         <div class="res-success-icon">✓</div>
         <h3 class="res-modal-title">¡Reserva Confirmada!</h3>
         <div id="res-success-content"></div>
-        <button class="res-btn-confirmar" id="res-btn-nueva" style="margin-top: 1.6rem">
+        <button
+          class="res-btn-confirmar"
+          id="res-btn-nueva"
+          style="margin-top: 1.6rem"
+        >
           Hacer otra reserva
         </button>
       </div>
