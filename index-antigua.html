@@ -22,6 +22,7 @@
   fondo oscuro vintage original sin errores.
   ═══════════════════════════════════════════════════
 -->
+    <link rel="stylesheet" href="reservas.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@300;400;600;700&display=swap"
@@ -1480,6 +1481,7 @@
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#resenas">Reseñas</a></li>
         <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#reservas">Reservar</a></li>
         <li><a href="tel:6623124199" class="nav-cta">662 312 4199</a></li>
       </ul>
     </nav>
@@ -2034,6 +2036,130 @@
       </div>
     </div>
 
+    <!-- ══ RESERVAS ══ -->
+    <section id="reservas">
+      <div class="s-label">Agenda tu visita</div>
+      <h2>Reserva Tu <em>Turno</em></h2>
+      <p class="s-intro">
+        Elige tu barbero, fecha y hora en tres sencillos pasos.<br />
+        Confirmación inmediata por WhatsApp.
+      </p>
+
+      <!-- Banner modo demo (visible cuando Firebase no está configurado) -->
+      <div id="res-demo-badge" class="res-demo-badge" style="display: none">
+        ✦ &nbsp;Modo Demo activo — Las reservas se guardan localmente.
+        Conecta Firebase para almacenamiento en la nube.
+      </div>
+
+      <!-- ── Flujo de 3 pasos ── -->
+      <div class="res-flow">
+
+        <!-- PASO 1: Barbero -->
+        <div class="res-step" id="res-step-1">
+          <div class="res-step-head">
+            <div class="res-step-num">1</div>
+            <div class="res-step-title">Selecciona tu Barbero</div>
+            <div class="res-step-check" id="res-check-1">✓</div>
+          </div>
+          <div class="res-step-body" id="res-body-1"></div>
+        </div>
+
+        <!-- PASO 2: Fecha -->
+        <div class="res-step res-locked" id="res-step-2">
+          <div class="res-step-head">
+            <div class="res-step-num">2</div>
+            <div class="res-step-title">Selecciona la Fecha</div>
+            <div class="res-step-check" id="res-check-2">✓</div>
+          </div>
+          <div class="res-step-body" id="res-body-2"></div>
+        </div>
+
+        <!-- PASO 3: Hora -->
+        <div class="res-step res-locked" id="res-step-3">
+          <div class="res-step-head">
+            <div class="res-step-num">3</div>
+            <div class="res-step-title">Selecciona la Hora</div>
+            <div class="res-step-check" id="res-check-3">✓</div>
+          </div>
+          <div class="res-step-body" id="res-body-3"></div>
+        </div>
+
+      </div><!-- /.res-flow -->
+
+      <!-- Botón principal (siempre visible, activo sólo con los 3 pasos completos) -->
+      <div class="res-confirm-wrap">
+        <button id="res-btn-confirmar" class="res-btn-confirmar" disabled>
+          Confirmar Reserva
+        </button>
+      </div>
+    </section>
+
+    <!-- ══ MODAL: confirmación ══ -->
+    <div
+      id="res-modal"
+      class="res-modal-overlay"
+      style="display: none"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="res-modal-heading"
+    >
+      <div class="res-modal">
+        <button class="res-modal-close" id="res-modal-close" aria-label="Cerrar">✕</button>
+
+        <div class="s-label" style="justify-content: flex-start; margin-bottom: 0.5rem">
+          Confirma tu cita
+        </div>
+        <h3 class="res-modal-title" id="res-modal-heading">Resumen de tu Reserva</h3>
+
+        <!-- Resumen de barbero · fecha · hora -->
+        <div id="res-summary" class="res-summary"></div>
+
+        <!-- Formulario de datos del cliente -->
+        <div class="res-form">
+          <div class="res-form-group">
+            <label for="res-nombre">Nombre completo</label>
+            <input
+              type="text"
+              id="res-nombre"
+              placeholder="Ej. Carlos García"
+              autocomplete="name"
+            />
+          </div>
+          <div class="res-form-group">
+            <label for="res-telefono">Teléfono</label>
+            <input
+              type="tel"
+              id="res-telefono"
+              placeholder="Ej. 662-312-4199"
+              autocomplete="tel"
+            />
+          </div>
+          <div id="res-error-msg" class="res-error" style="display: none"></div>
+          <button class="res-btn-confirmar" id="res-btn-submit">
+            Confirmar y enviar a WhatsApp ↗
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MODAL: reserva exitosa ══ -->
+    <div
+      id="res-success"
+      class="res-modal-overlay"
+      style="display: none"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="res-modal res-success-modal">
+        <div class="res-success-icon">✓</div>
+        <h3 class="res-modal-title">¡Reserva Confirmada!</h3>
+        <div id="res-success-content"></div>
+        <button class="res-btn-confirmar" id="res-btn-nueva" style="margin-top: 1.6rem">
+          Hacer otra reserva
+        </button>
+      </div>
+    </div>
+
     <!-- ══ FOOTER ══ -->
     <footer>
       <div class="footer-top">
@@ -2085,6 +2211,12 @@
         <span class="footer-pole">💈</span>
       </div>
     </footer>
+
+    <!-- ══ Firebase + Módulo de Reservas ══ -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="reservas.js"></script>
 
     <script>
       const observer = new IntersectionObserver(
