@@ -890,6 +890,454 @@
           padding: 0 24px;
         }
       }
+
+      /* ===================================================
+         SECCIÓN RESERVAS
+         =================================================== */
+
+      .reservas {
+        background: var(--dark);
+      }
+
+      .reservas-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .reservas-subtitle {
+        font-size: 15px;
+        line-height: 1.8;
+        color: var(--gray);
+        max-width: 480px;
+        margin: 12px auto 0;
+        font-weight: 300;
+      }
+
+      /* — Indicador de progreso — */
+      .res-progress {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        max-width: 460px;
+        margin: 0 auto 64px;
+      }
+
+      .res-step-dot {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+      }
+
+      .res-step-num {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid rgba(201, 168, 76, 0.18);
+        background: var(--dark-3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cinzel", serif;
+        font-size: 14px;
+        color: rgba(136, 136, 128, 0.45);
+        transition: all 0.4s;
+      }
+
+      .res-step-label {
+        font-family: "Lato", sans-serif;
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(136, 136, 128, 0.45);
+        transition: color 0.4s;
+      }
+
+      .res-step-dot.active .res-step-num {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .res-step-dot.active .res-step-label {
+        color: var(--gray);
+      }
+
+      .res-step-dot.done .res-step-num {
+        border-color: var(--gold);
+        background: rgba(201, 168, 76, 0.1);
+        color: var(--gold);
+      }
+
+      .res-step-dot.done .res-step-label {
+        color: var(--gold);
+      }
+
+      .res-step-connector {
+        flex: 1;
+        height: 1px;
+        background: rgba(201, 168, 76, 0.12);
+        margin-top: 22px;
+        min-width: 50px;
+        max-width: 120px;
+        transition: background 0.4s;
+      }
+
+      .res-step-connector.lit {
+        background: rgba(201, 168, 76, 0.45);
+      }
+
+      /* — Bloques de pasos — */
+      .res-block {
+        max-width: 900px;
+        margin: 0 auto 52px;
+        transition: opacity 0.4s;
+      }
+
+      .res-block.locked {
+        opacity: 0.3;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .res-block-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 30px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      }
+
+      .res-block-num {
+        font-family: "Cinzel", serif;
+        font-size: 10px;
+        letter-spacing: 4px;
+        color: rgba(201, 168, 76, 0.45);
+      }
+
+      .res-block-title {
+        font-family: "Playfair Display", serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--white);
+      }
+
+      .res-block-check {
+        margin-left: auto;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        font-size: 12px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .res-block.done .res-block-check {
+        display: flex;
+      }
+
+      /* — Tarjetas de barbero — */
+      .barbers-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+      }
+
+      .barber-card {
+        background: var(--dark-3);
+        border: 1px solid rgba(201, 168, 76, 0.08);
+        padding: 36px 28px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .barber-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 0;
+        background: var(--gold);
+        transition: height 0.4s;
+      }
+
+      .barber-card:hover {
+        border-color: rgba(201, 168, 76, 0.25);
+      }
+
+      .barber-card:hover::before,
+      .barber-card.selected::before {
+        height: 100%;
+      }
+
+      .barber-card.selected {
+        border-color: rgba(201, 168, 76, 0.45);
+      }
+
+      .barber-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 1px solid rgba(201, 168, 76, 0.2);
+        background: var(--dark-4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 18px;
+        font-family: "Cinzel", serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--gold);
+        transition: all 0.3s;
+      }
+
+      .barber-card.selected .barber-avatar {
+        border-color: var(--gold);
+        background: rgba(201, 168, 76, 0.07);
+      }
+
+      .barber-card .barber-name {
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 10px;
+      }
+
+      .barber-card .barber-specialty {
+        font-size: 12px;
+        color: var(--gray);
+        line-height: 1.65;
+        font-weight: 300;
+      }
+
+      .barber-badge {
+        display: none;
+        margin-top: 14px;
+        font-family: "Lato", sans-serif;
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .barber-card.selected .barber-badge {
+        display: block;
+      }
+
+      /* — Calendario — */
+      .cal-wrap {
+        display: flex;
+        justify-content: center;
+      }
+
+      .cal-box {
+        background: var(--dark-3);
+        border: 1px solid rgba(201, 168, 76, 0.12);
+        padding: 30px;
+        width: 100%;
+        max-width: 430px;
+      }
+
+      .cal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+      }
+
+      .cal-month-title {
+        font-family: "Cinzel", serif;
+        font-size: 12px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--white);
+      }
+
+      .cal-arrow {
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(201, 168, 76, 0.2);
+        background: transparent;
+        color: var(--gold);
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        font-family: "Lato", sans-serif;
+      }
+
+      .cal-arrow:hover:not([disabled]) {
+        border-color: var(--gold);
+        background: rgba(201, 168, 76, 0.06);
+      }
+
+      .cal-arrow[disabled] {
+        opacity: 0.2;
+        cursor: not-allowed;
+      }
+
+      .cal-wdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+        margin-bottom: 6px;
+      }
+
+      .cal-wday {
+        text-align: center;
+        font-family: "Lato", sans-serif;
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gray);
+        padding: 6px 0;
+      }
+
+      .cal-wday.sunday {
+        color: rgba(136, 136, 128, 0.28);
+      }
+
+      .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+      }
+
+      .cal-cell {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Lato", sans-serif;
+        font-size: 13px;
+        color: var(--cream);
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 1px solid transparent;
+      }
+
+      .cal-cell:hover:not(.cal-off):not(.cal-empty) {
+        border-color: rgba(201, 168, 76, 0.3);
+        color: var(--gold);
+      }
+
+      .cal-cell.cal-off {
+        color: rgba(136, 136, 128, 0.2);
+        cursor: not-allowed;
+      }
+
+      .cal-cell.cal-empty {
+        cursor: default;
+      }
+
+      .cal-cell.cal-today {
+        color: var(--gold);
+        border-color: rgba(201, 168, 76, 0.2);
+      }
+
+      .cal-cell.cal-sel {
+        background: var(--gold);
+        color: var(--dark);
+        font-weight: 700;
+        border-color: var(--gold);
+      }
+
+      /* — Slots de hora — */
+      .slots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+        gap: 6px;
+      }
+
+      .slot-btn {
+        background: var(--dark-3);
+        border: 1px solid rgba(201, 168, 76, 0.1);
+        padding: 13px 6px;
+        text-align: center;
+        cursor: pointer;
+        font-family: "Lato", sans-serif;
+        font-size: 13px;
+        letter-spacing: 1px;
+        color: var(--cream);
+        transition: all 0.25s;
+        user-select: none;
+      }
+
+      .slot-btn:hover {
+        border-color: rgba(201, 168, 76, 0.35);
+        color: var(--gold);
+      }
+
+      .slot-btn.slot-sel {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--dark);
+        font-weight: 700;
+      }
+
+      /* — Botón confirmar — */
+      .res-confirm {
+        max-width: 900px;
+        margin: 0 auto;
+        padding-top: 40px;
+        border-top: 1px solid rgba(201, 168, 76, 0.1);
+        display: flex;
+        justify-content: center;
+      }
+
+      .btn-res {
+        font-family: "Lato", sans-serif;
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        padding: 18px 70px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-res:not([disabled]) {
+        background: var(--gold);
+        color: var(--dark);
+      }
+
+      .btn-res:not([disabled]):hover {
+        background: var(--gold-light);
+        transform: translateY(-2px);
+      }
+
+      .btn-res[disabled] {
+        background: var(--dark-4);
+        color: rgba(136, 136, 128, 0.3);
+        border: 1px solid rgba(201, 168, 76, 0.1);
+        cursor: not-allowed;
+      }
+
+      /* — Responsive reservas — */
+      @media (max-width: 900px) {
+        .barbers-grid {
+          grid-template-columns: 1fr;
+        }
+        .slots-grid {
+          grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+        }
+        .cal-box {
+          padding: 20px 14px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -903,6 +1351,7 @@
         <li><a href="#testimonios">Opiniones</a></li>
         <li><a href="#ubicacion">Ubicación</a></li>
         <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#reservas" style="color: var(--gold)">Reservar</a></li>
       </ul>
     </nav>
 
@@ -1270,6 +1719,116 @@
       </div>
     </section>
 
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-icon">✦</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- RESERVAS -->
+    <section class="reservas" id="reservas">
+
+      <!-- Encabezado -->
+      <div class="reservas-header">
+        <p class="section-label">Agenda tu turno</p>
+        <h2 class="section-title">Reserva tu Cita</h2>
+        <p class="reservas-subtitle">Elige tu barbero, la fecha y el horario. En segundos quedas agendado.</p>
+      </div>
+
+      <!-- Indicador de progreso -->
+      <div class="res-progress">
+        <div class="res-step-dot active" id="r-dot-1">
+          <div class="res-step-num" id="r-num-1">1</div>
+          <span class="res-step-label">Barbero</span>
+        </div>
+        <div class="res-step-connector" id="r-conn-1"></div>
+        <div class="res-step-dot" id="r-dot-2">
+          <div class="res-step-num" id="r-num-2">2</div>
+          <span class="res-step-label">Fecha</span>
+        </div>
+        <div class="res-step-connector" id="r-conn-2"></div>
+        <div class="res-step-dot" id="r-dot-3">
+          <div class="res-step-num" id="r-num-3">3</div>
+          <span class="res-step-label">Hora</span>
+        </div>
+      </div>
+
+      <!-- Paso 1: Barbero -->
+      <div class="res-block" id="r-block-1">
+        <div class="res-block-header">
+          <span class="res-block-num">01</span>
+          <h3 class="res-block-title">Elige tu Barbero</h3>
+          <div class="res-block-check">✓</div>
+        </div>
+        <div class="barbers-grid">
+          <div class="barber-card" data-name="Barbero 1" onclick="resSelectBarber(this)">
+            <div class="barber-avatar">B1</div>
+            <p class="barber-name">Barbero 1</p>
+            <p class="barber-specialty">Corte clásico y afeitado tradicional</p>
+            <p class="barber-badge">✦ Seleccionado</p>
+          </div>
+          <div class="barber-card" data-name="Barbero 2" onclick="resSelectBarber(this)">
+            <div class="barber-avatar">B2</div>
+            <p class="barber-name">Barbero 2</p>
+            <p class="barber-specialty">Diseño de barba y degradado</p>
+            <p class="barber-badge">✦ Seleccionado</p>
+          </div>
+          <div class="barber-card" data-name="Barbero 3" onclick="resSelectBarber(this)">
+            <div class="barber-avatar">B3</div>
+            <p class="barber-name">Barbero 3</p>
+            <p class="barber-specialty">Corte moderno y peinados</p>
+            <p class="barber-badge">✦ Seleccionado</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 2: Fecha -->
+      <div class="res-block locked" id="r-block-2">
+        <div class="res-block-header">
+          <span class="res-block-num">02</span>
+          <h3 class="res-block-title">Elige la Fecha</h3>
+          <div class="res-block-check">✓</div>
+        </div>
+        <div class="cal-wrap">
+          <div class="cal-box">
+            <div class="cal-head">
+              <button class="cal-arrow" id="r-cal-prev" onclick="resCalNav(-1)">&#8249;</button>
+              <span class="cal-month-title" id="r-cal-title"></span>
+              <button class="cal-arrow" id="r-cal-next" onclick="resCalNav(1)">&#8250;</button>
+            </div>
+            <div class="cal-wdays">
+              <div class="cal-wday">Lu</div>
+              <div class="cal-wday">Ma</div>
+              <div class="cal-wday">Mi</div>
+              <div class="cal-wday">Ju</div>
+              <div class="cal-wday">Vi</div>
+              <div class="cal-wday">Sá</div>
+              <div class="cal-wday sunday">Do</div>
+            </div>
+            <div class="cal-grid" id="r-cal-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 3: Hora -->
+      <div class="res-block locked" id="r-block-3">
+        <div class="res-block-header">
+          <span class="res-block-num">03</span>
+          <h3 class="res-block-title">Elige el Horario</h3>
+          <div class="res-block-check">✓</div>
+        </div>
+        <div class="slots-grid" id="r-slots"></div>
+      </div>
+
+      <!-- Confirmar -->
+      <div class="res-confirm">
+        <button class="btn-res" id="r-btn" disabled onclick="resGoWA()">
+          Siguiente &nbsp;&rarr;
+        </button>
+      </div>
+
+    </section>
+
     <!-- FOOTER -->
     <footer>
       <div class="footer-grid">
@@ -1329,5 +1888,241 @@
         </p>
       </div>
     </footer>
+    <script>
+      (function () {
+        "use strict";
+
+        var RES = { barber: null, date: null, dateObj: null, time: null };
+        var calYear, calMonth;
+
+        var MESES = [
+          "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ];
+        var DIAS = [
+          "domingo", "lunes", "martes", "miércoles",
+          "jueves", "viernes", "sábado"
+        ];
+        var SLOTS = [
+          "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00",
+          "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00",
+          "16:30", "17:00", "17:30", "18:00", "18:30"
+        ];
+
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        calYear  = today.getFullYear();
+        calMonth = today.getMonth();
+
+        /* ── actualiza indicadores y estados ── */
+        function updateUI() {
+          var b1  = document.getElementById("r-block-1");
+          var b2  = document.getElementById("r-block-2");
+          var b3  = document.getElementById("r-block-3");
+          var d1  = document.getElementById("r-dot-1");
+          var d2  = document.getElementById("r-dot-2");
+          var d3  = document.getElementById("r-dot-3");
+          var n1  = document.getElementById("r-num-1");
+          var n2  = document.getElementById("r-num-2");
+          var n3  = document.getElementById("r-num-3");
+          var c1  = document.getElementById("r-conn-1");
+          var c2  = document.getElementById("r-conn-2");
+          var btn = document.getElementById("r-btn");
+
+          /* paso 1 */
+          if (RES.barber) {
+            d1.className = "res-step-dot done";
+            n1.textContent = "✓";
+            b1.classList.add("done");
+          } else {
+            d1.className = "res-step-dot active";
+            n1.textContent = "1";
+            b1.classList.remove("done");
+          }
+          c1.className = "res-step-connector" + (RES.barber ? " lit" : "");
+
+          /* paso 2 */
+          if (RES.date) {
+            d2.className = "res-step-dot done";
+            n2.textContent = "✓";
+            b2.classList.add("done");
+          } else if (RES.barber) {
+            d2.className = "res-step-dot active";
+            n2.textContent = "2";
+            b2.classList.remove("done");
+          } else {
+            d2.className = "res-step-dot";
+            n2.textContent = "2";
+            b2.classList.remove("done");
+          }
+          c2.className = "res-step-connector" + (RES.date ? " lit" : "");
+
+          /* paso 3 */
+          if (RES.time) {
+            d3.className = "res-step-dot done";
+            n3.textContent = "✓";
+            b3.classList.add("done");
+          } else if (RES.date) {
+            d3.className = "res-step-dot active";
+            n3.textContent = "3";
+            b3.classList.remove("done");
+          } else {
+            d3.className = "res-step-dot";
+            n3.textContent = "3";
+            b3.classList.remove("done");
+          }
+
+          /* bloquear / desbloquear pasos */
+          b2.classList.toggle("locked", !RES.barber);
+          b3.classList.toggle("locked", !RES.date);
+
+          /* botón siguiente */
+          btn.disabled = !(RES.barber && RES.date && RES.time);
+        }
+
+        /* ── selección de barbero ── */
+        window.resSelectBarber = function (card) {
+          document.querySelectorAll(".barber-card").forEach(function (c) {
+            c.classList.remove("selected");
+          });
+          card.classList.add("selected");
+          RES.barber  = card.dataset.name;
+          RES.date    = null;
+          RES.dateObj = null;
+          RES.time    = null;
+          buildCalendar();
+          buildSlots();
+          updateUI();
+        };
+
+        /* ── navegación de calendario ── */
+        window.resCalNav = function (dir) {
+          calMonth += dir;
+          if (calMonth < 0)  { calMonth = 11; calYear--; }
+          if (calMonth > 11) { calMonth = 0;  calYear++; }
+          buildCalendar();
+        };
+
+        /* ── renderizar calendario ── */
+        function buildCalendar() {
+          var title = document.getElementById("r-cal-title");
+          var grid  = document.getElementById("r-cal-grid");
+          var prev  = document.getElementById("r-cal-prev");
+          var next  = document.getElementById("r-cal-next");
+
+          title.textContent = MESES[calMonth].toUpperCase() + " · " + calYear;
+
+          var isMin     = (calYear === today.getFullYear() && calMonth === today.getMonth());
+          var maxBound  = new Date(today.getFullYear(), today.getMonth() + 2, 1);
+          var isMax     = (new Date(calYear, calMonth + 1, 1) >= maxBound);
+
+          prev.disabled = isMin;
+          next.disabled = isMax;
+
+          var firstDay = new Date(calYear, calMonth, 1).getDay();
+          var offset   = (firstDay + 6) % 7; /* lunes primero */
+          var lastDay  = new Date(calYear, calMonth + 1, 0).getDate();
+
+          grid.innerHTML = "";
+
+          /* celdas vacías */
+          for (var i = 0; i < offset; i++) {
+            var empty = document.createElement("div");
+            empty.className = "cal-cell cal-empty";
+            grid.appendChild(empty);
+          }
+
+          /* días del mes */
+          for (var d = 1; d <= lastDay; d++) {
+            var cell     = document.createElement("div");
+            var cellDate = new Date(calYear, calMonth, d);
+
+            cell.className   = "cal-cell";
+            cell.textContent = d;
+
+            var isSun   = cellDate.getDay() === 0;
+            var isPast  = cellDate < today;
+            var isToday = cellDate.getTime() === today.getTime();
+
+            if (isPast || isSun) {
+              cell.classList.add("cal-off");
+            } else {
+              if (isToday) cell.classList.add("cal-today");
+              if (RES.dateObj) {
+                var sd = RES.dateObj;
+                if (sd.getFullYear() === calYear &&
+                    sd.getMonth()    === calMonth &&
+                    sd.getDate()     === d) {
+                  cell.classList.add("cal-sel");
+                }
+              }
+              /* closure para mantener referencia correcta */
+              (function (cd, el) {
+                el.addEventListener("click", function () { resPickDate(cd); });
+              })(cellDate, cell);
+            }
+            grid.appendChild(cell);
+          }
+        }
+
+        /* ── selección de fecha ── */
+        function resPickDate(date) {
+          RES.dateObj = date;
+          var dname = DIAS[date.getDay()];
+          RES.date  = dname.charAt(0).toUpperCase() + dname.slice(1) +
+                      " " + date.getDate() +
+                      " de " + MESES[date.getMonth()].toLowerCase() +
+                      " de " + date.getFullYear();
+          RES.time  = null;
+          buildCalendar();
+          buildSlots();
+          updateUI();
+        }
+
+        /* ── renderizar slots de hora ── */
+        function buildSlots() {
+          var grid = document.getElementById("r-slots");
+          grid.innerHTML = "";
+          SLOTS.forEach(function (slot) {
+            var btn = document.createElement("div");
+            btn.className   = "slot-btn";
+            btn.textContent = slot;
+            btn.addEventListener("click", function () {
+              document.querySelectorAll(".slot-btn").forEach(function (b) {
+                b.classList.remove("slot-sel");
+              });
+              btn.classList.add("slot-sel");
+              RES.time = slot;
+              updateUI();
+            });
+            grid.appendChild(btn);
+          });
+        }
+
+        /* ── abrir WhatsApp ── */
+        window.resGoWA = function () {
+          if (!RES.barber || !RES.date || !RES.time) return;
+          var msg = "¡Hola! Me gustaría reservar una cita 💈\n\n" +
+                    "✂️ Barbero: " + RES.barber + "\n" +
+                    "📅 Fecha: "   + RES.date   + "\n" +
+                    "🕐 Hora: "    + RES.time   + "\n\n" +
+                    "¡Nos vemos pronto!";
+          window.open(
+            "https://wa.me/521234567890?text=" + encodeURIComponent(msg),
+            "_blank"
+          );
+        };
+
+        /* ── inicializar ── */
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", function () {
+            buildCalendar(); buildSlots(); updateUI();
+          });
+        } else {
+          buildCalendar(); buildSlots(); updateUI();
+        }
+
+      })();
+    </script>
   </body>
 </html>
