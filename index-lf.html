@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LF Barbershop · Hermosillo, Sonora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700;900&family=IM+Fell+English:ital@0;1&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!--
+  ══════════════════════════════════════════
+  GUÍA DE IMÁGENES — misma carpeta que el HTML:
+
+    logo-lf.png        → Logo LF Barbershop (imagen 2 adjunta)
+    hero-bg.jpg        → Foto de fondo del hero
+    foto-local.jpg     → Interior del local
+    galeria-1.jpg      → Galería foto 1
+    galeria-2.jpg      → Galería foto 2
+    galeria-3.jpg      → Galería foto 3
+    galeria-4.jpg      → Galería foto 4 (grande)
+    barbero-1.jpg      → Foto barbero Luis Fernando
+    barbero-2.jpg      → Foto barbero 2
+    barbero-3.jpg      → Foto barbero 3
+  ══════════════════════════════════════════
+-->
+
+<style>
+  :root {
+    --void:    #080a0f;
+    --navy:    #0c0e16;
+    --navy2:   #10131e;
+    --navy3:   #151824;
+    --navy4:   #1c2030;
+    --gold:    #b8892a;
+    --gold2:   #d4a640;
+    --gold3:   #f0c060;
+    --gold4:   #ffd878;
+    --silver:  #d8dce8;
+    --silver2: #eef0f8;
+    --white:   #ffffff;
+    --muted:   #6a7090;
+    --light:   #9aa0bc;
+    --border:  rgba(184,137,42,0.22);
+    --borderg: rgba(184,137,42,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--light);
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* subtle noise texture */
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+    opacity: .02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+
+  /* ══════════════════════════ NAV ══════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    height: 74px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    background: rgba(8,10,15,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    animation: slideDown .6s ease both;
+  }
+  @keyframes slideDown { from { transform: translateY(-100%); opacity:0; } to { transform: translateY(0); opacity:1; } }
+
+  /* NAV LOGO — imagen real */
+  .nav-logo img {
+    height: 52px; width: auto; object-fit: contain; display: block;
+  }
+  /* Fallback si no carga la imagen */
+  .nav-logo-fallback {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 700; font-size: 1.1rem;
+    letter-spacing: .06em; color: var(--silver2);
+    display: none; /* se muestra solo si falla img via onerror JS */
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a {
+    text-decoration: none; font-size: .72rem;
+    font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); transition: color .22s;
+  }
+  .nav-links a:hover { color: var(--gold3); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), var(--gold2)) !important;
+    color: var(--void) !important;
+    padding: .44rem 1.4rem !important;
+    font-weight: 700 !important; letter-spacing: .14em !important;
+    transition: opacity .2s !important;
+  }
+  .nav-cta:hover { opacity: .88 !important; }
+
+  /* ══════════════════════════ HERO ══════════════════════════ */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    padding: 9rem 2rem 6rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-photo {
+    position: absolute; inset: 0;
+  }
+  .hero-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    opacity: .18; filter: grayscale(40%) sepia(20%);
+  }
+  .hero-photo-ph {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #080a0f 0%, #0c0e16 40%, #0a0c18 100%);
+  }
+
+  /* layered gradients */
+  .hero-grad {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 40%, rgba(20,24,40,0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 100% 40% at 50% 100%, rgba(8,10,15,1) 0%, transparent 60%);
+  }
+
+  /* ornamental frame */
+  .hero-frame {
+    position: absolute;
+    top: 84px; left: 24px; right: 24px; bottom: 20px;
+    border: 1px solid rgba(184,137,42,0.12); pointer-events: none;
+  }
+  .hero-frame::before {
+    content: '';
+    position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+    border: 1px solid rgba(184,137,42,0.06);
+  }
+  /* corner marks */
+  .hc { position: absolute; width: 28px; height: 28px; border-color: var(--gold); border-style: solid; border-width: 0; }
+  .hc-tl { top: 84px; left: 24px; border-top-width: 2px; border-left-width: 2px; }
+  .hc-tr { top: 84px; right: 24px; border-top-width: 2px; border-right-width: 2px; }
+  .hc-bl { bottom: 20px; left: 24px; border-bottom-width: 2px; border-left-width: 2px; }
+  .hc-br { bottom: 20px; right: 24px; border-bottom-width: 2px; border-right-width: 2px; }
+
+  /* animated poles */
+  .pole {
+    position: absolute; top: 84px; bottom: 20px;
+    width: 14px; overflow: hidden; opacity: .4;
+  }
+  .pole-l { left: 24px; }
+  .pole-r { right: 24px; }
+  .pole-stripes {
+    width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      180deg,
+      #b52020 0, #b52020 10px,
+      #f5f5f5 10px, #f5f5f5 20px,
+      #1a4fa8 20px, #1a4fa8 30px
+    );
+    animation: poleAnim 3s linear infinite;
+  }
+  @keyframes poleAnim { to { background-position: 0 30px; } }
+
+  .hero-inner { position: relative; z-index: 2; max-width: 800px; }
+
+  /* LOGO en hero */
+  .hero-logo {
+    margin: 0 auto 1.8rem;
+    max-width: 340px; width: 80%;
+    animation: fadeUp .6s .1s both;
+  }
+  .hero-logo img {
+    width: 100%; height: auto; display: block;
+    filter: drop-shadow(0 4px 24px rgba(184,137,42,0.3));
+  }
+  .hero-logo-fallback {
+    font-family: 'Cinzel Decorative', serif;
+    font-weight: 900; font-size: clamp(2rem, 6vw, 3.8rem);
+    line-height: 1; color: var(--silver2);
+    text-shadow: 0 0 40px rgba(184,137,42,0.4), 2px 2px 0 rgba(184,137,42,0.5);
+    letter-spacing: .08em;
+    display: none;
+  }
+  .hero-logo-fallback span { color: var(--gold3); }
+
+  .hero-rule {
+    display: flex; align-items: center; gap: 1rem;
+    justify-content: center; margin: .8rem 0 1.2rem;
+    animation: fadeUp .6s .3s both;
+  }
+  .hr-line { flex: 1; max-width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .hr-sym { color: var(--gold2); font-size: 1rem; }
+
+  .hero-tag {
+    font-size: .7rem; font-weight: 600; letter-spacing: .4em;
+    text-transform: uppercase; color: var(--gold2);
+    animation: fadeUp .6s .35s both;
+  }
+
+  .hero-sub {
+    font-size: .92rem; font-weight: 300; line-height: 1.85;
+    color: var(--muted); max-width: 440px; margin: 1.6rem auto 2.4rem;
+    animation: fadeUp .6s .48s both;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeUp .6s .6s both; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .85rem 2.2rem; font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+    text-decoration: none; transition: all .22s; border: none; cursor: pointer;
+  }
+  .btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--void); }
+  .btn-gold:hover { opacity: .88; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,137,42,0.35); }
+  .btn-outline { background: transparent; color: var(--silver); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--gold2); color: var(--gold3); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+    margin-top: 3.5rem; border-top: 1px solid var(--borderg);
+    animation: fadeUp .6s .75s both;
+  }
+  .hs { padding: 1.5rem 2rem 0; text-align: center; }
+  .hs + .hs { border-left: 1px solid var(--borderg); }
+  .hs .n { font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 700; color: var(--silver2); line-height: 1; }
+  .hs .n em { color: var(--gold3); font-style: normal; }
+  .hs .l { font-size: .6rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: .3rem; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ══════════════════════════ STRIP ══════════════════════════ */
+  .gold-strip { height: 2px; background: linear-gradient(90deg, transparent, var(--gold), var(--gold3), var(--gold), transparent); opacity: .6; }
+
+  .marquee { background: var(--navy2); padding: .6rem 0; overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--borderg); }
+  .mq-inner { display: inline-flex; animation: mq 22s linear infinite; }
+  .mq-inner span {
+    font-family: 'Cinzel', serif; font-size: .65rem; font-weight: 600;
+    letter-spacing: .35em; text-transform: uppercase; color: var(--gold2); padding: 0 2.5rem;
+  }
+  .mq-inner span::before { content: '✦  '; font-size: .5rem; }
+  @keyframes mq { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+  /* ══════════════════════════ SECTION BASE ══════════════════════════ */
+  section { padding: 7rem 3rem; }
+
+  .s-label {
+    font-size: .62rem; font-weight: 700; letter-spacing: .38em;
+    text-transform: uppercase; color: var(--gold2);
+    display: flex; align-items: center; gap: .8rem; margin-bottom: .9rem;
+  }
+  .s-label::before, .s-label::after { content: '—'; color: var(--gold); opacity: .7; }
+
+  h2 {
+    font-family: 'Cinzel Decorative', serif; font-weight: 700;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    color: var(--silver2); line-height: 1.15; margin-bottom: .8rem;
+    letter-spacing: .04em;
+    text-shadow: 0 2px 20px rgba(184,137,42,0.2);
+  }
+  h2 em { font-style: normal; color: var(--gold3); }
+
+  .s-intro {
+    font-size: .88rem; color: var(--muted); line-height: 1.9;
+    font-weight: 300; max-width: 520px; margin-bottom: 3.5rem;
+    font-family: 'IM Fell English', serif; font-style: italic;
+  }
+
+  /* ornament divider */
+  .orn { display: flex; align-items: center; gap: 1rem; margin: .6rem 0 1.5rem; }
+  .orn-l { flex: 1; max-width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .orn-s { color: var(--gold2); font-size: .85rem; }
+
+  /* ══════════════════════════ NOSOTROS ══════════════════════════ */
+  #nosotros { background: var(--navy); position: relative; overflow: hidden; }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+  .about-text .s-label { justify-content: flex-start; }
+  .about-text .s-label::after { display: none; }
+  .about-text h2 { text-align: left; font-size: 2rem; }
+  .about-text .orn { justify-content: flex-start; }
+
+  .about-text p { font-size: .88rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.3rem; }
+  .about-text strong { color: var(--silver); font-weight: 600; }
+
+  .pills { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.8rem; }
+  .pill {
+    padding: .38rem 1rem; border: 1px solid var(--border);
+    font-size: .62rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold2); background: rgba(184,137,42,0.05);
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  /* image */
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img {
+    width: 100%; aspect-ratio: 3/4; overflow: hidden;
+    border: 1px solid var(--border); background: var(--navy3); position: relative;
+  }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+  .about-img:hover img { transform: scale(1.04); }
+  .about-img-ph {
+    width: 100%; height: 100%; min-height: 380px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, var(--navy3), var(--navy4));
+  }
+  .about-img-ph p { font-family: 'Cinzel', serif; font-size: .65rem; color: rgba(184,137,42,0.3); letter-spacing: .2em; text-transform: uppercase; }
+
+  .about-badge {
+    position: absolute; bottom: -1.2rem; right: -1.2rem;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    padding: 1.4rem 1.6rem; text-align: center; z-index: 2;
+  }
+  .ab-n { font-family: 'Cinzel', serif; font-size: 2.4rem; font-weight: 900; color: var(--void); line-height: 1; }
+  .ab-l { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(0,0,0,0.55); margin-top: .15rem; }
+
+  /* stats row */
+  .about-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--borderg);
+    border: 1px solid var(--borderg); margin-top: 2.5rem;
+  }
+  .ast { background: var(--navy); padding: 1.4rem 1rem; }
+  .ast .n { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 700; color: var(--silver2); line-height: 1; }
+  .ast .n em { color: var(--gold3); font-style: normal; }
+  .ast .l { font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: .25rem; }
+
+  /* ══════════════════════════ SERVICIOS ══════════════════════════ */
+  #servicios { background: var(--void); text-align: center; }
+
+  .svc-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--borderg); border: 1px solid var(--borderg);
+    max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 900px) { .svc-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px)  { .svc-grid { grid-template-columns: 1fr; } }
+
+  .svc-card {
+    background: var(--void); padding: 2.8rem 2rem;
+    transition: background .3s; position: relative; overflow: hidden; cursor: default;
+  }
+  .svc-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold3), var(--gold));
+    transform: scaleX(0); transform-origin: left; transition: transform .35s;
+  }
+  .svc-card:hover { background: var(--navy2); }
+  .svc-card:hover::before { transform: scaleX(1); }
+
+  .svc-num { font-family: 'Cinzel', serif; font-size: 3rem; font-weight: 900; color: rgba(184,137,42,0.08); line-height: 1; margin-bottom: .9rem; }
+  .svc-card h3 { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; color: var(--silver2); margin-bottom: .7rem; letter-spacing: .05em; }
+  .svc-card p { font-size: .82rem; color: var(--muted); line-height: 1.85; font-family: 'IM Fell English', serif; font-style: italic; }
+  .svc-price { margin-top: 1.4rem; font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 700; color: var(--gold3); }
+  .svc-dur { font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: .2rem; }
+
+  /* ══════════════════════════ GALERÍA ══════════════════════════ */
+  #galeria { background: var(--navy); padding-bottom: 0; text-align: center; }
+  #galeria .s-label, #galeria h2, #galeria .s-intro { padding: 0; }
+  #galeria .s-label { justify-content: center; }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 3px; margin-top: 2rem;
+  }
+  @media (max-width: 700px) { .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; } }
+
+  .gi {
+    position: relative; overflow: hidden; background: var(--navy3); cursor: pointer;
+  }
+  .gi.tall { grid-row: span 2; }
+
+  .gi img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    opacity: .7; filter: sepia(15%); transition: transform .5s, opacity .3s, filter .3s;
+  }
+  .gi:hover img { transform: scale(1.06); opacity: .95; filter: sepia(0%); }
+
+  .gi-ph {
+    width: 100%; height: 100%; min-height: 180px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gi-ph p { font-family: 'Cinzel', serif; font-size: .6rem; color: rgba(184,137,42,0.25); letter-spacing: .2em; text-transform: uppercase; }
+
+  .gi::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(8,10,15,0.7) 0%, transparent 55%);
+    pointer-events: none; transition: opacity .3s;
+  }
+  .gi:hover::after { opacity: .4; }
+
+  .gi-lbl {
+    position: absolute; bottom: 1rem; left: 1.2rem; z-index: 2;
+    font-family: 'Cinzel', serif; font-size: .65rem; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--gold3);
+  }
+
+  /* bg colors per slot */
+  .gb1 { background: linear-gradient(150deg, #101420, #0c1020); }
+  .gb2 { background: linear-gradient(150deg, #0e1018, #121620); }
+  .gb3 { background: linear-gradient(150deg, #101418, #0c1016); }
+  .gb4 { background: linear-gradient(150deg, #0e1220, #101420); }
+
+  /* ══════════════════════════ BARBEROS ══════════════════════════ */
+  #barberos { background: var(--void); }
+
+  .barb-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--borderg); border: 1px solid var(--borderg);
+    max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 700px) { .barb-grid { grid-template-columns: 1fr; } }
+
+  .barb-card { background: var(--void); overflow: hidden; transition: background .3s; }
+  .barb-card:hover { background: var(--navy2); }
+
+  .barb-img {
+    width: 100%; aspect-ratio: 4/5; overflow: hidden;
+    background: var(--navy3); position: relative;
+  }
+  .barb-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; filter: sepia(10%); }
+  .barb-card:hover .barb-img img { transform: scale(1.04); filter: sepia(0%); }
+
+  .barb-img-ph {
+    width: 100%; height: 100%; min-height: 280px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .bip-init { font-family: 'Cinzel Decorative', serif; font-size: 4rem; font-weight: 700; color: rgba(184,137,42,0.15); letter-spacing: .1em; }
+
+  /* gold top bar on hover */
+  .barb-card { border-top: 2px solid transparent; transition: border-color .3s, background .3s; }
+  .barb-card:hover { border-top-color: var(--gold); }
+
+  .barb-info { padding: 1.4rem 1.8rem 2rem; }
+  .barb-role { font-size: .6rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--gold2); margin-bottom: .4rem; }
+  .barb-name { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; color: var(--silver2); letter-spacing: .06em; margin-bottom: .5rem; }
+  .barb-spec { font-size: .8rem; color: var(--muted); line-height: 1.75; font-family: 'IM Fell English', serif; font-style: italic; }
+
+  /* ══════════════════════════ RESERVAS ══════════════════════════ */
+  #reservas { background: var(--navy); position: relative; overflow: hidden; }
+
+  .rsv-wrap { max-width: 960px; margin: 0 auto; }
+
+  /* steps */
+  .steps-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--borderg); border: 1px solid var(--borderg);
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 580px) { .steps-row { grid-template-columns: 1fr; } }
+
+  .step-tab {
+    background: var(--navy); padding: 1.3rem 1.5rem;
+    display: flex; align-items: center; gap: .85rem;
+    opacity: .4; transition: opacity .3s, background .3s;
+  }
+  .step-tab.active { opacity: 1; background: var(--navy3); }
+  .step-tab.done { opacity: .65; }
+
+  .st-num {
+    width: 30px; height: 30px; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: .8rem; font-weight: 700;
+    color: var(--gold2); flex-shrink: 0; background: rgba(184,137,42,0.05);
+    transition: all .25s;
+  }
+  .step-tab.active .st-num { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--void); border-color: transparent; }
+  .step-tab.done .st-num { background: var(--gold); color: var(--void); border-color: transparent; }
+  .step-tab.done .st-num::after { content: '✓'; }
+  .step-tab.done .st-num span { display: none; }
+
+  .st-info .st-n { font-size: .58rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .st-info .st-t { font-family: 'Cinzel', serif; font-size: .9rem; font-weight: 600; color: var(--silver); margin-top: .1rem; }
+  .step-tab.active .st-info .st-t { color: var(--silver2); }
+
+  /* panels */
+  .s-panel { display: none; }
+  .s-panel.active { display: block; }
+
+  /* PASO 1 */
+  .barb-opts-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem;
+  }
+  @media (max-width: 580px) { .barb-opts-grid { grid-template-columns: 1fr; } }
+
+  .barb-opt {
+    border: 1px solid var(--borderg); padding: 1.5rem 1.2rem;
+    cursor: pointer; transition: all .22s; background: var(--navy2);
+    display: flex; align-items: center; gap: 1rem;
+    position: relative; user-select: none;
+  }
+  .barb-opt:hover { border-color: var(--border); background: var(--navy3); }
+  .barb-opt.sel { border-color: var(--gold); background: rgba(184,137,42,0.07); }
+  .barb-opt.sel::after { content: '✓'; position: absolute; top: .6rem; right: .8rem; font-size: .72rem; color: var(--gold2); font-weight: 700; }
+
+  .bo-av {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--navy3); border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    overflow: hidden; transition: border-color .22s;
+    font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold2);
+  }
+  .barb-opt.sel .bo-av { border-color: var(--gold); }
+  .bo-av img { width: 100%; height: 100%; object-fit: cover; }
+  .bo-name { font-family: 'Cinzel', serif; font-size: .9rem; font-weight: 700; color: var(--silver2); }
+  .bo-spec { font-size: .7rem; color: var(--muted); margin-top: .15rem; }
+
+  /* PASO 2 */
+  .cal-wrap {
+    max-width: 420px;
+    border: 1px solid var(--borderg); background: var(--navy2); padding: 1.8rem;
+  }
+  .cal-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+  .cal-btn {
+    width: 30px; height: 30px; border: 1px solid var(--borderg); background: none;
+    color: var(--gold2); cursor: pointer; font-size: .9rem; display: flex; align-items: center; justify-content: center;
+    transition: border-color .2s; font-family: inherit;
+  }
+  .cal-btn:hover { border-color: var(--gold2); color: var(--gold3); }
+  .cal-month-label { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--silver2); letter-spacing: .08em; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .cal-dn { text-align: center; font-size: .58rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: .4rem 0; }
+  .cal-d {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; cursor: pointer; transition: all .18s; color: var(--light);
+    border: 1px solid transparent;
+  }
+  .cal-d:hover:not(.dis):not(.emp) { border-color: var(--border); color: var(--gold3); background: rgba(184,137,42,0.08); }
+  .cal-d.sel { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--void); font-weight: 700; border-color: transparent; }
+  .cal-d.dis { color: rgba(106,112,144,0.2); cursor: not-allowed; }
+  .cal-d.emp { cursor: default; }
+  .cal-d.tod { border-color: var(--borderg); color: var(--gold2); }
+
+  /* PASO 3 */
+  .slots-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: .55rem;
+  }
+  @media (max-width: 540px) { .slots-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .slot {
+    padding: .65rem .4rem; text-align: center;
+    border: 1px solid var(--borderg); font-size: .75rem; font-weight: 600;
+    letter-spacing: .06em; color: var(--light); cursor: pointer;
+    transition: all .18s; background: var(--navy2);
+    font-family: 'Cinzel', serif;
+  }
+  .slot:hover:not(.occ) { border-color: var(--gold); color: var(--gold3); background: rgba(184,137,42,0.08); }
+  .slot.sel { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--void); border-color: transparent; font-weight: 700; }
+  .slot.occ { color: rgba(106,112,144,0.22); border-color: rgba(255,255,255,0.03); cursor: not-allowed; font-size: .62rem; }
+
+  /* resumen */
+  .rsv-summary { margin-top: 2rem; padding: 1.4rem 1.8rem; border: 1px solid var(--border); background: rgba(184,137,42,0.04); display: none; }
+  .rsv-summary.on { display: block; }
+  .rs-title { font-size: .6rem; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: var(--gold2); margin-bottom: .9rem; font-family: 'Cinzel', serif; }
+  .rs-row { display: flex; justify-content: space-between; font-size: .82rem; padding: .32rem 0; border-bottom: 1px solid rgba(184,137,42,0.08); }
+  .rs-row:last-child { border: none; }
+  .rs-k { color: var(--muted); }
+  .rs-v { color: var(--silver); font-weight: 600; }
+
+  /* confirm */
+  .rsv-confirm { margin-top: 2rem; text-align: center; }
+  #btnConfirm {
+    width: 100%; padding: 1.1rem 2rem;
+    font-family: 'Cinzel', serif; font-size: .9rem; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase;
+    border: none; cursor: not-allowed;
+    background: var(--navy3); color: var(--muted);
+    transition: all .3s;
+  }
+  #btnConfirm.ready {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--void); cursor: pointer;
+    box-shadow: 0 0 28px rgba(184,137,42,0.25);
+  }
+  #btnConfirm.ready:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(184,137,42,0.4); }
+  .rsv-note { font-size: .65rem; font-weight: 600; letter-spacing: .12em; color: var(--muted); margin-top: .6rem; }
+
+  /* ══════════════════════════ RESEÑAS ══════════════════════════ */
+  #resenas { background: var(--void); text-align: center; }
+
+  .rating-block {
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap; margin-bottom: 3.5rem;
+  }
+  .rb-n { font-family: 'Cinzel', serif; font-size: 5rem; font-weight: 700; color: var(--silver2); line-height: 1; }
+  .rb-stars { font-size: 1.4rem; color: var(--gold3); letter-spacing: .1em; }
+  .rb-l { font-size: .62rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: .35rem; }
+  .rb-sep { width: 1px; height: 55px; background: var(--borderg); }
+
+  .rev-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--borderg); border: 1px solid var(--borderg);
+    max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 800px) { .rev-grid { grid-template-columns: 1fr; } }
+
+  .rev-card { background: var(--void); padding: 2.2rem 2rem; transition: background .3s; text-align: left; }
+  .rev-card:hover { background: var(--navy2); }
+  .rev-stars-sm { color: var(--gold3); font-size: .9rem; letter-spacing: .06em; margin-bottom: .8rem; }
+  .rev-txt { font-family: 'IM Fell English', serif; font-style: italic; font-size: .9rem; color: var(--silver); line-height: 1.78; margin-bottom: 1.1rem; }
+  .rev-name { font-family: 'Cinzel', serif; font-size: .68rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+  .rev-from { font-size: .62rem; color: var(--muted); margin-top: .15rem; letter-spacing: .06em; }
+
+  /* ══════════════════════════ CONTACTO ══════════════════════════ */
+  #contacto {
+    background: var(--navy2);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0;
+  }
+  @media (max-width: 800px) { #contacto { grid-template-columns: 1fr; } }
+
+  .ct-left  { padding: 7rem 3rem; border-right: 1px solid var(--borderg); }
+  .ct-right { padding: 7rem 3rem; display: flex; flex-direction: column; gap: 1.5rem; justify-content: center; }
+
+  .ct-left h2 { text-align: left; font-size: 1.8rem; }
+  .ct-left .s-label { justify-content: flex-start; }
+  .ct-left .s-label::after { display: none; }
+
+  .ct-items { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 2rem; }
+  .ct-i { display: flex; gap: 1.1rem; align-items: flex-start; }
+  .ct-icon {
+    width: 40px; height: 40px; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: .62rem; font-weight: 700;
+    letter-spacing: .06em; color: var(--gold2); flex-shrink: 0;
+    background: rgba(184,137,42,0.05);
+  }
+  .ct-lbl { font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+  .ct-val { font-size: .88rem; color: var(--silver); line-height: 1.6; }
+  .ct-val a { color: var(--silver); text-decoration: none; transition: color .2s; }
+  .ct-val a:hover { color: var(--gold3); }
+
+  .hrs-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .hrs-table td { padding: .72rem 0; font-size: .82rem; border-bottom: 1px solid var(--borderg); }
+  .hrs-table td:last-child { text-align: right; color: var(--muted); }
+  .hrs-table tr.cls td { color: rgba(106,112,144,0.28); }
+
+  .phone-cta {
+    display: flex; align-items: center; gap: 1rem;
+    background: rgba(184,137,42,0.05); border: 1px solid var(--border);
+    padding: 1.3rem 1.6rem; text-decoration: none; transition: background .2s; margin-top: 2rem;
+  }
+  .phone-cta:hover { background: rgba(184,137,42,0.1); }
+  .ph-num { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; color: var(--silver2); }
+  .ph-lbl { font-size: .6rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+  /* right side */
+  .logo-card {
+    background: var(--navy3); border: 1px solid var(--border);
+    padding: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+  .logo-card img { width: 80%; max-width: 240px; height: auto; display: block; }
+  .logo-card-ph { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; font-weight: 700; color: var(--silver2); text-align: center; letter-spacing: .08em; }
+  .logo-card p { font-size: .78rem; color: var(--muted); text-align: center; line-height: 1.7; }
+
+  .soc-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--borderg); border: 1px solid var(--borderg); }
+  .soc-a {
+    background: var(--navy2); padding: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; font-family: 'Cinzel', serif;
+    font-size: .68rem; font-weight: 600; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--muted); gap: .5rem; transition: all .2s;
+  }
+  .soc-a:hover { background: var(--navy3); color: var(--gold2); }
+
+  .cta-card {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    padding: 2rem 1.8rem; text-align: center;
+  }
+  .cta-card h3 { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: var(--void); letter-spacing: .06em; margin-bottom: .4rem; }
+  .cta-card p { font-size: .78rem; color: rgba(0,0,0,0.5); margin-bottom: 1.2rem; line-height: 1.6; }
+  .cta-card a {
+    display: inline-block; padding: .7rem 1.8rem;
+    background: var(--void); color: var(--gold3);
+    font-family: 'Cinzel', serif; font-size: .7rem; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase; text-decoration: none; transition: background .2s;
+  }
+  .cta-card a:hover { background: var(--navy); }
+
+  /* ══════════════════════════ MAP ══════════════════════════ */
+  #mapa { padding: 0; }
+  .map-box { position: relative; height: 340px; overflow: hidden; }
+  .map-box iframe { width: 100%; height: 100%; border: 0; filter: grayscale(100%) brightness(.55) sepia(15%); }
+  .map-badge {
+    position: absolute; top: 1.8rem; left: 3rem;
+    background: var(--void); border: 1px solid var(--border); padding: 1rem 1.5rem;
+  }
+  .map-badge strong { display: block; font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--silver2); margin-bottom: .15rem; }
+  .map-badge span { font-size: .7rem; color: var(--muted); letter-spacing: .04em; }
+
+  /* ══════════════════════════ FOOTER ══════════════════════════ */
+  footer { background: var(--void); border-top: 1px solid var(--borderg); padding: 3.5rem 3rem; }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--borderg);
+  }
+  @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } }
+
+  .fb-logo img { height: 56px; width: auto; display: block; margin-bottom: 1rem; }
+  .fb-logo-ph { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; font-weight: 700; color: var(--silver2); margin-bottom: .3rem; }
+  .fb-logo-ph span { color: var(--gold3); }
+  .fb-sub { font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold2); }
+  .fb-p { font-size: .8rem; color: var(--muted); line-height: 1.8; margin-top: .9rem; max-width: 240px; font-family: 'IM Fell English', serif; font-style: italic; }
+
+  .fc-h { font-family: 'Cinzel', serif; font-size: .65rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--gold2); margin-bottom: 1.1rem; }
+  .fc-ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+  .fc-ul li { font-size: .8rem; color: var(--muted); }
+  .fc-ul li a { color: var(--muted); text-decoration: none; transition: color .2s; }
+  .fc-ul li a:hover { color: var(--silver); }
+
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: .7rem; color: rgba(106,112,144,0.38); letter-spacing: .05em; }
+  .footer-pole { font-size: 1.3rem; }
+
+  /* ══════════════════════════ REVEAL ══════════════════════════ */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ══════════════════════════ RESPONSIVE ══════════════════════════ */
+  @media (max-width: 700px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.25rem; }
+    #hero { padding: 8rem 1.25rem 5rem; }
+    .pole { display: none; }
+    .hc { display: none; }
+    .hero-frame { display: none; }
+    .ct-left, .ct-right { padding: 4rem 1.25rem; }
+    .map-badge { left: 1.25rem; }
+    footer { padding: 3rem 1.25rem; }
+    #galeria .s-label, #galeria h2, #galeria .s-intro { padding: 0 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">
+    <!-- Logo real — reemplaza logo-lf.png con tu imagen -->
+    <img src="logo-lf.png" alt="LF Barbershop"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <span class="nav-logo-fallback" style="font-family:'Cinzel Decorative',serif;font-weight:700;font-size:1rem;color:#eef0f8;letter-spacing:.06em;">LF <span style="color:#d4a640;">Barbershop</span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#barberos">Equipo</a></li>
+    <li><a href="#reservas">Reservar</a></li>
+    <li><a href="#contacto" class="nav-cta">662 100 30 93</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <!-- Foto fondo -->
+  <div class="hero-photo">
+    <div class="hero-photo-ph"></div>
+    <!-- <img src="hero-bg.jpg" alt="LF Barbershop"> -->
+  </div>
+  <div class="hero-grad"></div>
+
+  <!-- Frame ornamental -->
+  <div class="hero-frame"></div>
+  <div class="hc hc-tl"></div><div class="hc hc-tr"></div>
+  <div class="hc hc-bl"></div><div class="hc hc-br"></div>
+
+  <!-- Poles animados -->
+  <div class="pole pole-l"><div class="pole-stripes"></div></div>
+  <div class="pole pole-r"><div class="pole-stripes"></div></div>
+
+  <div class="hero-inner">
+    <!-- LOGO GRANDE en hero -->
+    <div class="hero-logo">
+      <img src="logo-lf.png" alt="LF Barbershop"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div class="hero-logo-fallback">
+        <span style="color:#f0c060;">LF</span> Barbershop
+      </div>
+    </div>
+
+    <div class="hero-rule">
+      <span class="hr-line"></span>
+      <span class="hr-sym">✦</span>
+      <span class="hr-line"></span>
+    </div>
+
+    <p class="hero-tag">Hermosillo, Sonora · Corte & Barba para Caballero</p>
+
+    <p class="hero-sub">Atención personalizada, técnica de primer nivel y un ambiente que hace de cada visita una experiencia. No es solo un corte — es #AlgoBien.</p>
+
+    <div class="hero-actions">
+      <a href="#reservas" class="btn btn-gold">Reservar cita</a>
+      <a href="tel:6621003093" class="btn btn-outline">662 100 30 93</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hs"><div class="n">2<em>k+</em></div><div class="l">Seguidores</div></div>
+      <div class="hs"><div class="n">5<em>★</em></div><div class="l">Calificación</div></div>
+      <div class="hs"><div class="n">6<em>días</em></div><div class="l">De atención</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STRIPS ══ -->
+<div class="gold-strip"></div>
+<div class="marquee">
+  <div class="mq-inner">
+    <span>Corte de Cabello</span><span>Diseño de Barba</span><span>Corte + Barba</span><span>Atención Personalizada</span><span>Hermosillo</span><span>Lunes a Sábado</span><span>662 100 30 93</span><span>#AlgoBien</span>
+    <span>Corte de Cabello</span><span>Diseño de Barba</span><span>Corte + Barba</span><span>Atención Personalizada</span><span>Hermosillo</span><span>Lunes a Sábado</span><span>662 100 30 93</span><span>#AlgoBien</span>
+  </div>
+</div>
+
+<!-- ══ NOSOTROS ══ -->
+<section id="nosotros">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="s-label">Quiénes somos</div>
+      <h2>Tradición &<br><em>Precisión</em></h2>
+      <div class="orn"><span class="orn-l"></span><span class="orn-s">✦</span></div>
+      <p><strong>LF Barbershop</strong> nació con una convicción clara: que cada caballero merece un corte impecable, atención personalizada y un espacio donde sentirse bien atendido.</p>
+      <p>Nos especializamos en <strong>corte de cabello y barba para caballero</strong>. Combinamos técnica cuidada con el trato humano que hace la diferencia entre una barbería y la <em>tuya</em>.</p>
+      <p>Somos <strong>#AlgoBien</strong> — y lo demostramos en cada silla.</p>
+      <div class="pills">
+        <span class="pill">Corte de Cabello</span>
+        <span class="pill">Diseño de Barba</span>
+        <span class="pill">Afeitado con Navaja</span>
+        <span class="pill">Corte Infantil</span>
+        <span class="pill">Atención Personalizada</span>
+      </div>
+      <div class="about-stats">
+        <div class="ast"><div class="n">2<em>k+</em></div><div class="l">Seguidores IG</div></div>
+        <div class="ast"><div class="n">5<em>★</em></div><div class="l">Calificación</div></div>
+        <div class="ast"><div class="n">6<em>d</em></div><div class="l">Días de servicio</div></div>
+      </div>
+    </div>
+
+    <div class="about-img-wrap reveal">
+      <div class="about-img">
+        <div class="about-img-ph"><p>foto-local.jpg</p></div>
+        <!-- <img src="foto-local.jpg" alt="LF Barbershop interior"> -->
+      </div>
+      <div class="about-badge">
+        <div class="ab-n">LF</div>
+        <div class="ab-l">Barbershop</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICIOS ══ -->
+<section id="servicios">
+  <div class="s-label" style="justify-content:center;">Menú de servicios</div>
+  <h2 style="text-align:center;">Nuestros <em>Servicios</em></h2>
+  <div class="orn" style="justify-content:center;"><span class="orn-l"></span><span class="orn-s">✦</span><span class="orn-l" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+  <p class="s-intro" style="margin:0 auto 3.5rem;text-align:center;">Todo lo que necesitas para verte y sentirte bien, con la atención personalizada que nos caracteriza.</p>
+
+  <div class="svc-grid">
+    <div class="svc-card reveal">
+      <div class="svc-num">I</div>
+      <h3>Corte de Cabello</h3>
+      <p>Corte a máquina y tijera con acabado impecable. Incluye lavado, secado y estilizado con producto de calidad.</p>
+      <div class="svc-price">$180</div>
+      <div class="svc-dur">~45 min</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.08s">
+      <div class="svc-num">II</div>
+      <h3>Diseño de Barba</h3>
+      <p>Perfilado, delineado y recorte de barba con navaja. Precisión al detalle para que tu barba luzca exactamente como la quieres.</p>
+      <div class="svc-price">$130</div>
+      <div class="svc-dur">~30 min</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.16s">
+      <div class="svc-num">III</div>
+      <h3>Corte + Barba</h3>
+      <p>El combo completo del caballero. Corte de cabello más arreglo y diseño de barba en una sola visita sin complicaciones.</p>
+      <div class="svc-price">$280</div>
+      <div class="svc-dur">~1 hr 15 min</div>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">IV</div>
+      <h3>Corte Infantil</h3>
+      <p>Corte especial para los más jóvenes, con la paciencia y dedicación que merecen. El mismo nivel de cuidado para toda la familia.</p>
+      <div class="svc-price">$130</div>
+      <div class="svc-dur">~35 min</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.08s">
+      <div class="svc-num">V</div>
+      <h3>Afeitado con Navaja</h3>
+      <p>Afeitado tradicional con navaja, toalla caliente y productos seleccionados. La experiencia clásica de barbería en su máxima expresión.</p>
+      <div class="svc-price">$150</div>
+      <div class="svc-dur">~40 min</div>
+    </div>
+    <div class="svc-card reveal" style="transition-delay:.16s">
+      <div class="svc-num">VI</div>
+      <h3>Cejas & Detalles</h3>
+      <p>Delineado y perfilado de cejas, arreglo de contornos y remates que hacen la diferencia en tu imagen final.</p>
+      <div class="svc-price">$80</div>
+      <div class="svc-dur">~20 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALERÍA ══ -->
+<section id="galeria" style="padding-bottom:0;">
+  <div class="s-label" style="justify-content:center;">Galería</div>
+  <h2 style="text-align:center;">Nuestro <em>Trabajo</em></h2>
+  <div class="orn" style="justify-content:center;"><span class="orn-l"></span><span class="orn-s">✦</span><span class="orn-l" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+  <p class="s-intro" style="text-align:center;margin:0 auto 1.5rem;">Cada corte cuenta su propia historia. El detalle es lo que nos define.</p>
+</section>
+<div class="gallery-grid" style="margin:0;">
+  <div class="gi gb1 tall">
+    <div class="gi-ph"><p>galeria-1.jpg</p></div>
+    <!-- <img src="galeria-1.jpg" alt="LF Corte"> -->
+    <div class="gi-lbl">Corte Clásico</div>
+  </div>
+  <div class="gi gb2">
+    <div class="gi-ph"><p>galeria-2.jpg</p></div>
+    <!-- <img src="galeria-2.jpg" alt="LF Corte"> -->
+    <div class="gi-lbl">Degradado</div>
+  </div>
+  <div class="gi gb3">
+    <div class="gi-ph"><p>galeria-3.jpg</p></div>
+    <!-- <img src="galeria-3.jpg" alt="LF Corte"> -->
+    <div class="gi-lbl">Diseño</div>
+  </div>
+  <div class="gi gb4">
+    <div class="gi-ph"><p>galeria-4.jpg</p></div>
+    <!-- <img src="galeria-4.jpg" alt="LF Ambiente"> -->
+    <div class="gi-lbl">Barba</div>
+  </div>
+  <div class="gi gb1">
+    <div class="gi-ph"><p>galeria-5.jpg</p></div>
+    <!-- <img src="galeria-5.jpg" alt="LF Detalle"> -->
+    <div class="gi-lbl">El Resultado</div>
+  </div>
+</div>
+<div style="height:6rem;background:var(--navy);"></div>
+
+<!-- ══ BARBEROS ══ -->
+<section id="barberos">
+  <div class="s-label" style="justify-content:center;">El Equipo</div>
+  <h2 style="text-align:center;">Tu Barbero de <em>Confianza</em></h2>
+  <div class="orn" style="justify-content:center;"><span class="orn-l"></span><span class="orn-s">✦</span><span class="orn-l" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+  <p class="s-intro" style="margin:0 auto 3rem;text-align:center;">Profesionales con pasión por el oficio. El mismo nivel de compromiso en cada silla, en cada cita.</p>
+
+  <div class="barb-grid">
+    <div class="barb-card reveal">
+      <div class="barb-img gb1">
+        <div class="barb-img-ph"><span class="bip-init">LF</span></div>
+        <!-- <img src="barbero-1.jpg" alt="Luis Fernando"> -->
+      </div>
+      <div class="barb-info">
+        <div class="barb-role">Fundador · Barbero Senior</div>
+        <div class="barb-name">Luis Fernando</div>
+        <div class="barb-spec">El alma de LF Barbershop. Especialista en cortes de transición, degradados y diseño de barba con precisión milimétrica y atención al detalle.</div>
+      </div>
+    </div>
+    <div class="barb-card reveal" style="transition-delay:.12s">
+      <div class="barb-img gb2">
+        <div class="barb-img-ph"><span class="bip-init">J</span></div>
+        <!-- <img src="barbero-2.jpg" alt="Barbero 2"> -->
+      </div>
+      <div class="barb-info">
+        <div class="barb-role">Barbero</div>
+        <div class="barb-name">Jorge</div>
+        <div class="barb-spec">Experto en cortes clásicos y modernos. Atención al detalle y acabados limpios que hacen la diferencia en el resultado final de cada visita.</div>
+      </div>
+    </div>
+    <div class="barb-card reveal" style="transition-delay:.24s">
+      <div class="barb-img gb3">
+        <div class="barb-img-ph"><span class="bip-init">K</span></div>
+        <!-- <img src="barbero-3.jpg" alt="Barbero 3"> -->
+      </div>
+      <div class="barb-info">
+        <div class="barb-role">Barbera</div>
+        <div class="barb-name">Karen</div>
+        <div class="barb-spec">Especialista en cortes, tratamientos capilares y arreglo de cejas. Precisión y cuidado en cada servicio, con un trato que te hace sentir en confianza.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESERVAS ══ -->
+<section id="reservas">
+  <div class="s-label" style="justify-content:center;">Agenda tu cita</div>
+  <h2 style="text-align:center;">Reserva tu <em>Cita</em></h2>
+  <div class="orn" style="justify-content:center;"><span class="orn-l"></span><span class="orn-s">✦</span><span class="orn-l" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+  <p class="s-intro" style="margin:0 auto 2rem;text-align:center;">Selecciona barbero, fecha y hora. Rápido y sin complicaciones.</p>
+
+  <div class="rsv-wrap">
+    <div class="steps-row">
+      <div class="step-tab active" id="t1">
+        <div class="st-num"><span>1</span></div>
+        <div class="st-info"><div class="st-n">Paso 01</div><div class="st-t">Barbero</div></div>
+      </div>
+      <div class="step-tab" id="t2">
+        <div class="st-num"><span>2</span></div>
+        <div class="st-info"><div class="st-n">Paso 02</div><div class="st-t">Fecha</div></div>
+      </div>
+      <div class="step-tab" id="t3">
+        <div class="st-num"><span>3</span></div>
+        <div class="st-info"><div class="st-n">Paso 03</div><div class="st-t">Hora</div></div>
+      </div>
+    </div>
+
+    <!-- Panel 1 -->
+    <div class="s-panel active" id="p1">
+      <div class="barb-opts-grid">
+        <div class="barb-opt" data-name="Luis Fernando" onclick="pickBarb(this)">
+          <div class="bo-av">LF</div>
+          <div><div class="bo-name">Luis Fernando</div><div class="bo-spec">Fundador · Corte & Barba</div></div>
+        </div>
+        <div class="barb-opt" data-name="Jorge" onclick="pickBarb(this)">
+          <div class="bo-av">J</div>
+          <div><div class="bo-name">Jorge</div><div class="bo-spec">Corte clásico & moderno</div></div>
+        </div>
+        <div class="barb-opt" data-name="Karen" onclick="pickBarb(this)">
+          <div class="bo-av">K</div>
+          <div><div class="bo-name">Karen</div><div class="bo-spec">Corte · Cejas · Tratamientos</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 2 -->
+    <div class="s-panel" id="p2">
+      <div class="cal-wrap">
+        <div class="cal-hd">
+          <button class="cal-btn" onclick="cm(-1)">‹</button>
+          <div class="cal-month-label" id="calLbl"></div>
+          <button class="cal-btn" onclick="cm(1)">›</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+    </div>
+
+    <!-- Panel 3 -->
+    <div class="s-panel" id="p3">
+      <div class="slots-grid" id="slotsGrid"></div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="rsv-summary" id="summary">
+      <div class="rs-title">Resumen de tu reserva</div>
+      <div class="rs-row"><span class="rs-k">Barbero</span><span class="rs-v" id="sBarb">—</span></div>
+      <div class="rs-row"><span class="rs-k">Fecha</span><span class="rs-v" id="sDate">—</span></div>
+      <div class="rs-row"><span class="rs-k">Hora</span><span class="rs-v" id="sTime">—</span></div>
+    </div>
+
+    <!-- Confirm -->
+    <div class="rsv-confirm">
+      <button id="btnConfirm" disabled>Confirmar Reservación</button>
+      <div class="rsv-note" id="rsv-note">Completa los 3 pasos para habilitar tu reserva</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESEÑAS ══ -->
+<section id="resenas">
+  <div class="s-label" style="justify-content:center;">Lo que dicen</div>
+  <h2 style="text-align:center;">Clientes <em>Satisfechos</em></h2>
+  <div class="orn" style="justify-content:center;"><span class="orn-l"></span><span class="orn-s">✦</span><span class="orn-l" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+
+  <div class="rating-block reveal">
+    <div><div class="rb-n">5.0</div><div class="rb-stars">★★★★★</div><div class="rb-l">Instagram</div></div>
+    <div class="rb-sep"></div>
+    <div><div class="rb-n" style="font-size:3.5rem;">2k+</div><div class="rb-l" style="margin-top:.4rem;">Seguidores</div></div>
+    <div class="rb-sep"></div>
+    <div><div class="rb-n" style="font-size:3.5rem;">188</div><div class="rb-l" style="margin-top:.4rem;">Publicaciones</div></div>
+  </div>
+
+  <div class="rev-grid">
+    <div class="rev-card reveal">
+      <div class="rev-stars-sm">★★★★★</div>
+      <p class="rev-txt">"El mejor corte que me han dado en Hermosillo. Luis Fernando sabe exactamente qué hacer, te escucha y el resultado siempre supera lo que pediste."</p>
+      <div class="rev-name">Ricardo M.</div>
+      <div class="rev-from">Cliente frecuente</div>
+    </div>
+    <div class="rev-card reveal" style="transition-delay:.1s">
+      <div class="rev-stars-sm">★★★★★</div>
+      <p class="rev-txt">"Ambiente chido, atención rápida y el corte quedó perfecto. Ya no voy a ningún otro lado. La atención es personalizada de verdad."</p>
+      <div class="rev-name">Andrés V.</div>
+      <div class="rev-from">Instagram · @lfbarbershop96</div>
+    </div>
+    <div class="rev-card reveal" style="transition-delay:.2s">
+      <div class="rev-stars-sm">★★★★★</div>
+      <p class="rev-txt">"Fui con mi hijo y los dos salimos contentos. Karen es muy paciente con los niños y el corte quedó exactamente como lo pedimos. #AlgoBien."</p>
+      <div class="rev-name">Miguel A.</div>
+      <div class="rev-from">Cliente frecuente</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACTO ══ -->
+<section id="contacto">
+  <div class="ct-left">
+    <div class="s-label">Encuéntranos</div>
+    <h2>Visítanos en <em>Hermosillo</em></h2>
+    <div class="orn"><span class="orn-l"></span><span class="orn-s">✦</span></div>
+
+    <div class="ct-items">
+      <div class="ct-i">
+        <div class="ct-icon">Ubi</div>
+        <div><div class="ct-lbl">Ubicación</div><div class="ct-val">Hermosillo, Sonora, México</div></div>
+      </div>
+      <div class="ct-i">
+        <div class="ct-icon">Tel</div>
+        <div><div class="ct-lbl">Teléfono · Citas</div><div class="ct-val"><a href="tel:6621003093">662 100 30 93</a></div></div>
+      </div>
+      <div class="ct-i">
+        <div class="ct-icon">IG</div>
+        <div><div class="ct-lbl">Instagram</div><div class="ct-val"><a href="https://www.instagram.com/lfbarbershop96/" target="_blank">@lfbarbershop96</a></div></div>
+      </div>
+    </div>
+
+    <table class="hrs-table">
+      <tr><td>Lunes</td><td>09:00 — 19:00</td></tr>
+      <tr><td>Martes</td><td>09:00 — 19:00</td></tr>
+      <tr><td>Miércoles</td><td>09:00 — 19:00</td></tr>
+      <tr><td>Jueves</td><td>09:00 — 19:00</td></tr>
+      <tr><td>Viernes</td><td>09:00 — 19:00</td></tr>
+      <tr><td>Sábado</td><td>09:00 — 18:00</td></tr>
+      <tr class="cls"><td>Domingo</td><td>Cerrado</td></tr>
+    </table>
+
+    <a href="tel:6621003093" class="phone-cta">
+      <div>
+        <div class="ph-lbl">Llama para agendar</div>
+        <div class="ph-num">662 100 30 93</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="ct-right">
+    <!-- Logo en contacto -->
+    <div class="logo-card">
+      <img src="logo-lf.png" alt="LF Barbershop"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div class="logo-card-ph" style="display:none;">LF <span style="color:#d4a640;">Barbershop</span></div>
+      <p>Corte y barba para caballero en Hermosillo, Sonora. Atención personalizada que marca la diferencia.</p>
+    </div>
+
+    <div class="soc-duo">
+      <a href="https://www.instagram.com/lfbarbershop96/" target="_blank" class="soc-a">Instagram</a>
+      <a href="tel:6621003093" class="soc-a">662 100 30 93</a>
+    </div>
+
+    <div class="cta-card">
+      <h3>Reserva Tu Cita</h3>
+      <p>Agenda desde esta página o llámanos directamente. Confirmación inmediata garantizada.</p>
+      <a href="#reservas">Ir a Reservas</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MAP ══ -->
+<div id="mapa">
+  <div class="map-box">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55804!2d-110.9559!3d29.0729!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86ce84f23f7b9de5%3A0x3f4855fe5bc16a00!2sHermosillo%2C+Son.!5e0!3m2!1ses!2smx!4v1" allowfullscreen="" loading="lazy"></iframe>
+    <div class="map-badge">
+      <strong>LF Barbershop</strong>
+      <span>Hermosillo, Sonora · 662 100 30 93</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="fb-logo">
+        <img src="logo-lf.png" alt="LF Barbershop"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="fb-logo-ph" style="display:none;"><span>LF</span> Barbershop</div>
+      </div>
+      <div class="fb-sub">#AlgoBien · @lfbarbershop96</div>
+      <p class="fb-p">Corte y barba para caballero en Hermosillo, Sonora. Citas al 662 100 30 93. Lunes a viernes 9–19h, sábados 9–18h.</p>
+    </div>
+    <div>
+      <div class="fc-h">Servicios</div>
+      <ul class="fc-ul">
+        <li><a href="#servicios">Corte de Cabello</a></li>
+        <li><a href="#servicios">Diseño de Barba</a></li>
+        <li><a href="#servicios">Corte + Barba</a></li>
+        <li><a href="#servicios">Corte Infantil</a></li>
+        <li><a href="#servicios">Afeitado con Navaja</a></li>
+        <li><a href="#servicios">Cejas & Detalles</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-h">Links</div>
+      <ul class="fc-ul">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#barberos">El equipo</a></li>
+        <li><a href="#reservas">Reservar cita</a></li>
+        <li><a href="tel:6621003093">662 100 30 93</a></li>
+        <li><a href="https://www.instagram.com/lfbarbershop96/" target="_blank">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 LF Barbershop · Hermosillo, Sonora · Todos los derechos reservados.</p>
+    <span class="footer-pole">💈</span>
+  </div>
+</footer>
+
+<script>
+  // ══ REVEAL ══
+  const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // ══ RESERVAS ══
+  const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const DAYS   = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const SLOTS  = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30'];
+  const OCC    = ['10:30','12:00','14:30','16:00']; // demo
+
+  let S = { barb: null, date: null, time: null };
+  const today = new Date();
+  let cY = today.getFullYear(), cM = today.getMonth();
+
+  function pickBarb(el) {
+    document.querySelectorAll('.barb-opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    S.barb = el.dataset.name; S.date = null; S.time = null;
+    goStep(2); renderCal(); sync(); check();
+  }
+
+  function renderCal() {
+    document.getElementById('calLbl').textContent = MONTHS[cM] + ' ' + cY;
+    const g = document.getElementById('calGrid');
+    g.innerHTML = '';
+    DAYS.forEach(d => { const e = document.createElement('div'); e.className = 'cal-dn'; e.textContent = d; g.appendChild(e); });
+    const fd = new Date(cY, cM, 1).getDay();
+    const td = new Date(cY, cM + 1, 0).getDate();
+    for (let i = 0; i < fd; i++) { const e = document.createElement('div'); e.className = 'cal-d emp'; g.appendChild(e); }
+    for (let d = 1; d <= td; d++) {
+      const date = new Date(cY, cM, d);
+      const ds = `${cY}-${String(cM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const past = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const sun  = date.getDay() === 0;
+      const isToday = date.toDateString() === today.toDateString();
+      const e = document.createElement('div');
+      e.className = 'cal-d' + (past||sun?' dis':'') + (isToday?' tod':'') + (S.date===ds?' sel':'');
+      e.textContent = d;
+      if (!past && !sun) e.onclick = () => { S.date = ds; S.time = null; renderCal(); goStep(3); renderSlots(); sync(); check(); };
+      g.appendChild(e);
+    }
+  }
+
+  function cm(dir) { cM += dir; if (cM>11){cM=0;cY++;} if(cM<0){cM=11;cY--;} renderCal(); }
+
+  function renderSlots() {
+    const g = document.getElementById('slotsGrid'); g.innerHTML = '';
+    SLOTS.forEach(t => {
+      const e = document.createElement('div');
+      const occ = OCC.includes(t);
+      e.className = 'slot' + (occ?' occ':'') + (S.time===t?' sel':'');
+      e.textContent = occ ? t+'\nOcupado' : t;
+      if (occ) { e.style.whiteSpace='pre'; e.style.lineHeight='1.3'; }
+      else e.onclick = () => { document.querySelectorAll('.slot').forEach(s=>s.classList.remove('sel')); e.classList.add('sel'); S.time=t; sync(); check(); };
+      g.appendChild(e);
+    });
+  }
+
+  function goStep(step) {
+    [1,2,3].forEach(i => {
+      const t = document.getElementById('t'+i);
+      t.classList.remove('active','done');
+      if (i < step) t.classList.add('done');
+      if (i === step) t.classList.add('active');
+    });
+    document.querySelectorAll('.s-panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('p'+step).classList.add('active');
+  }
+
+  function sync() {
+    if (S.barb) document.getElementById('sBarb').textContent = S.barb;
+    if (S.date) { const [y,m,d]=S.date.split('-'); document.getElementById('sDate').textContent=`${parseInt(d)} de ${MONTHS[parseInt(m)-1]} de ${y}`; }
+    if (S.time) document.getElementById('sTime').textContent = S.time + ' hrs';
+    if (S.barb||S.date||S.time) document.getElementById('summary').classList.add('on');
+  }
+
+  function check() {
+    const btn = document.getElementById('btnConfirm');
+    const note = document.getElementById('rsv-note');
+    if (S.barb && S.date && S.time) {
+      btn.classList.add('ready'); btn.disabled = false;
+      note.textContent = `Reserva lista · ${S.barb} · ${S.time} hrs`;
+    } else {
+      btn.classList.remove('ready'); btn.disabled = true;
+      note.textContent = 'Completa los 3 pasos para habilitar tu reserva';
+    }
+  }
+
+  renderCal();
+</script>
+</body>
+</html>
