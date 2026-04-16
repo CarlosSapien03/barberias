@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Horus Admin · Reservaciones</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --void: #0a0b0d;
+        --dark: #10121a;
+        --dark2: #161820;
+        --dark3: #1e2028;
+        --dark4: #252730;
+        --panel: #1a1c22;
+        --amber: #c8850a;
+        --amber2: #e09b18;
+        --amber3: #f5b730;
+        --amber4: #fdd16a;
+        --teal: #1a6060;
+        --slate: #8a9bb0;
+        --light: #c2ccd8;
+        --off: #e8edf2;
+        --white: #ffffff;
+        --border: rgba(200, 133, 10, 0.2);
+        --border2: rgba(200, 133, 10, 0.08);
+        --red: #c0392b;
+        --green: #1a7a4a;
+        --green2: #22a060;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: var(--void);
+        color: var(--light);
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        min-height: 100vh;
+      }
+
+      /* ═══ GEO BG ═══ */
+      .geo-bg {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.03;
+        background-image:
+          linear-gradient(60deg, rgba(200,133,10,0.8) 1px, transparent 1px),
+          linear-gradient(120deg, rgba(200,133,10,0.8) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(200,133,10,0.4) 1px, transparent 1px);
+        background-size: 120px 120px, 120px 120px, 60px 60px;
+      }
+
+      /* ═══ LOGIN SCREEN ═══ */
+      #loginScreen {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--void);
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+      #loginScreen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+      .login-box {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 3rem 2.5rem;
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      }
+
+      .login-logo {
+        font-family: "Cinzel", serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--amber3);
+        letter-spacing: 0.12em;
+        text-align: center;
+        margin-bottom: 0.3rem;
+      }
+      .login-sub {
+        text-align: center;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--slate);
+        margin-bottom: 2.2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .form-group label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--slate);
+      }
+      .form-group input {
+        background: var(--dark3);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.7rem 1rem;
+        color: var(--off);
+        font-family: "Raleway", sans-serif;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .form-group input:focus { border-color: var(--amber2); }
+
+      .login-error {
+        color: #e57373;
+        font-size: 0.82rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        min-height: 1.2em;
+      }
+
+      .btn-login {
+        width: 100%;
+        background: linear-gradient(135deg, var(--amber), var(--amber2));
+        color: var(--void);
+        border: none;
+        border-radius: 6px;
+        padding: 0.85rem;
+        font-family: "Cinzel", serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.15s;
+        margin-top: 0.4rem;
+      }
+      .btn-login:hover { opacity: 0.88; transform: translateY(-1px); }
+      .btn-login:active { transform: translateY(0); }
+
+      .login-hint {
+        margin-top: 1.4rem;
+        text-align: center;
+        font-size: 0.72rem;
+        color: var(--dark4);
+        user-select: none;
+      }
+
+      /* ═══ ADMIN PANEL ═══ */
+      #adminPanel {
+        display: none;
+        flex-direction: column;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+      }
+      #adminPanel.visible { display: flex; }
+
+      /* Topbar */
+      .topbar {
+        height: 64px;
+        background: rgba(10,11,13,0.95);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(18px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .topbar-brand {
+        font-family: "Cinzel", serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--amber3);
+        letter-spacing: 0.12em;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .topbar-badge {
+        font-family: "Raleway", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        background: var(--amber);
+        color: var(--void);
+        padding: 0.2rem 0.55rem;
+        border-radius: 4px;
+      }
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+      }
+      .topbar-user {
+        font-size: 0.82rem;
+        color: var(--slate);
+      }
+      .btn-logout {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--slate);
+        border-radius: 5px;
+        padding: 0.4rem 0.9rem;
+        font-family: "Raleway", sans-serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+      }
+      .btn-logout:hover { border-color: var(--amber); color: var(--amber3); }
+
+      /* Main content */
+      .admin-main {
+        flex: 1;
+        padding: 2.5rem 2rem;
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .page-header {
+        margin-bottom: 2rem;
+      }
+      .page-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--amber2);
+        margin-bottom: 0.4rem;
+      }
+      .page-title {
+        font-family: "Cinzel", serif;
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--off);
+        letter-spacing: 0.06em;
+      }
+
+      /* Stats row */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .stat-card {
+        background: var(--panel);
+        border: 1px solid var(--border2);
+        border-radius: 8px;
+        padding: 1.2rem 1.4rem;
+      }
+      .stat-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--slate);
+        margin-bottom: 0.5rem;
+      }
+      .stat-value {
+        font-family: "Cinzel", serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--amber3);
+      }
+
+      /* Filters */
+      .filters {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .filter-select, .filter-input {
+        background: var(--dark3);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.55rem 0.9rem;
+        color: var(--light);
+        font-family: "Raleway", sans-serif;
+        font-size: 0.85rem;
+        outline: none;
+        cursor: pointer;
+        transition: border-color 0.2s;
+      }
+      .filter-select:focus, .filter-input:focus { border-color: var(--amber2); }
+      .filter-input { width: 220px; }
+      .filter-input::placeholder { color: var(--slate); }
+
+      /* Table */
+      .table-wrap {
+        background: var(--panel);
+        border: 1px solid var(--border2);
+        border-radius: 10px;
+        overflow: hidden;
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 700px;
+      }
+      thead {
+        background: var(--dark3);
+        border-bottom: 1px solid var(--border);
+      }
+      th {
+        padding: 0.85rem 1.1rem;
+        text-align: left;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--slate);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--border2);
+        transition: background 0.15s;
+      }
+      tbody tr:last-child { border-bottom: none; }
+      tbody tr:hover { background: rgba(200,133,10,0.04); }
+      td {
+        padding: 0.9rem 1.1rem;
+        font-size: 0.88rem;
+        vertical-align: middle;
+      }
+      .td-id { color: var(--slate); font-size: 0.75rem; font-weight: 500; }
+      .td-name { color: var(--off); font-weight: 500; }
+      .td-barber {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+      }
+      .barber-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--amber), var(--amber2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cinzel", serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--void);
+        flex-shrink: 0;
+      }
+      .td-date { color: var(--light); }
+      .td-time { color: var(--amber3); font-weight: 500; }
+
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.7rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .badge-confirmed { background: rgba(26,122,74,0.2); color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
+      .badge-pending   { background: rgba(200,133,10,0.15); color: var(--amber3); border: 1px solid var(--border); }
+      .badge-cancelled { background: rgba(192,57,43,0.15); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+
+      .actions {
+        display: flex;
+        gap: 0.4rem;
+      }
+      .btn-action {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--slate);
+        border-radius: 4px;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-family: "Raleway", sans-serif;
+      }
+      .btn-action:hover { border-color: var(--amber); color: var(--amber3); }
+      .btn-action.danger:hover { border-color: #f87171; color: #f87171; }
+
+      .empty-state {
+        padding: 3rem;
+        text-align: center;
+        color: var(--slate);
+        font-size: 0.9rem;
+      }
+
+      /* Footer */
+      .admin-footer {
+        padding: 1.2rem 2rem;
+        text-align: center;
+        font-size: 0.7rem;
+        color: var(--dark4);
+        border-top: 1px solid var(--border2);
+        letter-spacing: 0.08em;
+      }
+
+      /* Modal confirm */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s, visibility 0.25s;
+      }
+      .modal-overlay.open { opacity: 1; visibility: visible; }
+      .modal-box {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 2rem;
+        width: 100%;
+        max-width: 360px;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      }
+      .modal-title {
+        font-family: "Cinzel", serif;
+        font-size: 1rem;
+        color: var(--off);
+        margin-bottom: 0.7rem;
+      }
+      .modal-body { font-size: 0.88rem; color: var(--slate); margin-bottom: 1.5rem; line-height: 1.5; }
+      .modal-actions { display: flex; gap: 0.8rem; justify-content: flex-end; }
+      .btn-modal-cancel {
+        background: transparent; border: 1px solid var(--border);
+        color: var(--slate); border-radius: 5px; padding: 0.5rem 1rem;
+        font-family: "Raleway", sans-serif; font-size: 0.82rem; cursor: pointer;
+        transition: border-color 0.2s;
+      }
+      .btn-modal-cancel:hover { border-color: var(--amber); }
+      .btn-modal-confirm {
+        background: #c0392b; border: none; color: #fff;
+        border-radius: 5px; padding: 0.5rem 1rem;
+        font-family: "Raleway", sans-serif; font-size: 0.82rem; cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .btn-modal-confirm:hover { opacity: 0.85; }
+
+      @media (max-width: 600px) {
+        .admin-main { padding: 1.5rem 1rem; }
+        .topbar { padding: 0 1rem; }
+        .topbar-brand span.lbl { display: none; }
+        .filter-input { width: 100%; }
+        .filters { flex-direction: column; align-items: stretch; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="geo-bg"></div>
+
+    <!-- ══════════ LOGIN ══════════ -->
+    <div id="loginScreen">
+      <div class="login-box">
+        <div class="login-logo">HORUS</div>
+        <div class="login-sub">Panel de Administración</div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="username">Usuario</label>
+            <input id="username" type="text" autocomplete="username" placeholder="admin" />
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" />
+          </div>
+          <div class="login-error" id="loginError"></div>
+          <button type="submit" class="btn-login">Ingresar</button>
+        </form>
+
+        <div class="login-hint">Demo: admin / horus2025</div>
+      </div>
+    </div>
+
+    <!-- ══════════ ADMIN PANEL ══════════ -->
+    <div id="adminPanel">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-brand">
+          HORUS
+          <span class="topbar-badge">Admin</span>
+        </div>
+        <div class="topbar-right">
+          <span class="topbar-user" id="topbarUser"></span>
+          <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="admin-main">
+        <div class="page-header">
+          <div class="page-label">Panel de control</div>
+          <h1 class="page-title">Reservaciones</h1>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row" id="statsRow"></div>
+
+        <!-- Filters -->
+        <div class="filters">
+          <input
+            class="filter-input"
+            type="text"
+            id="searchInput"
+            placeholder="Buscar por nombre o teléfono…"
+            oninput="renderTable()"
+          />
+          <select class="filter-select" id="filterBarber" onchange="renderTable()">
+            <option value="">Todos los barberos</option>
+            <option>Misael</option>
+            <option>Nayely</option>
+            <option>Rodrigo</option>
+          </select>
+          <select class="filter-select" id="filterStatus" onchange="renderTable()">
+            <option value="">Todos los estados</option>
+            <option value="confirmed">Confirmada</option>
+            <option value="pending">Pendiente</option>
+            <option value="cancelled">Cancelada</option>
+          </select>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+                <th>Barbero</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Servicio</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </main>
+
+      <footer class="admin-footer">
+        HORUS BARBERSHOP · Panel Administrativo · Solo uso interno
+      </footer>
+    </div>
+
+    <!-- Modal de confirmación de cancelación -->
+    <div class="modal-overlay" id="cancelModal">
+      <div class="modal-box">
+        <div class="modal-title">Cancelar reserva</div>
+        <div class="modal-body" id="cancelModalBody"></div>
+        <div class="modal-actions">
+          <button class="btn-modal-cancel" onclick="closeModal()">Volver</button>
+          <button class="btn-modal-confirm" onclick="confirmCancel()">Sí, cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ══ CREDENCIALES DEMO ══
+      // Reemplazar con autenticación real contra backend
+      const CREDENTIALS = [
+        { user: "admin",   pass: "horus2025", name: "Administrador" },
+        { user: "carlos",  pass: "horus2025", name: "Carlos"        },
+      ];
+
+      // ══ DATOS DEMO ══
+      // Reemplazar con llamada a API/base de datos real
+      let reservations = [
+        {
+          id: "RES-001",
+          name: "Juan Carlos Pérez",
+          phone: "662-123-4567",
+          barber: "Misael",
+          date: "2025-04-18",
+          time: "10:00",
+          service: "Corte + Degradado",
+          status: "confirmed",
+        },
+        {
+          id: "RES-002",
+          name: "Luis Fernando Ruiz",
+          phone: "662-234-5678",
+          barber: "Rodrigo",
+          date: "2025-04-18",
+          time: "11:30",
+          service: "Afeitado clásico",
+          status: "confirmed",
+        },
+        {
+          id: "RES-003",
+          name: "Andrés Morales",
+          phone: "662-345-6789",
+          barber: "Nayely",
+          date: "2025-04-19",
+          time: "09:00",
+          service: "Corte + Tratamiento",
+          status: "pending",
+        },
+        {
+          id: "RES-004",
+          name: "Miguel Ángel Torres",
+          phone: "662-456-7890",
+          barber: "Misael",
+          date: "2025-04-19",
+          time: "12:00",
+          service: "Corte moderno",
+          status: "pending",
+        },
+        {
+          id: "RES-005",
+          name: "Roberto Díaz",
+          phone: "662-567-8901",
+          barber: "Rodrigo",
+          date: "2025-04-17",
+          time: "15:00",
+          service: "Diseño de barba",
+          status: "confirmed",
+        },
+        {
+          id: "RES-006",
+          name: "Sergio Cano",
+          phone: "662-678-9012",
+          barber: "Nayely",
+          date: "2025-04-17",
+          time: "16:30",
+          service: "Corte clásico",
+          status: "cancelled",
+        },
+        {
+          id: "RES-007",
+          name: "Héctor Villegas",
+          phone: "662-789-0123",
+          barber: "Misael",
+          date: "2025-04-20",
+          time: "10:00",
+          service: "Corte + Degradado",
+          status: "pending",
+        },
+        {
+          id: "RES-008",
+          name: "Omar Espinoza",
+          phone: "662-890-1234",
+          barber: "Rodrigo",
+          date: "2025-04-20",
+          time: "13:30",
+          service: "Afeitado + Barba",
+          status: "confirmed",
+        },
+      ];
+
+      let pendingCancelId = null;
+
+      // ══ AUTH ══
+      function handleLogin(e) {
+        e.preventDefault();
+        const user = document.getElementById("username").value.trim();
+        const pass = document.getElementById("password").value;
+        const match = CREDENTIALS.find(c => c.user === user && c.pass === pass);
+
+        if (match) {
+          sessionStorage.setItem("horusAdmin", JSON.stringify({ user: match.user, name: match.name }));
+          enterPanel(match.name);
+        } else {
+          const el = document.getElementById("loginError");
+          el.textContent = "Credenciales incorrectas. Intenta de nuevo.";
+          document.getElementById("password").value = "";
+          setTimeout(() => { el.textContent = ""; }, 3000);
+        }
+      }
+
+      function enterPanel(name) {
+        document.getElementById("loginScreen").classList.add("hidden");
+        const panel = document.getElementById("adminPanel");
+        panel.classList.add("visible");
+        document.getElementById("topbarUser").textContent = name;
+        renderStats();
+        renderTable();
+      }
+
+      function logout() {
+        sessionStorage.removeItem("horusAdmin");
+        document.getElementById("loginScreen").classList.remove("hidden");
+        document.getElementById("adminPanel").classList.remove("visible");
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+      }
+
+      // ══ STATS ══
+      function renderStats() {
+        const total     = reservations.length;
+        const confirmed = reservations.filter(r => r.status === "confirmed").length;
+        const pending   = reservations.filter(r => r.status === "pending").length;
+        const cancelled = reservations.filter(r => r.status === "cancelled").length;
+
+        document.getElementById("statsRow").innerHTML = `
+          <div class="stat-card">
+            <div class="stat-label">Total</div>
+            <div class="stat-value">${total}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Confirmadas</div>
+            <div class="stat-value" style="color:var(--green2)">${confirmed}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pendientes</div>
+            <div class="stat-value" style="color:var(--amber3)">${pending}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Canceladas</div>
+            <div class="stat-value" style="color:#f87171">${cancelled}</div>
+          </div>
+        `;
+      }
+
+      // ══ TABLE ══
+      const statusLabel = { confirmed: "Confirmada", pending: "Pendiente", cancelled: "Cancelada" };
+      const statusClass = { confirmed: "badge-confirmed", pending: "badge-pending", cancelled: "badge-cancelled" };
+
+      function formatDate(iso) {
+        const [y, m, d] = iso.split("-");
+        const months = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+        return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+      }
+
+      function renderTable() {
+        const search  = document.getElementById("searchInput").value.toLowerCase();
+        const barber  = document.getElementById("filterBarber").value;
+        const status  = document.getElementById("filterStatus").value;
+
+        const filtered = reservations.filter(r => {
+          const matchSearch = !search ||
+            r.name.toLowerCase().includes(search) ||
+            r.phone.includes(search);
+          const matchBarber = !barber || r.barber === barber;
+          const matchStatus = !status || r.status === status;
+          return matchSearch && matchBarber && matchStatus;
+        });
+
+        const tbody = document.getElementById("tableBody");
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state">No se encontraron reservaciones con ese criterio.</div></td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(r => `
+          <tr>
+            <td class="td-id">${r.id}</td>
+            <td class="td-name">${r.name}</td>
+            <td>${r.phone}</td>
+            <td>
+              <div class="td-barber">
+                <div class="barber-avatar">${r.barber[0]}</div>
+                ${r.barber}
+              </div>
+            </td>
+            <td class="td-date">${formatDate(r.date)}</td>
+            <td class="td-time">${r.time} hrs</td>
+            <td>${r.service}</td>
+            <td><span class="badge ${statusClass[r.status]}">${statusLabel[r.status]}</span></td>
+            <td>
+              <div class="actions">
+                ${r.status === "pending" ? `<button class="btn-action" onclick="confirmReservation('${r.id}')">Confirmar</button>` : ""}
+                ${r.status !== "cancelled" ? `<button class="btn-action danger" onclick="openCancelModal('${r.id}')">Cancelar</button>` : ""}
+              </div>
+            </td>
+          </tr>
+        `).join("");
+      }
+
+      function confirmReservation(id) {
+        const r = reservations.find(r => r.id === id);
+        if (r) { r.status = "confirmed"; renderStats(); renderTable(); }
+      }
+
+      function openCancelModal(id) {
+        const r = reservations.find(r => r.id === id);
+        if (!r) return;
+        pendingCancelId = id;
+        document.getElementById("cancelModalBody").textContent =
+          `¿Confirmas la cancelación de la reserva de ${r.name} el ${formatDate(r.date)} a las ${r.time} hrs con ${r.barber}?`;
+        document.getElementById("cancelModal").classList.add("open");
+      }
+
+      function closeModal() {
+        pendingCancelId = null;
+        document.getElementById("cancelModal").classList.remove("open");
+      }
+
+      function confirmCancel() {
+        const r = reservations.find(r => r.id === pendingCancelId);
+        if (r) { r.status = "cancelled"; renderStats(); renderTable(); }
+        closeModal();
+      }
+
+      // Cerrar modal al hacer clic fuera
+      document.getElementById("cancelModal").addEventListener("click", function(e) {
+        if (e.target === this) closeModal();
+      });
+
+      // ══ AUTO-LOGIN si ya hay sesión ══
+      (function checkSession() {
+        const saved = sessionStorage.getItem("horusAdmin");
+        if (saved) {
+          try {
+            const { name } = JSON.parse(saved);
+            enterPanel(name);
+          } catch { sessionStorage.removeItem("horusAdmin"); }
+        }
+      })();
+    </script>
+  </body>
+</html>
