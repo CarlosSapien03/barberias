@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Georgie Barbershop · Centro · Hermosillo, Sonora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!--
+  ══════════════════════════════════════════════
+  GUÍA DE IMÁGENES — misma carpeta que el HTML:
+
+    logo-georgie.png   → Logo de Georgie Barbershop
+    hero-bg.jpg        → Foto de fondo hero
+    foto-local.jpg     → Interior del local
+    foto-sillas.jpg    → Sillas del local
+    galeria-1.jpg      → Galería foto 1
+    galeria-2.jpg      → Galería foto 2
+    galeria-3.jpg      → Galería foto 3
+    galeria-4.jpg      → Galería foto 4
+    galeria-5.jpg      → Galería foto 5
+    george.jpg         → Foto de George (barbero)
+  ══════════════════════════════════════════════
+-->
+
+<style>
+  :root {
+    --black:    #070707;
+    --black2:   #0d0d0d;
+    --black3:   #131313;
+    --black4:   #1a1a1a;
+    --black5:   #222222;
+    --gold:     #b5882a;
+    --gold2:    #cfa040;
+    --gold3:    #e8be60;
+    --gold4:    #f8d880;
+    --gold-dim: rgba(181,136,42,0.1);
+    --white:    #ffffff;
+    --silver:   #e0e0e0;
+    --off:      #c8c8c8;
+    --muted:    #707070;
+    --border:   rgba(181,136,42,0.2);
+    --borderd:  rgba(181,136,42,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--off);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ═══════════════════════════ NAV ═══════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    background: rgba(7,7,7,0.96);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    animation: navSlide .5s ease both;
+  }
+  @keyframes navSlide { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .nav-logo img {
+    height: 46px; width: auto; display: block; object-fit: contain;
+  }
+  .nav-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600; font-size: 1.4rem; letter-spacing: .12em;
+    color: var(--silver); display: none;
+  }
+  .nav-logo-text em { font-style: normal; color: var(--gold3); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a {
+    text-decoration: none; font-size: .68rem;
+    font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold3); }
+  .nav-book {
+    background: linear-gradient(135deg, var(--gold), var(--gold2)) !important;
+    color: var(--black) !important; padding: .44rem 1.5rem !important;
+    font-weight: 600 !important; letter-spacing: .12em !important;
+    transition: opacity .2s !important;
+  }
+  .nav-book:hover { opacity: .88 !important; }
+
+  /* ═══════════════════════════ HERO ═══════════════════════════ */
+  #hero {
+    min-height: 100vh;
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+
+  .hero-bg-layer {
+    position: absolute; inset: 0;
+    background: var(--black2);
+  }
+  .hero-bg-layer img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    opacity: .25; filter: grayscale(30%);
+  }
+  .hero-bg-ph {
+    width: 100%; height: 100%;
+    background: linear-gradient(155deg, #0d0d0d 0%, #131313 50%, #0a0a0a 100%);
+  }
+
+  /* Overlays */
+  .hero-ov-left {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(7,7,7,1) 0%, rgba(7,7,7,0.6) 55%, transparent 100%);
+  }
+  .hero-ov-bottom {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(7,7,7,1) 0%, transparent 50%);
+  }
+
+  /* Gold vertical lines decoration */
+  .hero-lines {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
+    pointer-events: none; overflow: hidden;
+  }
+  .hero-lines::before {
+    content: '';
+    position: absolute; top: 0; bottom: 0; left: 0; width: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold), transparent);
+    opacity: .3;
+  }
+  .hero-lines svg { width: 100%; height: 100%; opacity: .04; }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 3rem 6rem;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: .8rem;
+    margin-bottom: 2rem; padding-top: 9rem;
+    animation: fadeUp .6s .1s both;
+  }
+  .ey-dash { width: 28px; height: 1px; background: var(--gold2); }
+  .ey-label {
+    font-size: .65rem; font-weight: 500; letter-spacing: .35em;
+    text-transform: uppercase; color: var(--gold2);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    line-height: 1; color: var(--white);
+    letter-spacing: .02em;
+    animation: fadeUp .6s .22s both;
+  }
+  h1 em {
+    display: block; font-style: italic;
+    background: linear-gradient(90deg, var(--gold2), var(--gold4));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-style: italic; font-weight: 300;
+    color: var(--muted); max-width: 420px; margin: 1.5rem 0 2.5rem;
+    line-height: 1.7;
+    animation: fadeUp .6s .36s both;
+  }
+
+  .hero-actions { display: flex; gap: .9rem; flex-wrap: wrap; animation: fadeUp .6s .5s both; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .88rem 2.2rem; font-family: 'Montserrat', sans-serif;
+    font-weight: 600; font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
+    text-decoration: none; transition: all .22s; border: none; cursor: pointer;
+  }
+  .btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--black); }
+  .btn-gold:hover { opacity: .88; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(181,136,42,0.35); }
+  .btn-border { background: transparent; color: var(--silver); border: 1px solid rgba(224,224,224,0.2); }
+  .btn-border:hover { border-color: var(--gold2); color: var(--gold3); transform: translateY(-2px); }
+
+  /* Hero bottom stats bar */
+  .hero-stats-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--borderd);
+    animation: fadeUp .6s .65s both;
+  }
+  @media (max-width: 700px) { .hero-stats-bar { grid-template-columns: repeat(2, 1fr); } }
+
+  .hs-item {
+    padding: 1.4rem 2rem;
+    border-right: 1px solid var(--borderd);
+    background: rgba(7,7,7,0.85);
+    backdrop-filter: blur(8px);
+  }
+  .hs-item:last-child { border-right: none; }
+  .hs-n {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 700; color: var(--white); line-height: 1;
+  }
+  .hs-n em { color: var(--gold3); font-style: normal; }
+  .hs-l { font-size: .58rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: .25rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ═══════════════════════════ GOLD BAR + TICKER ═══════════════════════════ */
+  .gold-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--gold2), var(--gold3), var(--gold2), transparent); }
+  .ticker-bar { background: var(--black2); padding: .58rem 0; overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--borderd); }
+  .ticker-track { display: inline-flex; animation: tick 25s linear infinite; }
+  .ticker-track span {
+    font-size: .62rem; font-weight: 600; letter-spacing: .32em; text-transform: uppercase;
+    color: var(--gold2); padding: 0 3rem;
+  }
+  .ticker-track span::before { content: '◆  '; font-size: .45rem; }
+  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ═══════════════════════════ SECTION BASE ═══════════════════════════ */
+  section { padding: 7rem 3rem; }
+
+  .s-tag {
+    font-size: .6rem; font-weight: 600; letter-spacing: .38em; text-transform: uppercase;
+    color: var(--gold2); margin-bottom: .8rem;
+    display: flex; align-items: center; gap: .7rem;
+  }
+  .s-tag::before { content: ''; width: 18px; height: 1px; background: var(--gold); }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 600;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    color: var(--white); line-height: 1.12; margin-bottom: .6rem; letter-spacing: .02em;
+  }
+  h2 em { font-style: italic; color: var(--gold3); }
+
+  .s-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; font-style: italic; font-weight: 300;
+    color: var(--muted); line-height: 1.8; max-width: 520px; margin-bottom: 3.5rem;
+  }
+
+  .gold-sep {
+    display: flex; align-items: center; gap: .9rem; margin: .7rem 0 1.5rem;
+  }
+  .gs-line { width: 50px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+  .gs-dot { width: 5px; height: 5px; background: var(--gold2); border-radius: 50%; }
+
+  /* ═══════════════════════════ NOSOTROS ═══════════════════════════ */
+  #nosotros { background: var(--black2); }
+
+  .about-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 860px) { .about-wrap { grid-template-columns: 1fr; gap: 3.5rem; } }
+
+  .about-left p { font-size: .88rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.2rem; }
+  .about-left strong { color: var(--off); font-weight: 500; }
+
+  .feature-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
+  .feat-item {
+    display: flex; gap: 1rem; align-items: center;
+    padding: .8rem 0; border-bottom: 1px solid var(--borderd);
+  }
+  .feat-item:first-child { border-top: 1px solid var(--borderd); }
+  .feat-dot { width: 6px; height: 6px; background: var(--gold2); border-radius: 50%; flex-shrink: 0; }
+  .feat-item span { font-size: .78rem; font-weight: 500; letter-spacing: .06em; color: var(--off); }
+  .feat-badge {
+    margin-left: auto; font-size: .55rem; font-weight: 700; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--gold2);
+    background: var(--gold-dim); border: 1px solid var(--border);
+    padding: .2rem .6rem;
+  }
+
+  /* About images */
+  .about-right { display: flex; flex-direction: column; gap: 1.2rem; }
+  .about-img-main {
+    width: 100%; aspect-ratio: 4/3; overflow: hidden;
+    background: var(--black3); border: 1px solid var(--border); position: relative;
+  }
+  .about-img-main img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+  .about-img-main:hover img { transform: scale(1.04); }
+  .aim-ph {
+    width: 100%; height: 100%; min-height: 260px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(150deg, var(--black3), var(--black4));
+  }
+  .aim-ph p { font-size: .6rem; letter-spacing: .2em; color: rgba(181,136,42,0.3); text-transform: uppercase; }
+
+  .about-img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2px; background: var(--border); border: 1px solid var(--border); }
+  .aip-block {
+    background: var(--black3); padding: 1.6rem 1.4rem;
+    display: flex; flex-direction: column; gap: .3rem;
+  }
+  .aip-n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; color: var(--white); line-height: 1; }
+  .aip-n em { color: var(--gold3); font-style: normal; }
+  .aip-l { font-size: .58rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+  /* ═══════════════════════════ SERVICIOS ═══════════════════════════ */
+  #servicios { background: var(--black); text-align: center; }
+
+  /* Paquetes destacados */
+  .packages-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    max-width: 1200px; margin: 0 auto 1px;
+  }
+  @media (max-width: 860px) { .packages-grid { grid-template-columns: 1fr; } }
+
+  .pkg {
+    background: var(--black); padding: 3rem 2.4rem; position: relative;
+    transition: background .3s; overflow: hidden;
+  }
+  .pkg.featured { background: var(--black3); }
+  .pkg.featured::before {
+    content: 'POPULAR'; position: absolute; top: 1.2rem; right: 1.5rem;
+    font-size: .5rem; font-weight: 700; letter-spacing: .24em;
+    color: var(--black); background: var(--gold2); padding: .2rem .7rem;
+  }
+  .pkg:hover { background: var(--black3); }
+
+  .pkg-badge {
+    display: inline-block; font-size: .55rem; font-weight: 700; letter-spacing: .25em;
+    text-transform: uppercase; color: var(--gold2); margin-bottom: 1.2rem;
+    border-bottom: 1px solid var(--border); padding-bottom: .4rem;
+  }
+  .pkg h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700;
+    color: var(--white); margin-bottom: .6rem; letter-spacing: .03em;
+  }
+  .pkg-desc { font-size: .8rem; color: var(--muted); line-height: 1.82; margin-bottom: 1.5rem; }
+  .pkg-includes { display: flex; flex-direction: column; gap: .45rem; margin-bottom: 1.8rem; }
+  .pkg-includes li { display: flex; gap: .6rem; align-items: center; font-size: .75rem; color: var(--off); }
+  .pkg-includes li::before { content: '—'; color: var(--gold2); font-size: .7rem; }
+  .pkg-price { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 700; color: var(--gold3); line-height: 1; }
+  .pkg-dur { font-size: .58rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: .3rem; }
+
+  /* Servicios individuales */
+  .singles-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--borderd); border: 1px solid var(--borderd);
+    max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 900px) { .singles-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .singles-grid { grid-template-columns: 1fr; } }
+
+  .single-svc {
+    background: var(--black); padding: 1.8rem 1.6rem;
+    transition: background .25s; display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem;
+  }
+  .single-svc:hover { background: var(--black2); }
+  .ss-name { font-size: .8rem; font-weight: 500; letter-spacing: .04em; color: var(--off); }
+  .ss-dur { font-size: .62rem; color: var(--muted); margin-top: .15rem; letter-spacing: .06em; }
+  .ss-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold3); white-space: nowrap; }
+
+  /* ═══════════════════════════ GALERÍA ═══════════════════════════ */
+  #galeria { background: var(--black2); padding-bottom: 0; text-align: center; }
+
+  .gallery-mosaic {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 3px; margin-top: 2rem;
+  }
+  @media (max-width: 700px) { .gallery-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; } }
+
+  .gal-item { position: relative; overflow: hidden; background: var(--black3); cursor: pointer; }
+  .gal-item.tall { grid-row: span 2; }
+
+  .gal-item img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    opacity: .65; filter: grayscale(15%); transition: transform .55s, opacity .3s, filter .3s;
+  }
+  .gal-item:hover img { transform: scale(1.07); opacity: .9; filter: grayscale(0%); }
+
+  .gal-ph {
+    width: 100%; height: 100%; min-height: 160px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gal-ph p { font-size: .58rem; color: rgba(181,136,42,0.22); letter-spacing: .2em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; }
+
+  .gal-item::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(7,7,7,0.75) 0%, transparent 55%);
+    pointer-events: none; transition: opacity .3s;
+  }
+  .gal-item:hover::after { opacity: .35; }
+
+  .gal-lbl {
+    position: absolute; bottom: 1rem; left: 1.4rem; z-index: 2;
+    font-size: .6rem; font-weight: 600; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--gold3);
+  }
+
+  /* bg shades */
+  .gb1 { background: linear-gradient(150deg, #111, #0d0d0d); }
+  .gb2 { background: linear-gradient(150deg, #0d0d0d, #131313); }
+  .gb3 { background: linear-gradient(150deg, #131313, #111); }
+  .gb4 { background: linear-gradient(150deg, #0d0d0d, #111); }
+
+  /* ═══════════════════════════ GEORGE ═══════════════════════════ */
+  #george {
+    background: var(--black);
+    display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    padding: 0; gap: 0;
+  }
+  @media (max-width: 860px) { #george { grid-template-columns: 1fr; } }
+
+  .george-img {
+    height: 600px; overflow: hidden;
+    background: var(--black3); position: relative;
+  }
+  .george-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(15%); }
+  .george-img-ph {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #131313, #1a1a1a);
+  }
+  .george-img-ph span { font-family: 'Cormorant Garamond', serif; font-size: 6rem; font-weight: 700; color: rgba(181,136,42,0.12); letter-spacing: .1em; }
+
+  /* Gold line between */
+  .george-img::after {
+    content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold2), transparent); opacity: .5;
+  }
+
+  .george-content { padding: 5rem 4rem; }
+  .george-content .s-tag { justify-content: flex-start; }
+  .george-content h2 { font-size: 2.8rem; }
+  .george-content .s-intro { font-size: 1rem; }
+  .george-content p { font-size: .85rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.2rem; }
+  .george-content strong { color: var(--off); font-weight: 500; }
+
+  .george-quote {
+    margin-top: 2rem; padding: 1.8rem 2rem;
+    border-left: 3px solid var(--gold); background: var(--gold-dim);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.1rem; color: var(--silver); line-height: 1.75;
+  }
+  .george-quote cite { display: block; margin-top: .8rem; font-size: .65rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold2); font-style: normal; }
+
+  @media (max-width: 700px) { .george-content { padding: 3rem 1.5rem; } .george-img { height: 360px; } }
+
+  /* ═══════════════════════════ RESERVAS ═══════════════════════════ */
+  #reservas { background: var(--black2); }
+
+  .rsv-wrap { max-width: 900px; margin: 0 auto; }
+
+  .steps-nav {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--borderd); border: 1px solid var(--borderd);
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 580px) { .steps-nav { grid-template-columns: 1fr; } }
+
+  .sn-tab {
+    background: var(--black2); padding: 1.4rem 1.5rem;
+    display: flex; align-items: center; gap: .9rem;
+    opacity: .4; transition: opacity .3s, background .3s;
+  }
+  .sn-tab.active { opacity: 1; background: var(--black3); }
+  .sn-tab.done { opacity: .65; }
+
+  .sn-num {
+    width: 32px; height: 32px; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700;
+    color: var(--gold2); flex-shrink: 0; background: var(--gold-dim);
+    transition: all .25s;
+  }
+  .sn-tab.active .sn-num { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--black); border-color: transparent; }
+  .sn-tab.done .sn-num { background: var(--gold); color: var(--black); border-color: transparent; }
+  .sn-tab.done .sn-num::after { content: '✓'; }
+  .sn-tab.done .sn-num span { display: none; }
+
+  .sn-info .sn-step { font-size: .55rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .sn-info .sn-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--silver); margin-top: .1rem; }
+  .sn-tab.active .sn-info .sn-title { color: var(--white); }
+
+  /* Panels */
+  .rsv-panel { display: none; }
+  .rsv-panel.active { display: block; }
+
+  /* Paso 1 — Solo George */
+  .barber-solo {
+    border: 1px solid var(--border); padding: 2rem 2.5rem;
+    background: var(--black3); display: flex; align-items: center; gap: 2rem;
+    cursor: pointer; transition: background .25s; position: relative;
+  }
+  .barber-solo.sel { background: var(--black4); }
+  .barber-solo.sel::after {
+    content: 'Seleccionado ✓'; position: absolute; top: 1rem; right: 1.5rem;
+    font-size: .6rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold2);
+  }
+  .barber-solo:hover { background: var(--black4); }
+  .bs-avatar {
+    width: 80px; height: 80px; border-radius: 50%; overflow: hidden;
+    border: 2px solid var(--border); background: var(--black4); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--gold2);
+    transition: border-color .25s;
+  }
+  .barber-solo.sel .bs-avatar { border-color: var(--gold); }
+  .bs-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .bs-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--white); }
+  .bs-role { font-size: .62rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gold2); margin-top: .2rem; }
+  .bs-desc { font-size: .8rem; color: var(--muted); line-height: 1.7; margin-top: .4rem; }
+
+  /* Also show other barbers option */
+  .barbers-row { display: flex; flex-direction: column; gap: .8rem; }
+  .barber-opt-small {
+    border: 1px solid var(--borderd); padding: 1.2rem 1.5rem;
+    background: var(--black2); display: flex; align-items: center; gap: 1rem;
+    cursor: pointer; transition: all .2s; position: relative; user-select: none;
+  }
+  .barber-opt-small:hover { border-color: var(--border); background: var(--black3); }
+  .barber-opt-small.sel { border-color: var(--gold); background: var(--gold-dim); }
+  .barber-opt-small.sel::after { content: '✓'; position: absolute; right: 1.2rem; color: var(--gold2); font-weight: 700; }
+  .bos-av {
+    width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
+    background: var(--black4); border: 1px solid var(--borderd);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--gold2);
+    flex-shrink: 0; transition: border-color .2s;
+  }
+  .barber-opt-small.sel .bos-av { border-color: var(--gold); }
+  .bos-av img { width: 100%; height: 100%; object-fit: cover; }
+  .bos-name { font-weight: 600; font-size: .85rem; color: var(--off); }
+  .bos-spec { font-size: .68rem; color: var(--muted); }
+
+  /* Paso 2 — Calendario */
+  .cal-box {
+    max-width: 400px; border: 1px solid var(--borderd); background: var(--black3); padding: 1.8rem;
+  }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+  .cal-btn {
+    width: 30px; height: 30px; border: 1px solid var(--borderd); background: none;
+    color: var(--gold2); cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: .9rem; transition: border-color .2s; font-family: inherit;
+  }
+  .cal-btn:hover { border-color: var(--gold2); }
+  .cal-month-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--white); letter-spacing: .06em; }
+  .cal-g { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .cal-dn { text-align: center; font-size: .55rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: .4rem 0; }
+  .cal-d {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: .78rem; cursor: pointer; transition: all .18s; color: var(--off);
+    border: 1px solid transparent;
+  }
+  .cal-d:hover:not(.dis):not(.emp) { border-color: var(--border); color: var(--gold3); background: var(--gold-dim); }
+  .cal-d.sel { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--black); font-weight: 700; border-color: transparent; }
+  .cal-d.dis { color: rgba(112,112,112,0.22); cursor: not-allowed; }
+  .cal-d.emp { cursor: default; }
+  .cal-d.tod { border-color: var(--borderd); color: var(--gold2); }
+
+  /* Paso 3 — Horarios */
+  .slots-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: .55rem;
+  }
+  @media (max-width: 540px) { .slots-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .slot {
+    padding: .7rem .4rem; text-align: center;
+    border: 1px solid var(--borderd); font-size: .72rem; font-weight: 600;
+    letter-spacing: .06em; color: var(--off); cursor: pointer;
+    transition: all .18s; background: var(--black3);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .slot:hover:not(.occ) { border-color: var(--gold); color: var(--gold3); background: var(--gold-dim); }
+  .slot.sel { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: var(--black); border-color: transparent; font-weight: 700; }
+  .slot.occ { color: rgba(112,112,112,0.2); border-color: rgba(255,255,255,0.03); cursor: not-allowed; font-size: .6rem; }
+
+  /* Resumen */
+  .rsv-summary { margin-top: 2rem; border: 1px solid var(--border); background: var(--gold-dim); padding: 1.4rem 2rem; display: none; }
+  .rsv-summary.on { display: block; }
+  .rs-head { font-size: .58rem; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: var(--gold2); margin-bottom: .9rem; }
+  .rs-row { display: flex; justify-content: space-between; font-size: .82rem; padding: .32rem 0; border-bottom: 1px solid rgba(181,136,42,0.08); }
+  .rs-row:last-child { border: none; }
+  .rs-k { color: var(--muted); }
+  .rs-v { color: var(--silver); font-weight: 500; }
+
+  /* Confirm */
+  .rsv-confirm-wrap { margin-top: 2rem; }
+  #btnConfirm {
+    width: 100%; padding: 1.1rem 2rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    border: none; cursor: not-allowed;
+    background: var(--black4); color: var(--muted); transition: all .3s;
+  }
+  #btnConfirm.ready {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--black); cursor: pointer;
+    box-shadow: 0 0 28px rgba(181,136,42,0.22);
+  }
+  #btnConfirm.ready:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(181,136,42,0.38); }
+  .rsv-note { font-size: .62rem; font-weight: 600; letter-spacing: .12em; color: var(--muted); margin-top: .6rem; text-align: center; }
+
+  /* ═══════════════════════════ RESEÑAS ═══════════════════════════ */
+  #resenas { background: var(--black); text-align: center; }
+
+  .rating-hero {
+    display: flex; align-items: center; justify-content: center;
+    gap: 3rem; flex-wrap: wrap; margin-bottom: 3.5rem;
+  }
+  .rh-big { font-family: 'Cormorant Garamond', serif; font-size: 5.5rem; font-weight: 700; color: var(--white); line-height: 1; }
+  .rh-stars { font-size: 1.3rem; color: var(--gold3); letter-spacing: .1em; margin-top: .2rem; }
+  .rh-label { font-size: .58rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: .3rem; }
+  .rh-sep { width: 1px; height: 60px; background: var(--borderd); }
+
+  .rev-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--borderd); border: 1px solid var(--borderd);
+    max-width: 1200px; margin: 0 auto;
+  }
+  @media (max-width: 800px) { .rev-grid { grid-template-columns: 1fr; } }
+
+  .rev-card { background: var(--black); padding: 2.2rem 2rem; transition: background .25s; text-align: left; }
+  .rev-card:hover { background: var(--black2); }
+  .rc-stars { color: var(--gold3); font-size: .9rem; letter-spacing: .06em; margin-bottom: .8rem; }
+  .rc-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--silver); line-height: 1.78; margin-bottom: 1.1rem; }
+  .rc-name { font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold2); }
+  .rc-source { font-size: .6rem; color: var(--muted); margin-top: .15rem; letter-spacing: .06em; }
+
+  /* ═══════════════════════════ CONTACTO ═══════════════════════════ */
+  #contacto {
+    background: var(--black2);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0;
+  }
+  @media (max-width: 800px) { #contacto { grid-template-columns: 1fr; } }
+
+  .ct-l { padding: 6.5rem 3rem; border-right: 1px solid var(--borderd); }
+  .ct-r { padding: 6.5rem 3rem; }
+
+  .ct-l h2 { text-align: left; font-size: 2.4rem; }
+  .ct-l .s-tag { justify-content: flex-start; }
+  .ct-l .gold-sep { justify-content: flex-start; }
+
+  .ct-items { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 2rem; }
+  .ct-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .ct-icon {
+    width: 40px; height: 40px; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .58rem; font-weight: 700; letter-spacing: .08em;
+    color: var(--gold2); flex-shrink: 0; background: var(--gold-dim);
+  }
+  .ct-lbl { font-size: .58rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+  .ct-val { font-size: .88rem; color: var(--off); line-height: 1.6; }
+  .ct-val a { color: var(--off); text-decoration: none; transition: color .2s; }
+  .ct-val a:hover { color: var(--gold3); }
+
+  .hrs-tbl { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .hrs-tbl td { padding: .72rem 0; font-size: .8rem; border-bottom: 1px solid var(--borderd); }
+  .hrs-tbl td:last-child { text-align: right; color: var(--muted); }
+  .hrs-tbl tr.cls td { color: rgba(112,112,112,0.25); }
+
+  .book-cta {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--gold-dim); border: 1px solid var(--border);
+    padding: 1.3rem 1.6rem; text-decoration: none; transition: background .2s; margin-top: 2rem;
+  }
+  .book-cta:hover { background: rgba(181,136,42,0.15); }
+  .book-cta-label { font-size: .58rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .book-cta-val { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--gold3); }
+
+  /* Right */
+  .ct-r { display: flex; flex-direction: column; gap: 1.5rem; justify-content: center; }
+
+  .logo-display {
+    background: var(--black3); border: 1px solid var(--border);
+    padding: 3rem; display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+  .logo-display img { width: 70%; max-width: 220px; height: auto; display: block; }
+  .logo-display-text {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700;
+    color: var(--white); letter-spacing: .08em; text-align: center;
+  }
+  .logo-display-text em { color: var(--gold3); font-style: normal; display: block; font-size: .8em; }
+  .logo-display p { font-size: .78rem; color: var(--muted); text-align: center; line-height: 1.7; }
+
+  .social-links { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--borderd); border: 1px solid var(--borderd); }
+  .soc-link {
+    background: var(--black2); padding: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; font-size: .62rem; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+    gap: .5rem; transition: all .2s;
+  }
+  .soc-link:hover { background: var(--black3); color: var(--gold2); }
+
+  .fresha-cta {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    padding: 1.8rem 2rem; text-align: center;
+  }
+  .fresha-cta h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--black); margin-bottom: .4rem; }
+  .fresha-cta p { font-size: .75rem; color: rgba(0,0,0,.5); margin-bottom: 1rem; line-height: 1.6; }
+  .fresha-cta a {
+    display: inline-block; padding: .65rem 1.8rem;
+    background: var(--black); color: var(--gold3);
+    font-size: .65rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    text-decoration: none; font-family: 'Montserrat', sans-serif; transition: background .2s;
+  }
+  .fresha-cta a:hover { background: var(--black2); }
+
+  /* ═══════════════════════════ MAP ═══════════════════════════ */
+  #mapa { padding: 0; }
+  .map-box { position: relative; height: 360px; overflow: hidden; }
+  .map-box iframe { width: 100%; height: 100%; border: 0; filter: grayscale(100%) brightness(.55) sepia(10%); }
+  .map-badge {
+    position: absolute; top: 2rem; left: 3rem;
+    background: var(--black); border: 1px solid var(--border); padding: 1rem 1.6rem;
+  }
+  .map-badge strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: .15rem; }
+  .map-badge span { font-size: .68rem; color: var(--muted); letter-spacing: .04em; }
+
+  /* ═══════════════════════════ FOOTER ═══════════════════════════ */
+  footer { background: var(--black); border-top: 1px solid var(--borderd); padding: 3.5rem 3rem; }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--borderd);
+  }
+  @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } }
+
+  .fb-wrap img { height: 44px; width: auto; display: block; margin-bottom: 1rem; }
+  .fb-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--white); letter-spacing: .06em; }
+  .fb-name em { color: var(--gold3); font-style: normal; }
+  .fb-sub { font-size: .58rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold2); margin-top: .1rem; display: block; }
+  .fb-p { font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-style: italic; color: var(--muted); line-height: 1.8; margin-top: .9rem; max-width: 240px; }
+
+  .fc-h { font-size: .6rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--gold2); margin-bottom: 1.1rem; }
+  .fc-ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+  .fc-ul li { font-size: .8rem; color: var(--muted); }
+  .fc-ul li a { color: var(--muted); text-decoration: none; transition: color .2s; }
+  .fc-ul li a:hover { color: var(--off); }
+
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-bottom p { font-size: .68rem; color: rgba(112,112,112,.35); letter-spacing: .04em; }
+
+  /* ═══════════════════════════ REVEAL ═══════════════════════════ */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+  @media (max-width: 700px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.25rem; }
+    .hero-content { padding: 0 1.25rem 7rem; }
+    h1 { font-size: 3.5rem; }
+    .hero-stats-bar { grid-template-columns: 1fr 1fr; }
+    .ct-l, .ct-r { padding: 4rem 1.25rem; }
+    .map-badge { left: 1.25rem; }
+    footer { padding: 3rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo-georgie.png" alt="Georgie Barbershop"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="nav-logo-text" style="display:none;">Georgie <em>Barbershop</em></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#george">George</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#reservas">Reservar</a></li>
+    <li><a href="https://www.fresha.com/es/a/georgie-barbershop-hermosillo-revolucion-120-k44clejh" target="_blank" class="nav-book">Reservar en línea</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-bg-layer">
+    <div class="hero-bg-ph"></div>
+    <!-- <img src="hero-bg.jpg" alt="Georgie Barbershop"> -->
+  </div>
+  <div class="hero-ov-left"></div>
+  <div class="hero-ov-bottom"></div>
+  <div class="hero-lines">
+    <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="200" x2="600" y2="0" stroke="#b5882a" stroke-width="1"/>
+      <line x1="0" y1="500" x2="600" y2="300" stroke="#b5882a" stroke-width="1"/>
+      <line x1="150" y1="0" x2="150" y2="800" stroke="#b5882a" stroke-width=".6"/>
+      <line x1="400" y1="0" x2="400" y2="800" stroke="#b5882a" stroke-width=".6"/>
+      <line x1="0" y1="0" x2="600" y2="800" stroke="#b5882a" stroke-width=".5"/>
+      <circle cx="300" cy="400" r="250" fill="none" stroke="#b5882a" stroke-width=".8"/>
+      <circle cx="300" cy="400" r="150" fill="none" stroke="#b5882a" stroke-width=".5"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="ey-dash"></span>
+      <span class="ey-label">Revolución 120, Centro · Hermosillo, Sonora</span>
+    </div>
+
+    <h1>
+      Georgie<br>
+      <em>Barbershop</em>
+    </h1>
+
+    <p class="hero-sub">Cada servicio está pensado para ofrecerte la mejor experiencia de cuidado y estilo, siempre con un toque único y personalizado que resalta tu mejor versión.</p>
+
+    <div class="hero-actions">
+      <a href="https://www.fresha.com/es/a/georgie-barbershop-hermosillo-revolucion-120-k44clejh" target="_blank" class="btn btn-gold">Reservar en línea</a>
+      <a href="#servicios" class="btn btn-border">Ver servicios</a>
+    </div>
+  </div>
+
+  <div class="hero-stats-bar">
+    <div class="hs-item">
+      <div class="hs-n">5.0<em>★</em></div>
+      <div class="hs-l">Calificación Fresha</div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-n">147<em>+</em></div>
+      <div class="hs-l">Reseñas verificadas</div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-n">Solo<em> hombres</em></div>
+      <div class="hs-l">Barbería especializada</div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-n">6<em> días</em></div>
+      <div class="hs-l">Lun–Sáb · 10–20h</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GOLD RULE + TICKER ══ -->
+<div class="gold-rule"></div>
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span>Corte Moderno</span><span>Corte Clásico</span><span>Delineado de Barba</span><span>Facial Tipo Spa</span><span>Paquete Plata</span><span>Paquete Bronce</span><span>Cubrimiento de Canas</span><span>Pigmento en Barba</span><span>Solo Hombres</span><span>Revolución 120</span>
+    <span>Corte Moderno</span><span>Corte Clásico</span><span>Delineado de Barba</span><span>Facial Tipo Spa</span><span>Paquete Plata</span><span>Paquete Bronce</span><span>Cubrimiento de Canas</span><span>Pigmento en Barba</span><span>Solo Hombres</span><span>Revolución 120</span>
+  </div>
+</div>
+
+<!-- ══ NOSOTROS ══ -->
+<section id="nosotros">
+  <div class="about-wrap">
+    <div class="about-left">
+      <div class="s-tag">Quiénes somos</div>
+      <h2>Una experiencia<br><em>que resalta</em><br>tu mejor versión.</h2>
+      <div class="gold-sep"><span class="gs-line"></span><span class="gs-dot"></span></div>
+      <p>En <strong>Georgie Barbershop</strong> no solo vienes a cortarte el cabello — vienes a vivir una experiencia. Cada detalle de nuestro espacio y nuestros servicios está pensado para que salgas sintiendo que eres la mejor versión de ti mismo.</p>
+      <p>Ofrecemos <strong>corte de cabello moderno y tradicional</strong>, delineado de barba, facial tipo spa, cubrimiento de canas, pigmento en barba y mucho más. Ubicados en el corazón del Centro de Hermosillo, con estacionamiento disponible y reservación en línea con confirmación instantánea.</p>
+      <div class="feature-list">
+        <div class="feat-item"><span class="feat-dot"></span><span>Corte moderno y tradicional</span></div>
+        <div class="feat-item"><span class="feat-dot"></span><span>Delineado de barba exprés, clásico y spa</span></div>
+        <div class="feat-item"><span class="feat-dot"></span><span>Facial tipo spa</span><span class="feat-badge">Exclusivo</span></div>
+        <div class="feat-item"><span class="feat-dot"></span><span>Cubrimiento de canas y pigmento en barba</span></div>
+        <div class="feat-item"><span class="feat-dot"></span><span>Apto para niños</span></div>
+        <div class="feat-item"><span class="feat-dot"></span><span>Aparcamiento disponible</span><span class="feat-badge">Gratis</span></div>
+        <div class="feat-item"><span class="feat-dot"></span><span>Reservación en línea · Confirmación instantánea</span></div>
+      </div>
+    </div>
+
+    <div class="about-right reveal">
+      <div class="about-img-main">
+        <div class="aim-ph"><p>foto-local.jpg</p></div>
+        <!-- <img src="foto-local.jpg" alt="Interior Georgie Barbershop"> -->
+      </div>
+      <div class="about-img-pair">
+        <div class="aip-block">
+          <div class="aip-n">5.0<em>★</em></div>
+          <div class="aip-l">Fresha · Google</div>
+        </div>
+        <div class="aip-block">
+          <div class="aip-n">147<em>+</em></div>
+          <div class="aip-l">Reseñas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICIOS ══ -->
+<section id="servicios">
+  <div class="s-tag" style="justify-content:center;">Menú de servicios</div>
+  <h2 style="text-align:center;">Los mejores <em>paquetes</em><br>para tu estilo.</h2>
+  <div class="gold-sep" style="justify-content:center;"><span class="gs-line"></span><span class="gs-dot"></span><span class="gs-line" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+  <p class="s-intro" style="margin:0 auto 3rem;text-align:center;">Servicios diseñados para que cada visita sea una experiencia completa, no solo un corte.</p>
+
+  <!-- Paquetes -->
+  <div class="packages-grid">
+    <div class="pkg reveal">
+      <div class="pkg-badge">Paquete Bronce</div>
+      <h3>Bronce</h3>
+      <p class="pkg-desc">El combo esencial para el caballero que quiere verse y sentirse bien en cada ocasión.</p>
+      <ul class="pkg-includes">
+        <li>Corte de cabello moderno o clásico</li>
+        <li>Delineado exprés de barba</li>
+        <li>Acabado con producto</li>
+      </ul>
+      <div class="pkg-price">$250</div>
+      <div class="pkg-dur">~1 hora</div>
+    </div>
+    <div class="pkg featured reveal" style="transition-delay:.1s">
+      <div class="pkg-badge">Paquete Plata · Más solicitado</div>
+      <h3>Plata</h3>
+      <p class="pkg-desc">La experiencia completa: corte, barba y un facial tipo spa que marca la diferencia.</p>
+      <ul class="pkg-includes">
+        <li>Corte de cabello moderno o clásico</li>
+        <li>Delineado de barba completo</li>
+        <li>Facial tipo spa</li>
+        <li>Acabado con producto premium</li>
+      </ul>
+      <div class="pkg-price">$450</div>
+      <div class="pkg-dur">~2 horas</div>
+    </div>
+    <div class="pkg reveal" style="transition-delay:.2s">
+      <div class="pkg-badge">Corte y Barba</div>
+      <h3>Clásico</h3>
+      <p class="pkg-desc">El dúo que nunca falla. Corte y barba en una sola visita, con el nivel de detalle que esperamos.</p>
+      <ul class="pkg-includes">
+        <li>Corte de cabello</li>
+        <li>Diseño y arreglo de barba completo</li>
+        <li>Acabado personalizado</li>
+      </ul>
+      <div class="pkg-price">$350</div>
+      <div class="pkg-dur">~1 hr 30 min</div>
+    </div>
+  </div>
+
+  <!-- Servicios individuales -->
+  <div style="max-width:1200px;margin:1px auto 0;">
+    <div style="padding:.8rem 0;font-size:.6rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold2);text-align:center;border-top:1px solid var(--borderd);margin-top:0;">Servicios individuales</div>
+  </div>
+  <div class="singles-grid">
+    <div class="single-svc reveal">
+      <div><div class="ss-name">Corte de cabello</div><div class="ss-dur">~1 hora</div></div>
+      <div class="ss-price">$200</div>
+    </div>
+    <div class="single-svc reveal" style="transition-delay:.06s">
+      <div><div class="ss-name">Delineado de corte</div><div class="ss-dur">~20 min</div></div>
+      <div class="ss-price">$80</div>
+    </div>
+    <div class="single-svc reveal" style="transition-delay:.12s">
+      <div><div class="ss-name">Bigote</div><div class="ss-dur">~20 min</div></div>
+      <div class="ss-price">$50</div>
+    </div>
+    <div class="single-svc reveal" style="transition-delay:.18s">
+      <div><div class="ss-name">Cubrimiento de canas</div><div class="ss-dur">~30 min</div></div>
+      <div class="ss-price">$180</div>
+    </div>
+    <div class="single-svc reveal">
+      <div><div class="ss-name">Pigmento en barba</div><div class="ss-dur">~30 min</div></div>
+      <div class="ss-price">Consultar</div>
+    </div>
+    <div class="single-svc reveal" style="transition-delay:.06s">
+      <div><div class="ss-name">Delineado de cejas</div><div class="ss-dur">~15 min</div></div>
+      <div class="ss-price">$80</div>
+    </div>
+    <div class="single-svc reveal" style="transition-delay:.12s">
+      <div><div class="ss-name">Limpieza de bigote</div><div class="ss-dur">~15 min</div></div>
+      <div class="ss-price">$50</div>
+    </div>
+    <div class="single-svc reveal" style="transition-delay:.18s">
+      <div><div class="ss-name">Facial tipo spa</div><div class="ss-dur">~45 min</div></div>
+      <div class="ss-price">Incluido en Plata</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALERÍA ══ -->
+<section id="galeria" style="padding-bottom:0;">
+  <div class="s-tag" style="justify-content:center;">El ambiente</div>
+  <h2 style="text-align:center;">Nuestro <em>espacio</em></h2>
+  <div class="gold-sep" style="justify-content:center;"><span class="gs-line"></span><span class="gs-dot"></span><span class="gs-line" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+  <p class="s-intro" style="margin:0 auto 1.5rem;text-align:center;">Sillas clásicas, capas con logo, espejos biselados y un ambiente que invita a quedarse.</p>
+</section>
+<div class="gallery-mosaic" style="margin:0;">
+  <div class="gal-item tall gb1">
+    <div class="gal-ph"><p>galeria-1.jpg</p></div>
+    <!-- <img src="galeria-1.jpg" alt="Georgie Barbershop interior"> -->
+    <div class="gal-lbl">El Espacio</div>
+  </div>
+  <div class="gal-item gb2">
+    <div class="gal-ph"><p>galeria-2.jpg</p></div>
+    <!-- <img src="galeria-2.jpg" alt="Sillas Georgie"> -->
+    <div class="gal-lbl">Las Sillas</div>
+  </div>
+  <div class="gal-item gb3">
+    <div class="gal-ph"><p>galeria-3.jpg</p></div>
+    <!-- <img src="galeria-3.jpg" alt="Corte Georgie"> -->
+    <div class="gal-lbl">El Detalle</div>
+  </div>
+  <div class="gal-item gb4">
+    <div class="gal-ph"><p>galeria-4.jpg</p></div>
+    <!-- <img src="galeria-4.jpg" alt="Corte Georgie"> -->
+    <div class="gal-lbl">El Corte</div>
+  </div>
+  <div class="gal-item gb1">
+    <div class="gal-ph"><p>galeria-5.jpg</p></div>
+    <!-- <img src="galeria-5.jpg" alt="Resultado Georgie"> -->
+    <div class="gal-lbl">El Resultado</div>
+  </div>
+</div>
+<div style="height:6rem;background:var(--black);"></div>
+
+<!-- ══ GEORGE ══ -->
+<section id="george">
+  <div class="george-img gb2">
+    <div class="george-img-ph"><span>G</span></div>
+    <!-- <img src="george.jpg" alt="George · Georgie Barbershop"> -->
+  </div>
+
+  <div class="george-content">
+    <div class="s-tag">El barbero</div>
+    <h2>Conoce<br>a <em>George</em></h2>
+    <div class="gold-sep"><span class="gs-line"></span><span class="gs-dot"></span></div>
+    <p class="s-intro" style="margin-bottom:1.5rem;">El hombre detrás de Georgie Barbershop y el barbero en quien sus clientes confían semana a semana.</p>
+    <p><strong>George</strong> es el fundador y barbero principal de Georgie Barbershop, ubicado en el Centro de Hermosillo. Con años de experiencia en el oficio, se ha especializado en ofrecer un servicio que va más allá del corte: una experiencia de cuidado personalizado donde cada cliente recibe atención individual y resultados que hablan por sí solos.</p>
+    <p>Su filosofía es simple: <strong>cada servicio está pensado para resaltar la mejor versión del cliente.</strong> Eso se refleja en sus más de 147 reseñas de 5 estrellas en Fresha y en la lealtad de quienes regresan visita tras visita.</p>
+    <div class="george-quote">
+      En mi salón, cada servicio está pensado para ofrecerte la mejor experiencia de cuidado y estilo, siempre con un toque único y personalizado que resalta tu mejor versión.
+      <cite>— George · Fundador & Barbero</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESERVAS ══ -->
+<section id="reservas">
+  <div class="s-tag" style="justify-content:center;">Agenda tu cita</div>
+  <h2 style="text-align:center;">Reserva tu <em>cita</em></h2>
+  <div class="gold-sep" style="justify-content:center;"><span class="gs-line"></span><span class="gs-dot"></span><span class="gs-line" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+  <p class="s-intro" style="margin:0 auto 2rem;text-align:center;">Selecciona tu horario en 3 pasos. También puedes reservar directamente en Fresha con confirmación instantánea.</p>
+
+  <div class="rsv-wrap">
+    <div class="steps-nav">
+      <div class="sn-tab active" id="t1">
+        <div class="sn-num"><span>1</span></div>
+        <div class="sn-info"><div class="sn-step">Paso 01</div><div class="sn-title">Barbero</div></div>
+      </div>
+      <div class="sn-tab" id="t2">
+        <div class="sn-num"><span>2</span></div>
+        <div class="sn-info"><div class="sn-step">Paso 02</div><div class="sn-title">Fecha</div></div>
+      </div>
+      <div class="sn-tab" id="t3">
+        <div class="sn-num"><span>3</span></div>
+        <div class="sn-info"><div class="sn-step">Paso 03</div><div class="sn-title">Hora</div></div>
+      </div>
+    </div>
+
+    <!-- Panel 1 -->
+    <div class="rsv-panel active" id="p1">
+      <div class="barbers-row">
+        <div class="barber-opt-small" data-name="George" onclick="pickBarb(this)">
+          <div class="bos-av">G</div>
+          <div>
+            <div class="bos-name">George</div>
+            <div class="bos-spec">Fundador · Barbero Principal · Todos los servicios</div>
+          </div>
+        </div>
+        <div class="barber-opt-small" data-name="Christian" onclick="pickBarb(this)">
+          <div class="bos-av">C</div>
+          <div>
+            <div class="bos-name">Christian</div>
+            <div class="bos-spec">Corte moderno · Diseño de barba</div>
+          </div>
+        </div>
+        <div class="barber-opt-small" data-name="Cualquier barbero" onclick="pickBarb(this)">
+          <div class="bos-av" style="font-size:.65rem;letter-spacing:.04em;text-align:center;font-family:'Montserrat',sans-serif;">✦</div>
+          <div>
+            <div class="bos-name">Sin preferencia</div>
+            <div class="bos-spec">El primer barbero disponible</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel 2 -->
+    <div class="rsv-panel" id="p2">
+      <div class="cal-box">
+        <div class="cal-head">
+          <button class="cal-btn" onclick="cm(-1)">‹</button>
+          <div class="cal-month-title" id="calTitle"></div>
+          <button class="cal-btn" onclick="cm(1)">›</button>
+        </div>
+        <div class="cal-g" id="calGrid"></div>
+      </div>
+    </div>
+
+    <!-- Panel 3 -->
+    <div class="rsv-panel" id="p3">
+      <div class="slots-grid" id="slotsGrid"></div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="rsv-summary" id="rsv-sum">
+      <div class="rs-head">Resumen de tu reserva</div>
+      <div class="rs-row"><span class="rs-k">Barbero</span><span class="rs-v" id="sBarb">—</span></div>
+      <div class="rs-row"><span class="rs-k">Fecha</span><span class="rs-v" id="sDate">—</span></div>
+      <div class="rs-row"><span class="rs-k">Hora</span><span class="rs-v" id="sTime">—</span></div>
+    </div>
+
+    <!-- Confirm -->
+    <div class="rsv-confirm-wrap">
+      <button id="btnConfirm" disabled>Confirmar Reservación</button>
+      <div class="rsv-note" id="rsv-note">Completa los 3 pasos para habilitar tu reserva</div>
+    </div>
+
+    <!-- Fresha alternative -->
+    <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--borderd);background:var(--black3);text-align:center;">
+      <p style="font-size:.75rem;color:var(--muted);margin-bottom:.8rem;letter-spacing:.04em;">¿Prefieres reservar con confirmación instantánea?</p>
+      <a href="https://www.fresha.com/es/a/georgie-barbershop-hermosillo-revolucion-120-k44clejh" target="_blank" class="btn btn-gold" style="display:inline-flex;">
+        Reservar en Fresha
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESEÑAS ══ -->
+<section id="resenas">
+  <div class="s-tag" style="justify-content:center;">Lo que dicen</div>
+  <h2 style="text-align:center;">La mejor <em>barbería</em></h2>
+  <div class="gold-sep" style="justify-content:center;"><span class="gs-line"></span><span class="gs-dot"></span><span class="gs-line" style="background:linear-gradient(90deg,var(--gold),transparent);"></span></div>
+
+  <div class="rating-hero reveal">
+    <div>
+      <div class="rh-big">5.0</div>
+      <div class="rh-stars">★ ★ ★ ★ ★</div>
+      <div class="rh-label">Fresha</div>
+    </div>
+    <div class="rh-sep"></div>
+    <div>
+      <div class="rh-big" style="font-size:4rem;">147</div>
+      <div class="rh-label" style="margin-top:.4rem;">Reseñas verificadas</div>
+    </div>
+    <div class="rh-sep"></div>
+    <div>
+      <div class="rh-big" style="font-size:4rem;">4.9</div>
+      <div class="rh-stars" style="font-size:1rem;">★ ★ ★ ★ ★</div>
+      <div class="rh-label" style="margin-top:.3rem;">Google Maps</div>
+    </div>
+  </div>
+
+  <div class="rev-grid">
+    <div class="rev-card reveal">
+      <div class="rc-stars">★ ★ ★ ★ ★</div>
+      <p class="rc-text">"No cambiaría de barber. Excelente atención de principio a fin. Desde que llegué me atendieron con mucha amabilidad y profesionalismo. El resultado siempre supera mis expectativas."</p>
+      <div class="rc-name">Eduardo C.</div>
+      <div class="rc-source">Reseña verificada · Fresha · Octubre 2025</div>
+    </div>
+    <div class="rev-card reveal" style="transition-delay:.1s">
+      <div class="rc-stars">★ ★ ★ ★ ★</div>
+      <p class="rc-text">"La mejor barbería de Hermosillo, sin duda. No le pongo 10 porque nomás se puede 5. La mejor experiencia que he tenido en una barbería en toda mi vida."</p>
+      <div class="rc-name">Adrián M.</div>
+      <div class="rc-source">Reseña verificada · Fresha · Mayo 2025</div>
+    </div>
+    <div class="rev-card reveal" style="transition-delay:.2s">
+      <div class="rc-stars">★ ★ ★ ★ ★</div>
+      <p class="rc-text">"Excelente servicio, muy recomendable. Atención impecable y gran servicio. 100% recomendado. Gracias Christian, como siempre. El ambiente y el trato son únicos."</p>
+      <div class="rc-name">Gumaro L. · Rhay R.</div>
+      <div class="rc-source">Reseñas verificadas · Fresha</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACTO ══ -->
+<section id="contacto">
+  <div class="ct-l">
+    <div class="s-tag">Encuéntranos</div>
+    <h2>Visítanos en<br><em>el Centro</em></h2>
+    <div class="gold-sep"><span class="gs-line"></span><span class="gs-dot"></span></div>
+
+    <div class="ct-items">
+      <div class="ct-item">
+        <div class="ct-icon">Ubi</div>
+        <div>
+          <div class="ct-lbl">Dirección</div>
+          <div class="ct-val">Revolución 120, esq. Av. Jalisco<br>Centro, 83000 Hermosillo, Son.</div>
+        </div>
+      </div>
+      <div class="ct-item">
+        <div class="ct-icon">Res</div>
+        <div>
+          <div class="ct-lbl">Reservaciones</div>
+          <div class="ct-val"><a href="https://www.fresha.com/es/a/georgie-barbershop-hermosillo-revolucion-120-k44clejh" target="_blank">Fresha · Confirmación instantánea</a></div>
+        </div>
+      </div>
+      <div class="ct-item">
+        <div class="ct-icon">FB</div>
+        <div>
+          <div class="ct-lbl">Facebook</div>
+          <div class="ct-val"><a href="https://www.facebook.com/p/Georgie-Barbershop-100085379288786/" target="_blank">Georgie Barbershop</a></div>
+        </div>
+      </div>
+      <div class="ct-item">
+        <div class="ct-icon">WA</div>
+        <div>
+          <div class="ct-lbl">WhatsApp · Reserva en línea</div>
+          <div class="ct-val"><a href="https://wa.link" target="_blank">wa.link</a></div>
+        </div>
+      </div>
+    </div>
+
+    <table class="hrs-tbl">
+      <tr><td>Lunes</td><td>10:00 — 20:00</td></tr>
+      <tr><td>Martes</td><td>10:00 — 20:00</td></tr>
+      <tr><td>Miércoles</td><td>10:00 — 20:00</td></tr>
+      <tr><td>Jueves</td><td>10:00 — 20:00</td></tr>
+      <tr><td>Viernes</td><td>10:00 — 20:00</td></tr>
+      <tr><td>Sábado</td><td>10:00 — 20:00</td></tr>
+      <tr class="cls"><td>Domingo</td><td>Cerrado</td></tr>
+    </table>
+
+    <a href="https://www.fresha.com/es/a/georgie-barbershop-hermosillo-revolucion-120-k44clejh" target="_blank" class="book-cta">
+      <div>
+        <div class="book-cta-label">Reservar ahora</div>
+        <div class="book-cta-val">Fresha · Confirmación instantánea</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="ct-r">
+    <div class="logo-display">
+      <img src="logo-georgie.png" alt="Georgie Barbershop"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="logo-display-text" style="display:none;">
+        Georgie <em>Barbershop</em>
+      </div>
+      <p>Cuidado y estilo masculino de primer nivel en el corazón del Centro de Hermosillo.</p>
+    </div>
+
+    <div class="social-links">
+      <a href="https://www.facebook.com/p/Georgie-Barbershop-100085379288786/" target="_blank" class="soc-link">Facebook</a>
+      <a href="https://www.fresha.com/es/a/georgie-barbershop-hermosillo-revolucion-120-k44clejh" target="_blank" class="soc-link">Fresha</a>
+    </div>
+
+    <div class="fresha-cta">
+      <h3>Reserva en línea ahora</h3>
+      <p>Confirmación instantánea, sin esperas. Elige tu horario y tu barbero directamente desde Fresha.</p>
+      <a href="https://www.fresha.com/es/a/georgie-barbershop-hermosillo-revolucion-120-k44clejh" target="_blank">Abrir Fresha</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MAP ══ -->
+<div id="mapa">
+  <div class="map-box">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3487.8!2d-110.9620!3d29.0820!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86ce84e0a1234567%3A0x0!2sRevoluci%C3%B3n+120%2C+Centro%2C+Hermosillo%2C+Son.!5e0!3m2!1ses!2smx!4v1"
+      allowfullscreen="" loading="lazy">
+    </iframe>
+    <div class="map-badge">
+      <strong>Georgie Barbershop</strong>
+      <span>Revolución 120 · Centro · Hermosillo, Sonora</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="fb-wrap">
+      <img src="logo-georgie.png" alt="Georgie Barbershop"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="fb-name" style="display:none;">Georgie <em>Barbershop</em></div>
+      <span class="fb-sub">Centro · Hermosillo, Sonora</span>
+      <p class="fb-p">Corte de cabello moderno y tradicional, delineado de barba, facial tipo spa y mucho más. En el corazón del Centro histórico de Hermosillo.</p>
+    </div>
+    <div>
+      <div class="fc-h">Servicios</div>
+      <ul class="fc-ul">
+        <li><a href="#servicios">Paquete Bronce — $250</a></li>
+        <li><a href="#servicios">Paquete Plata — $450</a></li>
+        <li><a href="#servicios">Corte y Barba — $350</a></li>
+        <li><a href="#servicios">Corte de cabello — $200</a></li>
+        <li><a href="#servicios">Facial tipo spa</a></li>
+        <li><a href="#servicios">Cubrimiento de canas — $180</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-h">Visítanos</div>
+      <ul class="fc-ul">
+        <li>Revolución 120, Centro</li>
+        <li>Hermosillo, Sonora</li>
+        <li>Lun–Sáb: 10:00 — 20:00</li>
+        <li><a href="https://www.fresha.com/es/a/georgie-barbershop-hermosillo-revolucion-120-k44clejh" target="_blank">Reservar en Fresha</a></li>
+        <li><a href="https://www.facebook.com/p/Georgie-Barbershop-100085379288786/" target="_blank">Facebook</a></li>
+        <li><a href="#reservas">Reservar aquí</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Georgie Barbershop · Revolución 120, Centro · Hermosillo, Sonora · Todos los derechos reservados.</p>
+    <span style="color:var(--gold2);font-size:1.2rem;">💈</span>
+  </div>
+</footer>
+
+<script>
+  // ══ REVEAL ══
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // ══ RESERVAS ══
+  const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const DAYS   = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const SLOTS  = ['10:00','10:30','11:00','11:30','12:00','12:30','13:00','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30'];
+  const OCC    = ['11:00','13:00','15:30','17:00'];
+
+  let S = { barb: null, date: null, time: null };
+  const today = new Date();
+  let cY = today.getFullYear(), cM = today.getMonth();
+
+  function pickBarb(el) {
+    document.querySelectorAll('.barber-opt-small').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    S.barb = el.dataset.name; S.date = null; S.time = null;
+    goStep(2); renderCal(); sync(); check();
+  }
+
+  function renderCal() {
+    document.getElementById('calTitle').textContent = MONTHS[cM] + ' ' + cY;
+    const g = document.getElementById('calGrid'); g.innerHTML = '';
+    DAYS.forEach(d => { const e = document.createElement('div'); e.className = 'cal-dn'; e.textContent = d; g.appendChild(e); });
+    const fd = new Date(cY, cM, 1).getDay();
+    const td = new Date(cY, cM + 1, 0).getDate();
+    for (let i = 0; i < fd; i++) { const e = document.createElement('div'); e.className = 'cal-d emp'; g.appendChild(e); }
+    for (let d = 1; d <= td; d++) {
+      const date = new Date(cY, cM, d);
+      const ds = `${cY}-${String(cM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const past = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const sun  = date.getDay() === 0;
+      const isToday = date.toDateString() === today.toDateString();
+      const e = document.createElement('div');
+      e.className = 'cal-d' + (past||sun?' dis':'') + (isToday?' tod':'') + (S.date===ds?' sel':'');
+      e.textContent = d;
+      if (!past && !sun) e.onclick = () => { S.date = ds; S.time = null; renderCal(); goStep(3); renderSlots(); sync(); check(); };
+      g.appendChild(e);
+    }
+  }
+
+  function cm(dir) { cM += dir; if(cM>11){cM=0;cY++;} if(cM<0){cM=11;cY--;} renderCal(); }
+
+  function renderSlots() {
+    const g = document.getElementById('slotsGrid'); g.innerHTML = '';
+    SLOTS.forEach(t => {
+      const e = document.createElement('div');
+      const occ = OCC.includes(t);
+      e.className = 'slot' + (occ?' occ':'') + (S.time===t?' sel':'');
+      e.textContent = occ ? t+'\nOcupado' : t;
+      if (occ) { e.style.whiteSpace='pre'; e.style.lineHeight='1.3'; }
+      else e.onclick = () => { document.querySelectorAll('.slot').forEach(s=>s.classList.remove('sel')); e.classList.add('sel'); S.time=t; sync(); check(); };
+      g.appendChild(e);
+    });
+  }
+
+  function goStep(step) {
+    [1,2,3].forEach(i => {
+      const t = document.getElementById('t'+i);
+      t.classList.remove('active','done');
+      if (i < step) t.classList.add('done');
+      if (i === step) t.classList.add('active');
+    });
+    document.querySelectorAll('.rsv-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('p'+step).classList.add('active');
+  }
+
+  function sync() {
+    if (S.barb) document.getElementById('sBarb').textContent = S.barb;
+    if (S.date) { const [y,m,d]=S.date.split('-'); document.getElementById('sDate').textContent=`${parseInt(d)} de ${MONTHS[parseInt(m)-1]} de ${y}`; }
+    if (S.time) document.getElementById('sTime').textContent = S.time + ' hrs';
+    if (S.barb||S.date||S.time) document.getElementById('rsv-sum').classList.add('on');
+  }
+
+  function check() {
+    const btn = document.getElementById('btnConfirm');
+    const note = document.getElementById('rsv-note');
+    if (S.barb && S.date && S.time) {
+      btn.classList.add('ready'); btn.disabled = false;
+      note.textContent = `Reserva lista · ${S.barb} · ${S.time} hrs`;
+    } else {
+      btn.classList.remove('ready'); btn.disabled = true;
+      note.textContent = 'Completa los 3 pasos para habilitar tu reserva';
+    }
+  }
+
+  renderCal();
+</script>
+</body>
+</html>

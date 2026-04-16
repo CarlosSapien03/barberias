@@ -1,0 +1,2946 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karlita's Barbería · Est. 2024 · Hermosillo, Sonora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+  ══════════════════════════════════════════
+  GUÍA DE IMÁGENES — misma carpeta que el HTML:
+
+    logo-karlita.png   → Logo circular de Karlita's Barbería
+    hero-bg.jpg        → Foto de fondo del hero
+    foto-local.jpg     → Interior del local
+    karlita.jpg        → Foto de Karlita trabajando
+    galeria-1.jpg      → Galería foto 1
+    galeria-2.jpg      → Galería foto 2
+    galeria-3.jpg      → Galería foto 3
+    galeria-4.jpg      → Galería foto 4
+  ══════════════════════════════════════════
+-->
+
+    <style>
+      :root {
+        --black: #000000;
+        --black2: #080808;
+        --black3: #111111;
+        --black4: #1a1a1a;
+        --black5: #222222;
+        --yellow: #f5c200;
+        --yellow2: #ffcf00;
+        --yellow3: #ffe066;
+        --yellow4: #fff0a0;
+        --amber: #d4920a;
+        --white: #ffffff;
+        --off: #e8e8e8;
+        --gray: #888888;
+        --gray2: #555555;
+        --border: rgba(245, 194, 0, 0.25);
+        --borderd: rgba(245, 194, 0, 0.1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--black);
+        color: var(--off);
+        font-family: "Lato", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        line-height: 1.7;
+      }
+
+      /* ══════════════════════ NAV ══════════════════════ */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2.5rem;
+        background: rgba(0, 0, 0, 0.97);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+        animation: navIn 0.5s ease both;
+      }
+      @keyframes navIn {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .nav-brand img {
+        height: 48px;
+        width: 48px;
+        border-radius: 50%;
+        object-fit: contain;
+        display: block;
+        border: 1px solid var(--border);
+        background: var(--black3);
+      }
+      .nav-brand img[data-fallback] {
+        display: none;
+      }
+      .nav-brand-txt strong {
+        display: block;
+        font-family: "Oswald", sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--white);
+      }
+      .nav-brand-txt span {
+        font-size: 0.56rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--yellow);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.8rem;
+        list-style: none;
+        align-items: center;
+      }
+      .nav-links a {
+        text-decoration: none;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gray);
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--yellow2);
+      }
+
+      .nav-cta {
+        background: var(--yellow) !important;
+        color: var(--black) !important;
+        padding: 0.44rem 1.4rem !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.12em !important;
+        font-family: "Oswald", sans-serif !important;
+        font-size: 0.72rem !important;
+        transition: background 0.2s !important;
+      }
+      .nav-cta:hover {
+        background: var(--yellow2) !important;
+      }
+
+      /* ══════════════════════ HERO ══════════════════════ */
+      #hero {
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 9rem 2rem 6rem;
+      }
+
+      /* Background photo */
+      .hero-photo {
+        position: absolute;
+        inset: 0;
+        background: var(--black2);
+      }
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0.18;
+        filter: grayscale(60%);
+      }
+      .hero-photo-ph {
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          ellipse 60% 60% at 50% 50%,
+          #1a1a1a 0%,
+          #000 100%
+        );
+      }
+
+      /* Overlays */
+      .hero-ov {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 80% 60% at 50% 40%,
+          rgba(0, 0, 0, 0.3) 0%,
+          rgba(0, 0, 0, 0.85) 100%
+        );
+      }
+
+      /* Barber poles animated */
+      .pole {
+        position: absolute;
+        top: 70px;
+        bottom: 0;
+        width: 14px;
+        overflow: hidden;
+        opacity: 0.45;
+      }
+      .pole-l {
+        left: 0;
+      }
+      .pole-r {
+        right: 0;
+      }
+      .pole-stripes {
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          180deg,
+          #cc2020 0,
+          #cc2020 10px,
+          #f5f5f5 10px,
+          #f5f5f5 20px,
+          #1a50a0 20px,
+          #1a50a0 30px
+        );
+        animation: poleAnim 2.8s linear infinite;
+      }
+      @keyframes poleAnim {
+        to {
+          background-position: 0 30px;
+        }
+      }
+
+      /* Corner frame */
+      .hcorner {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-color: var(--yellow);
+        border-style: solid;
+        border-width: 0;
+      }
+      .hc-tl {
+        top: 80px;
+        left: 20px;
+        border-top-width: 2px;
+        border-left-width: 2px;
+      }
+      .hc-tr {
+        top: 80px;
+        right: 20px;
+        border-top-width: 2px;
+        border-right-width: 2px;
+      }
+      .hc-bl {
+        bottom: 20px;
+        left: 20px;
+        border-bottom-width: 2px;
+        border-left-width: 2px;
+      }
+      .hc-br {
+        bottom: 20px;
+        right: 20px;
+        border-bottom-width: 2px;
+        border-right-width: 2px;
+      }
+
+      /* Hero inner */
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 760px;
+      }
+
+      /* Logo */
+      .hero-logo {
+        margin: 0 auto 1.5rem;
+        animation: fadeUp 0.6s 0.1s both;
+      }
+      .hero-logo img {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+        border: 2px solid var(--border);
+        background: var(--black3);
+        filter: drop-shadow(0 4px 24px rgba(245, 194, 0, 0.3));
+      }
+      .hero-logo-ph {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: var(--black3);
+        border: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+      .hero-logo-ph span {
+        font-family: "Oswald", sans-serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--yellow);
+        letter-spacing: 0.1em;
+      }
+
+      /* Main headline — bold Oswald like their IG posts */
+      .hero-tag {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin-bottom: 1rem;
+        animation: fadeUp 0.6s 0.2s both;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+      .hero-tag::before,
+      .hero-tag::after {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: var(--yellow);
+      }
+
+      h1 {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(3.8rem, 10vw, 8.5rem);
+        line-height: 0.92;
+        color: var(--white);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        animation: fadeUp 0.6s 0.3s both;
+      }
+      h1 .yellow {
+        color: var(--yellow);
+        display: block;
+      }
+
+      .hero-est {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 400;
+        letter-spacing: 0.55em;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-top: 0.6rem;
+        animation: fadeUp 0.6s 0.42s both;
+      }
+
+      .hero-sub {
+        font-size: 0.9rem;
+        font-weight: 300;
+        line-height: 1.85;
+        color: var(--gray);
+        max-width: 440px;
+        margin: 1.8rem auto 2.5rem;
+        animation: fadeUp 0.6s 0.54s both;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        animation: fadeUp 0.6s 0.66s both;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.88rem 2.2rem;
+        font-family: "Oswald", sans-serif;
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.22s;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-yellow {
+        background: var(--yellow);
+        color: var(--black);
+      }
+      .btn-yellow:hover {
+        background: var(--yellow2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(245, 194, 0, 0.4);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--off);
+        border: 1px solid rgba(232, 232, 232, 0.2);
+      }
+      .btn-outline:hover {
+        border-color: var(--yellow);
+        color: var(--yellow3);
+        transform: translateY(-2px);
+      }
+
+      /* Stats bottom */
+      .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: wrap;
+        margin-top: 3.5rem;
+        border-top: 1px solid var(--borderd);
+        animation: fadeUp 0.6s 0.78s both;
+      }
+      .hs {
+        padding: 1.5rem 2.2rem 0;
+        text-align: center;
+      }
+      .hs + .hs {
+        border-left: 1px solid var(--borderd);
+      }
+      .hs .n {
+        font-family: "Anton", sans-serif;
+        font-size: 2.4rem;
+        color: var(--white);
+        line-height: 1;
+        letter-spacing: 0.04em;
+      }
+      .hs .n em {
+        color: var(--yellow);
+        font-style: normal;
+      }
+      .hs .l {
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-top: 0.3rem;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ══════════════════════ YELLOW RULE + TICKER ══════════════════════ */
+      .yellow-rule {
+        height: 3px;
+        background: var(--yellow);
+      }
+      .ticker-bar {
+        background: var(--black2);
+        padding: 0.55rem 0;
+        overflow: hidden;
+        white-space: nowrap;
+        border-bottom: 1px solid var(--borderd);
+      }
+      .ticker-track {
+        display: inline-flex;
+        animation: tick 22s linear infinite;
+      }
+      .ticker-track span {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        padding: 0 2.5rem;
+      }
+      .ticker-track span::before {
+        content: "✦  ";
+        font-size: 0.5rem;
+      }
+      @keyframes tick {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ══════════════════════ SECTION BASE ══════════════════════ */
+      section {
+        padding: 7rem 2.5rem;
+      }
+
+      .s-label {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin-bottom: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .s-label::before {
+        content: "";
+        width: 20px;
+        height: 2px;
+        background: var(--yellow);
+      }
+
+      h2 {
+        font-family: "Anton", sans-serif;
+        font-size: clamp(2.5rem, 5vw, 4.2rem);
+        color: var(--white);
+        line-height: 0.96;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 0.7rem;
+      }
+      h2 .y {
+        color: var(--yellow);
+      }
+      .s-intro {
+        font-size: 0.9rem;
+        color: var(--gray);
+        line-height: 1.85;
+        font-weight: 300;
+        max-width: 520px;
+        margin-bottom: 3.5rem;
+      }
+
+      /* ══════════════════════ NOSOTROS ══════════════════════ */
+      #nosotros {
+        background: var(--black2);
+      }
+
+      .about-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      @media (max-width: 860px) {
+        .about-layout {
+          grid-template-columns: 1fr;
+          gap: 3.5rem;
+        }
+      }
+
+      .about-text p {
+        font-size: 0.88rem;
+        color: var(--gray);
+        line-height: 1.9;
+        margin-bottom: 1.2rem;
+      }
+      .about-text strong {
+        color: var(--off);
+        font-weight: 700;
+      }
+
+      .lgbtq-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(245, 194, 0, 0.07);
+        border: 1px solid var(--border);
+        padding: 0.5rem 1.1rem;
+        margin-top: 1.5rem;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--off);
+      }
+
+      .feature-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.8rem;
+      }
+      .fchip {
+        padding: 0.35rem 0.9rem;
+        border: 1px solid var(--borderd);
+        font-family: "Oswald", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        background: rgba(245, 194, 0, 0.05);
+      }
+
+      /* Right image */
+      .about-right {
+        position: relative;
+      }
+      .about-img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        background: var(--black3);
+        border: 1px solid var(--border);
+        position: relative;
+      }
+      .about-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(20%);
+        transition:
+          transform 0.5s,
+          filter 0.3s;
+      }
+      .about-img:hover img {
+        transform: scale(1.04);
+        filter: grayscale(0%);
+      }
+      .aim-ph {
+        width: 100%;
+        height: 100%;
+        min-height: 260px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(150deg, var(--black3), var(--black4));
+      }
+      .aim-ph p {
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        color: rgba(245, 194, 0, 0.25);
+        text-transform: uppercase;
+      }
+
+      /* Yellow accent corner */
+      .about-accent {
+        position: absolute;
+        bottom: -1rem;
+        right: -1rem;
+        background: var(--yellow);
+        padding: 1.4rem 1.6rem;
+        text-align: center;
+        z-index: 2;
+      }
+      .aa-n {
+        font-family: "Anton", sans-serif;
+        font-size: 2.5rem;
+        color: var(--black);
+        line-height: 1;
+      }
+      .aa-l {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.6);
+        margin-top: 0.15rem;
+      }
+
+      /* Stats below image */
+      .about-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        margin-top: 1.5rem;
+      }
+      .ast {
+        background: var(--black2);
+        padding: 1.3rem 1rem;
+      }
+      .ast .n {
+        font-family: "Anton", sans-serif;
+        font-size: 2rem;
+        color: var(--white);
+        line-height: 1;
+        letter-spacing: 0.04em;
+      }
+      .ast .n em {
+        color: var(--yellow);
+        font-style: normal;
+      }
+      .ast .l {
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-top: 0.25rem;
+      }
+
+      /* ══════════════════════ SERVICIOS ══════════════════════ */
+      #servicios {
+        background: var(--black);
+        text-align: center;
+      }
+
+      /* Headline styled like their IG */
+      .svc-headline {
+        display: inline-block;
+        margin-bottom: 2rem;
+        border: 2px solid var(--yellow);
+        padding: 0.6rem 2rem;
+      }
+      .svc-headline span {
+        font-family: "Anton", sans-serif;
+        font-size: 1rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--yellow);
+      }
+
+      .svc-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 2px solid var(--border);
+        max-width: 1200px;
+        margin: 0 auto 1px;
+      }
+      @media (max-width: 900px) {
+        .svc-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 540px) {
+        .svc-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .svc-card {
+        background: var(--black);
+        padding: 2.8rem 2rem;
+        transition: background 0.25s;
+        position: relative;
+        overflow: hidden;
+        cursor: default;
+      }
+      .svc-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--yellow);
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.3s;
+      }
+      .svc-card:hover {
+        background: var(--black2);
+      }
+      .svc-card:hover::after {
+        transform: scaleY(1);
+      }
+
+      .svc-num {
+        font-family: "Anton", sans-serif;
+        font-size: 3.5rem;
+        color: rgba(245, 194, 0, 0.06);
+        line-height: 1;
+        margin-bottom: 0.9rem;
+        letter-spacing: 0.04em;
+      }
+      .svc-card h3 {
+        font-family: "Oswald", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 0.6rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .svc-card p {
+        font-size: 0.82rem;
+        color: var(--gray);
+        line-height: 1.82;
+      }
+      .svc-price {
+        margin-top: 1.4rem;
+        font-family: "Anton", sans-serif;
+        font-size: 2rem;
+        color: var(--yellow);
+        letter-spacing: 0.04em;
+      }
+      .svc-dur {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.62rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gray2);
+        margin-top: 0.2rem;
+      }
+
+      /* ══════════════════════ KARLITA ══════════════════════ */
+      #karlita {
+        background: var(--black2);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        padding: 0;
+      }
+      @media (max-width: 860px) {
+        #karlita {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .karlita-img {
+        min-height: 580px;
+        overflow: hidden;
+        background: var(--black3);
+        position: relative;
+      }
+      .karlita-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(20%);
+      }
+      .karlita-img-ph {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(160deg, var(--black3), var(--black4));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .karlita-img-ph span {
+        font-family: "Anton", sans-serif;
+        font-size: 8rem;
+        color: rgba(245, 194, 0, 0.08);
+        letter-spacing: 0.1em;
+      }
+
+      /* Yellow vertical accent */
+      .karlita-img::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(
+          180deg,
+          transparent,
+          var(--yellow),
+          transparent
+        );
+        opacity: 0.5;
+      }
+
+      .karlita-content {
+        padding: 5rem 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .karlita-content p {
+        font-size: 0.88rem;
+        color: var(--gray);
+        line-height: 1.9;
+        margin-bottom: 1.2rem;
+      }
+      .karlita-content strong {
+        color: var(--off);
+        font-weight: 700;
+      }
+
+      .karlita-quote {
+        margin-top: 2rem;
+        padding: 1.6rem 1.8rem;
+        border-left: 4px solid var(--yellow);
+        background: rgba(245, 194, 0, 0.05);
+        font-size: 0.92rem;
+        font-style: italic;
+        color: var(--off);
+        line-height: 1.75;
+      }
+      .karlita-quote cite {
+        display: block;
+        margin-top: 0.8rem;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        font-style: normal;
+      }
+
+      @media (max-width: 700px) {
+        .karlita-content {
+          padding: 3rem 1.5rem;
+        }
+        .karlita-img {
+          min-height: 340px;
+        }
+      }
+
+      /* ══════════════════════ GALERÍA ══════════════════════ */
+      #galeria {
+        background: var(--black);
+        padding-bottom: 0;
+        text-align: center;
+      }
+
+      .gallery-mosaic {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        grid-template-rows: 260px 260px;
+        gap: 3px;
+        margin-top: 2rem;
+      }
+      @media (max-width: 700px) {
+        .gallery-mosaic {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+        }
+      }
+
+      .gi {
+        position: relative;
+        overflow: hidden;
+        background: var(--black3);
+        cursor: pointer;
+      }
+      .gi.tall {
+        grid-row: span 2;
+      }
+      .gi img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0.65;
+        filter: grayscale(25%);
+        transition:
+          transform 0.55s,
+          opacity 0.3s,
+          filter 0.3s;
+      }
+      .gi:hover img {
+        transform: scale(1.07);
+        opacity: 0.95;
+        filter: grayscale(0%);
+      }
+      .gi-ph {
+        width: 100%;
+        height: 100%;
+        min-height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .gi-ph p {
+        font-size: 0.58rem;
+        color: rgba(245, 194, 0, 0.2);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .gb1 {
+        background: linear-gradient(150deg, #111, #0d0d0d);
+      }
+      .gb2 {
+        background: linear-gradient(150deg, #0d0d0d, #131313);
+      }
+      .gb3 {
+        background: linear-gradient(150deg, #131313, #111);
+      }
+
+      .gi::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.8) 0%,
+          transparent 55%
+        );
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .gi:hover::after {
+        opacity: 0.3;
+      }
+
+      /* Yellow overlay on hover */
+      .gi::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: rgba(245, 194, 0, 0);
+        transition: background 0.3s;
+        pointer-events: none;
+      }
+      .gi:hover::before {
+        background: rgba(245, 194, 0, 0.05);
+      }
+
+      .gi-lbl {
+        position: absolute;
+        bottom: 1rem;
+        left: 1.2rem;
+        z-index: 2;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--yellow);
+      }
+
+      /* ══════════════════════ RESERVAS ══════════════════════ */
+      #reservas {
+        background: var(--black2);
+      }
+      .rsv-wrap {
+        max-width: 920px;
+        margin: 0 auto;
+      }
+
+      .steps-bar {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 2px solid var(--border);
+        margin-bottom: 2.5rem;
+      }
+      @media (max-width: 580px) {
+        .steps-bar {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .step-t {
+        background: var(--black2);
+        padding: 1.3rem 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        opacity: 0.4;
+        transition:
+          opacity 0.3s,
+          background 0.3s;
+      }
+      .step-t.active {
+        opacity: 1;
+        background: var(--black3);
+      }
+      .step-t.done {
+        opacity: 0.7;
+      }
+
+      .sn {
+        width: 30px;
+        height: 30px;
+        border: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Anton", sans-serif;
+        font-size: 0.9rem;
+        color: var(--yellow);
+        flex-shrink: 0;
+        background: rgba(245, 194, 0, 0.06);
+        transition: all 0.25s;
+      }
+      .step-t.active .sn {
+        background: var(--yellow);
+        color: var(--black);
+        border-color: var(--yellow);
+      }
+      .step-t.done .sn {
+        background: var(--yellow);
+        color: var(--black);
+        border-color: var(--yellow);
+      }
+      .step-t.done .sn::after {
+        content: "✓";
+      }
+      .step-t.done .sn span {
+        display: none;
+      }
+
+      .si .si-n {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.58rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gray);
+      }
+      .si .si-t {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--off);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 0.1rem;
+      }
+      .step-t.active .si .si-t {
+        color: var(--white);
+      }
+
+      .rsv-panel {
+        display: none;
+      }
+      .rsv-panel.active {
+        display: block;
+      }
+
+      /* PASO 1 */
+      .barb-opts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+      }
+      @media (max-width: 580px) {
+        .barb-opts {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .barb-opt {
+        border: 1px solid var(--borderd);
+        padding: 1.4rem 1.2rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: var(--black3);
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        position: relative;
+        user-select: none;
+      }
+      .barb-opt:hover {
+        border-color: var(--border);
+        background: var(--black4);
+      }
+      .barb-opt.sel {
+        border-color: var(--yellow);
+        border-width: 2px;
+        background: rgba(245, 194, 0, 0.07);
+      }
+      .barb-opt.sel::after {
+        content: "✓";
+        position: absolute;
+        top: 0.6rem;
+        right: 0.8rem;
+        font-size: 0.75rem;
+        color: var(--yellow);
+        font-weight: 900;
+      }
+
+      .bo-av {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--black4);
+        border: 1px solid var(--borderd);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        overflow: hidden;
+        font-family: "Anton", sans-serif;
+        font-size: 1.2rem;
+        color: var(--yellow);
+        transition: border-color 0.2s;
+      }
+      .barb-opt.sel .bo-av {
+        border-color: var(--yellow);
+        border-width: 2px;
+      }
+      .bo-av img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .bo-name {
+        font-family: "Oswald", sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--white);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .bo-spec {
+        font-size: 0.7rem;
+        color: var(--gray);
+        margin-top: 0.15rem;
+      }
+
+      /* PASO 2 */
+      .cal-wrap {
+        max-width: 400px;
+        border: 2px solid var(--border);
+        background: var(--black3);
+        padding: 1.8rem;
+      }
+      .cal-hd {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+      .cal-btn {
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--borderd);
+        background: none;
+        color: var(--yellow);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        transition: border-color 0.2s;
+        font-family: inherit;
+      }
+      .cal-btn:hover {
+        border-color: var(--yellow);
+      }
+      .cal-month {
+        font-family: "Oswald", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .cal-g {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+      }
+      .cal-dn {
+        text-align: center;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.58rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray2);
+        padding: 0.4rem 0;
+      }
+      .cal-d {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        cursor: pointer;
+        transition: all 0.18s;
+        color: var(--off);
+        border: 1px solid transparent;
+        font-family: "Lato", sans-serif;
+      }
+      .cal-d:hover:not(.dis):not(.emp) {
+        border-color: var(--border);
+        color: var(--yellow);
+        background: rgba(245, 194, 0, 0.08);
+      }
+      .cal-d.sel {
+        background: var(--yellow);
+        color: var(--black);
+        font-weight: 900;
+        border-color: transparent;
+      }
+      .cal-d.dis {
+        color: rgba(136, 136, 136, 0.22);
+        cursor: not-allowed;
+      }
+      .cal-d.emp {
+        cursor: default;
+      }
+      .cal-d.tod {
+        border-color: var(--borderd);
+        color: var(--yellow);
+      }
+
+      /* PASO 3 */
+      .slots-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.55rem;
+      }
+      @media (max-width: 540px) {
+        .slots-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .slot {
+        padding: 0.68rem 0.4rem;
+        text-align: center;
+        border: 1px solid var(--borderd);
+        font-family: "Oswald", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--off);
+        cursor: pointer;
+        transition: all 0.18s;
+        background: var(--black3);
+      }
+      .slot:hover:not(.occ) {
+        border-color: var(--yellow);
+        color: var(--yellow);
+        background: rgba(245, 194, 0, 0.08);
+      }
+      .slot.sel {
+        background: var(--yellow);
+        color: var(--black);
+        border-color: var(--yellow);
+        font-weight: 900;
+      }
+      .slot.occ {
+        color: rgba(136, 136, 136, 0.22);
+        border-color: rgba(255, 255, 255, 0.03);
+        cursor: not-allowed;
+        font-size: 0.6rem;
+      }
+
+      /* Resumen */
+      .rsv-sum {
+        margin-top: 2rem;
+        border: 2px solid var(--border);
+        background: rgba(245, 194, 0, 0.05);
+        padding: 1.4rem 2rem;
+        display: none;
+      }
+      .rsv-sum.on {
+        display: block;
+      }
+      .rs-head {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin-bottom: 0.9rem;
+      }
+      .rs-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.82rem;
+        padding: 0.3rem 0;
+        border-bottom: 1px solid rgba(245, 194, 0, 0.08);
+      }
+      .rs-row:last-child {
+        border: none;
+      }
+      .rs-k {
+        color: var(--gray);
+      }
+      .rs-v {
+        color: var(--off);
+        font-weight: 700;
+      }
+
+      /* Confirm */
+      .rsv-confirm {
+        margin-top: 2rem;
+      }
+      #btnConfirm {
+        width: 100%;
+        padding: 1.1rem 2rem;
+        font-family: "Oswald", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        border: none;
+        cursor: not-allowed;
+        background: var(--black4);
+        color: var(--gray2);
+        transition: all 0.3s;
+      }
+      #btnConfirm.ready {
+        background: var(--yellow);
+        color: var(--black);
+        cursor: pointer;
+        box-shadow: 0 0 28px rgba(245, 194, 0, 0.3);
+      }
+      #btnConfirm.ready:hover {
+        background: var(--yellow2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(245, 194, 0, 0.45);
+      }
+      .rsv-note {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: var(--gray2);
+        margin-top: 0.6rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      /* ══════════════════════ RESEÑAS ══════════════════════ */
+      #resenas {
+        background: var(--black);
+        text-align: center;
+      }
+
+      .rating-hero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+        margin-bottom: 3.5rem;
+      }
+      .rh-n {
+        font-family: "Anton", sans-serif;
+        font-size: 5.5rem;
+        color: var(--white);
+        line-height: 1;
+        letter-spacing: 0.04em;
+      }
+      .rh-stars {
+        color: var(--yellow);
+        font-size: 1.3rem;
+        letter-spacing: 0.1em;
+        margin-top: 0.2rem;
+      }
+      .rh-l {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-top: 0.3rem;
+      }
+      .rh-sep {
+        width: 1px;
+        height: 55px;
+        background: var(--borderd);
+      }
+
+      .rev-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 2px solid var(--border);
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      @media (max-width: 800px) {
+        .rev-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .rev-card {
+        background: var(--black);
+        padding: 2.2rem 2rem;
+        transition: background 0.25s;
+        text-align: left;
+      }
+      .rev-card:hover {
+        background: var(--black2);
+      }
+      .rc-stars {
+        color: var(--yellow);
+        font-size: 0.9rem;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.8rem;
+      }
+      .rc-txt {
+        font-size: 0.9rem;
+        color: var(--off);
+        line-height: 1.78;
+        margin-bottom: 1.1rem;
+        font-style: italic;
+      }
+      .rc-name {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--yellow);
+      }
+      .rc-src {
+        font-size: 0.6rem;
+        color: var(--gray);
+        margin-top: 0.15rem;
+        letter-spacing: 0.06em;
+      }
+
+      /* ══════════════════════ CONTACTO ══════════════════════ */
+      #contacto {
+        background: var(--black2);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        padding: 0;
+      }
+      @media (max-width: 800px) {
+        #contacto {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .ct-l {
+        padding: 6.5rem 2.5rem;
+        border-right: 1px solid var(--borderd);
+      }
+      .ct-r {
+        padding: 6.5rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      .ct-l .s-label {
+        justify-content: flex-start;
+      }
+      .ct-l h2 {
+        text-align: left;
+        font-size: 2.6rem;
+      }
+
+      .ct-items {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+        margin-top: 2rem;
+      }
+      .ct-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      .ct-icon {
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--yellow);
+        flex-shrink: 0;
+        background: rgba(245, 194, 0, 0.05);
+      }
+      .ct-lbl {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-bottom: 0.2rem;
+      }
+      .ct-val {
+        font-size: 0.88rem;
+        color: var(--off);
+        line-height: 1.6;
+      }
+      .ct-val a {
+        color: var(--off);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .ct-val a:hover {
+        color: var(--yellow);
+      }
+
+      .hrs-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+      }
+      .hrs-table td {
+        padding: 0.72rem 0;
+        font-size: 0.82rem;
+        border-bottom: 1px solid var(--borderd);
+      }
+      .hrs-table td:last-child {
+        text-align: right;
+        color: var(--gray);
+        font-size: 0.75rem;
+      }
+      .hrs-table tr.cls td {
+        color: rgba(136, 136, 136, 0.28);
+      }
+      .hrs-table tr.diff {
+        color: var(--yellow) !important;
+      }
+      .hrs-table tr.diff td {
+        color: var(--yellow) !important;
+      }
+
+      .phone-cta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: var(--yellow);
+        padding: 1.3rem 1.6rem;
+        margin-top: 2rem;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .phone-cta:hover {
+        background: var(--yellow2);
+      }
+      .ph-lbl {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.5);
+      }
+      .ph-num {
+        font-family: "Anton", sans-serif;
+        font-size: 1.4rem;
+        color: var(--black);
+        letter-spacing: 0.04em;
+      }
+
+      /* Right side */
+      .logo-card {
+        background: var(--black3);
+        border: 2px solid var(--border);
+        padding: 2.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+      }
+      .logo-card img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: contain;
+        border: 2px solid var(--border);
+        background: white;
+      }
+      .logo-card-ph {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: var(--black4);
+        border: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-card-ph span {
+        font-family: "Anton", sans-serif;
+        font-size: 2.5rem;
+        color: var(--yellow);
+      }
+      .logo-card-name {
+        font-family: "Anton", sans-serif;
+        font-size: 1.3rem;
+        color: var(--white);
+        text-align: center;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .logo-card-est {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--yellow);
+      }
+      .logo-card p {
+        font-size: 0.78rem;
+        color: var(--gray);
+        text-align: center;
+        line-height: 1.7;
+      }
+
+      .soc-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border);
+        border: 2px solid var(--border);
+      }
+      .soc-a {
+        background: var(--black2);
+        padding: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gray);
+        gap: 0.5rem;
+        transition: all 0.2s;
+      }
+      .soc-a:hover {
+        background: var(--black3);
+        color: var(--yellow);
+      }
+
+      .cta-block {
+        background: var(--yellow);
+        padding: 2rem 1.8rem;
+        text-align: center;
+      }
+      .cta-block h3 {
+        font-family: "Anton", sans-serif;
+        font-size: 1.4rem;
+        color: var(--black);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+      }
+      .cta-block p {
+        font-size: 0.78rem;
+        color: rgba(0, 0, 0, 0.55);
+        margin-bottom: 1.2rem;
+        line-height: 1.6;
+      }
+      .cta-block a {
+        display: inline-block;
+        padding: 0.7rem 1.8rem;
+        background: var(--black);
+        color: var(--yellow);
+        font-family: "Oswald", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .cta-block a:hover {
+        background: var(--black2);
+      }
+
+      /* ══════════════════════ MAP ══════════════════════ */
+      #mapa {
+        padding: 0;
+      }
+      .map-wrap {
+        position: relative;
+        height: 340px;
+        overflow: hidden;
+      }
+      .map-wrap iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        filter: grayscale(100%) brightness(0.55) sepia(5%);
+      }
+      .map-badge {
+        position: absolute;
+        top: 2rem;
+        left: 2.5rem;
+        background: var(--black);
+        border: 2px solid var(--border);
+        padding: 1rem 1.5rem;
+      }
+      .map-badge strong {
+        display: block;
+        font-family: "Oswald", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--white);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.15rem;
+      }
+      .map-badge span {
+        font-size: 0.7rem;
+        color: var(--gray);
+        letter-spacing: 0.04em;
+      }
+
+      /* ══════════════════════ FOOTER ══════════════════════ */
+      footer {
+        background: var(--black);
+        border-top: 2px solid var(--border);
+        padding: 3.5rem 2.5rem;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid var(--borderd);
+      }
+      @media (max-width: 700px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .fb-logo img {
+        height: 52px;
+        width: 52px;
+        border-radius: 50%;
+        object-fit: contain;
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border);
+        background: white;
+      }
+      .fb-logo-ph {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--black3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+      .fb-logo-ph span {
+        font-family: "Anton", sans-serif;
+        font-size: 1.2rem;
+        color: var(--yellow);
+      }
+      .fb-name {
+        font-family: "Anton", sans-serif;
+        font-size: 1.4rem;
+        color: var(--white);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .fb-est {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        display: block;
+        margin-top: 0.1rem;
+      }
+      .fb-p {
+        font-size: 0.8rem;
+        color: var(--gray);
+        line-height: 1.8;
+        margin-top: 0.9rem;
+        max-width: 240px;
+      }
+
+      .fc-h {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        margin-bottom: 1.1rem;
+      }
+      .fc-ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+      }
+      .fc-ul li {
+        font-size: 0.8rem;
+        color: var(--gray);
+      }
+      .fc-ul li a {
+        color: var(--gray);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .fc-ul li a:hover {
+        color: var(--off);
+      }
+
+      .footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-bottom p {
+        font-size: 0.68rem;
+        color: rgba(136, 136, 136, 0.35);
+        letter-spacing: 0.04em;
+      }
+      .footer-pole {
+        font-size: 1.3rem;
+      }
+
+      /* ══════════════════════ REVEAL ══════════════════════ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ══════════════════════ RESPONSIVE ══════════════════════ */
+      @media (max-width: 700px) {
+        nav {
+          padding: 0 1.25rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        section {
+          padding: 5rem 1.25rem;
+        }
+        #hero {
+          padding: 8rem 1.25rem 5rem;
+        }
+        .hcorner {
+          display: none;
+        }
+        .pole {
+          display: none;
+        }
+        .ct-l,
+        .ct-r {
+          padding: 4rem 1.25rem;
+        }
+        .map-badge {
+          left: 1.25rem;
+        }
+        footer {
+          padding: 3rem 1.25rem;
+        }
+        h1 {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══ NAV ══ -->
+    <nav>
+      <div class="nav-brand">
+        <img
+          src="logo-karlita.png"
+          alt="Karlita's Barbería"
+          onerror="
+            this.style.display = 'none';
+            document.querySelector('.nav-brand-txt').style.display = 'block';
+          "
+        />
+        <div class="nav-brand-txt" style="display: none">
+          <strong>Karlita's Barbería</strong>
+          <span>Est. 2024 · Hermosillo</span>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#reservas">Reservar</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="tel:6624040040" class="nav-cta">662 404 0040</a></li>
+      </ul>
+    </nav>
+
+    <!-- ══ HERO ══ -->
+    <section id="hero">
+      <div class="hero-photo">
+        <div class="hero-photo-ph"></div>
+        <!-- <img src="hero-bg.jpg" alt="Karlita's Barbería"> -->
+      </div>
+      <div class="hero-ov"></div>
+
+      <div class="pole pole-l"><div class="pole-stripes"></div></div>
+      <div class="pole pole-r"><div class="pole-stripes"></div></div>
+      <div class="hcorner hc-tl"></div>
+      <div class="hcorner hc-tr"></div>
+      <div class="hcorner hc-bl"></div>
+      <div class="hcorner hc-br"></div>
+
+      <div class="hero-inner">
+        <!-- Logo -->
+        <div class="hero-logo">
+          <img
+            src="logo-karlita.png"
+            alt="Karlita's Barbería"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="hero-logo-ph" style="display: none"><span>K</span></div>
+        </div>
+
+        <div class="hero-tag">Hermosillo, Sonora · Col. Constitución</div>
+
+        <h1>
+          Karlita's
+          <span class="yellow">Barbería</span>
+        </h1>
+
+        <p class="hero-est">Est. 2024 · Calle Benito Juárez 125-A</p>
+
+        <p class="hero-sub">
+          Corte, barba, tinte y facial. Con el cuidado y la atención
+          personalizada que mereces, en un ambiente donde todos son bienvenidos.
+        </p>
+
+        <div class="hero-actions">
+          <a href="tel:6624040040" class="btn btn-yellow">Llamar para cita</a>
+          <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hs">
+            <div class="n">4.8<em>★</em></div>
+            <div class="l">Google</div>
+          </div>
+          <div class="hs">
+            <div class="n">43<em>+</em></div>
+            <div class="l">Reseñas</div>
+          </div>
+          <div class="hs">
+            <div class="n">7<em>días</em></div>
+            <div class="l">De atención</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ YELLOW RULE + TICKER ══ -->
+    <div class="yellow-rule"></div>
+    <div class="ticker-bar">
+      <div class="ticker-track">
+        <span>Corte de Cabello</span><span>Corte de Niño</span><span>Barba</span
+        ><span>Cabello y Barba</span><span>Citas Líneas o Retiro</span
+        ><span>Acabado de Barba</span><span>Tinte</span><span>Facial</span
+        ><span>Combos</span><span>Permanentes</span><span>Hermosillo</span
+        ><span>Est. 2024</span> <span>Corte de Cabello</span
+        ><span>Corte de Niño</span><span>Barba</span><span>Cabello y Barba</span
+        ><span>Citas Líneas o Retiro</span><span>Acabado de Barba</span
+        ><span>Tinte</span><span>Facial</span><span>Combos</span
+        ><span>Permanentes</span><span>Hermosillo</span><span>Est. 2024</span>
+      </div>
+    </div>
+
+    <!-- ══ NOSOTROS ══ -->
+    <section id="nosotros">
+      <div class="about-layout">
+        <div class="about-text">
+          <div class="s-label">Quiénes somos</div>
+          <h2>Tu barbería <span class="y">de confianza</span></h2>
+          <p>
+            <strong>Karlita's Barbería</strong> abrió sus puertas en 2024 en la
+            Colonia Constitución de Hermosillo, con una misión clara: ofrecer el
+            mejor servicio de barbería con atención personalizada, técnica de
+            calidad y un ambiente donde cada cliente se sienta bienvenido y
+            valorado.
+          </p>
+          <p>
+            Desde cortes clásicos hasta tratamientos especializados como tinte,
+            permanente y facial con aloe vera, somos más que una barbería —
+            somos
+            <strong
+              >tu lugar de confianza para cuidar tu estilo y apariencia.</strong
+            >
+          </p>
+          <p>
+            Cada visita es una oportunidad para demostrar nuestro compromiso con
+            la excelencia. Avísanos si requieres servicio en diferente horario —
+            nos adaptamos a ti.
+          </p>
+
+          <div class="lgbtq-chip">
+            <span>🏳️‍🌈</span> Espacio amigable con LGBTQ+
+          </div>
+
+          <div class="feature-row">
+            <span class="fchip">Corte Moderno</span>
+            <span class="fchip">Diseño de Barba</span>
+            <span class="fchip">Tinte de Cabello</span>
+            <span class="fchip">Facial con Aloe</span>
+            <span class="fchip">Permanentes</span>
+            <span class="fchip">Combos</span>
+            <span class="fchip">Corte de Niño</span>
+            <span class="fchip">Minoxidil</span>
+          </div>
+        </div>
+
+        <div class="about-right reveal">
+          <div class="about-img">
+            <div class="aim-ph"><p>foto-local.jpg</p></div>
+            <!-- <img src="foto-local.jpg" alt="Karlita's Barbería interior"> -->
+          </div>
+          <div class="about-accent">
+            <div class="aa-n">EST.</div>
+            <div class="aa-l">2024</div>
+          </div>
+          <div class="about-stats">
+            <div class="ast">
+              <div class="n">4.8<em>★</em></div>
+              <div class="l">Google</div>
+            </div>
+            <div class="ast">
+              <div class="n">43<em>+</em></div>
+              <div class="l">Reseñas</div>
+            </div>
+            <div class="ast">
+              <div class="n">7<em>d</em></div>
+              <div class="l">Semana</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SERVICIOS ══ -->
+    <section id="servicios">
+      <div class="s-label" style="justify-content: center">
+        Lista de servicios
+      </div>
+      <h2 style="text-align: center">
+        Nuestros <span class="y">Servicios</span>
+      </h2>
+      <div class="svc-headline">
+        <span>✦ Corte · Tinte · Facial · Combos ✦</span>
+      </div>
+      <p class="s-intro" style="margin: 0 auto 3rem; text-align: center">
+        Servicios para caballero y niño con la calidad y atención que mereces en
+        cada visita.
+      </p>
+
+      <div class="svc-grid">
+        <div class="svc-card reveal">
+          <div class="svc-num">01</div>
+          <h3>Corte de Cabello</h3>
+          <p>
+            Corte moderno o clásico a máquina y tijera. Lavado, secado y acabado
+            con producto. El clásico de siempre con el nivel que exiges.
+          </p>
+          <div class="svc-price">Consultar</div>
+          <div class="svc-dur">~1 hora</div>
+        </div>
+        <div class="svc-card reveal" style="transition-delay: 0.08s">
+          <div class="svc-num">02</div>
+          <h3>Corte de Niño</h3>
+          <p>
+            Corte especial para los más pequeños. Paciencia, buen trato y el
+            mismo nivel de cuidado para que salgan contentos.
+          </p>
+          <div class="svc-price">$200</div>
+          <div class="svc-dur">~1 hora</div>
+        </div>
+        <div class="svc-card reveal" style="transition-delay: 0.16s">
+          <div class="svc-num">03</div>
+          <h3>Barba</h3>
+          <p>
+            Diseño y perfilado de barba con acabado limpio y preciso. Para que
+            tu barba luzca exactamente como la quieres.
+          </p>
+          <div class="svc-price">$250</div>
+          <div class="svc-dur">~35 min</div>
+        </div>
+        <div class="svc-card reveal">
+          <div class="svc-num">04</div>
+          <h3>Cabello y Barba</h3>
+          <p>
+            El combo completo: corte de cabello más diseño y arreglo de barba.
+            El look total del caballero en una sola cita.
+          </p>
+          <div class="svc-price">$450</div>
+          <div class="svc-dur">~1 hr 30 min</div>
+        </div>
+        <div class="svc-card reveal" style="transition-delay: 0.08s">
+          <div class="svc-num">05</div>
+          <h3>Combo Estilo</h3>
+          <p>
+            Nuestro combo más completo. Corte, barba, tinte y facial. La
+            experiencia total para el caballero que cuida cada detalle.
+          </p>
+          <div class="svc-price">$650</div>
+          <div class="svc-dur">~2 horas</div>
+          <span class="svc-tag">Más Completo</span>
+        </div>
+        <div class="svc-card reveal" style="transition-delay: 0.16s">
+          <div class="svc-num">06</div>
+          <h3>Tinte · Permanente · Facial</h3>
+          <p>
+            Tinte de cabello, permanente y facial con mascarilla de aloe vera.
+            Tratamientos especializados para cuidar tu imagen a fondo.
+          </p>
+          <div class="svc-price">Desde $50</div>
+          <div class="svc-dur">Consultar disponibilidad</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ KARLITA ══ -->
+    <section id="karlita">
+      <div class="karlita-img gb1">
+        <div class="karlita-img-ph"><span>K</span></div>
+        <!-- <img src="karlita.jpg" alt="Karlita trabajando"> -->
+      </div>
+
+      <div class="karlita-content">
+        <div class="s-label">La barbera</div>
+        <h2>Conoce <span class="y">a Karlita</span></h2>
+        <p>
+          <strong>Karlita</strong> es la fundadora y barbera principal de
+          Karlita's Barbería, abierta en 2024 en la Colonia Constitución. Con
+          pasión por el oficio y dedicación en cada corte, ha construido un
+          espacio donde la calidad, la atención personalizada y el buen trato
+          son la norma — no la excepción.
+        </p>
+        <p>
+          Especializada en corte moderno y clásico, diseño de barba y
+          tratamientos especializados como tinte, permanente y facial con aloe
+          vera. Su filosofía es simple:
+          <strong
+            >cada cliente merece salir sintiéndose lo mejor posible.</strong
+          >
+        </p>
+        <div class="karlita-quote">
+          Con gran placer y gratitud damos la bienvenida a cada uno de ustedes.
+          Nos llena de orgullo saber que depositan su confianza en nosotros para
+          cuidar su estilo y apariencia.
+          <cite>— Karlita · Fundadora · Karlita's Barbería</cite>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ GALERÍA ══ -->
+    <section id="galeria" style="padding-bottom: 0">
+      <div class="s-label" style="justify-content: center">Galería</div>
+      <h2 style="text-align: center">Nuestro <span class="y">Trabajo</span></h2>
+      <p class="s-intro" style="margin: 0 auto 1.5rem; text-align: center">
+        Cada corte es una oportunidad para demostrar nuestro compromiso con la
+        excelencia.
+      </p>
+    </section>
+    <div class="gallery-mosaic" style="margin: 0">
+      <div class="gi tall gb1">
+        <div class="gi-ph"><p>galeria-1.jpg</p></div>
+        <!-- <img src="galeria-1.jpg" alt="Karlita's Barbería corte"> -->
+        <div class="gi-lbl">El Espacio</div>
+      </div>
+      <div class="gi gb2">
+        <div class="gi-ph"><p>galeria-2.jpg</p></div>
+        <!-- <img src="galeria-2.jpg" alt="Corte"> -->
+        <div class="gi-lbl">Corte</div>
+      </div>
+      <div class="gi gb3">
+        <div class="gi-ph"><p>galeria-3.jpg</p></div>
+        <!-- <img src="galeria-3.jpg" alt="Barba"> -->
+        <div class="gi-lbl">Barba</div>
+      </div>
+      <div class="gi gb2">
+        <div class="gi-ph"><p>galeria-4.jpg</p></div>
+        <!-- <img src="galeria-4.jpg" alt="Resultado"> -->
+        <div class="gi-lbl">El Resultado</div>
+      </div>
+      <div class="gi gb1">
+        <div class="gi-ph"><p>galeria-5.jpg</p></div>
+        <!-- <img src="galeria-5.jpg" alt="Ambiente"> -->
+        <div class="gi-lbl">El Estilo</div>
+      </div>
+    </div>
+    <div style="height: 6rem; background: var(--black2)"></div>
+
+    <!-- ══ RESERVAS ══ -->
+    <section id="reservas">
+      <div class="s-label" style="justify-content: center">Agenda tu cita</div>
+      <h2 style="text-align: center">Reserva tu <span class="y">Cita</span></h2>
+      <p class="s-intro" style="margin: 0 auto 2rem; text-align: center">
+        Selecciona barbero, fecha y hora. También puedes llamar directamente al
+        662 404 0040.
+      </p>
+
+      <div class="rsv-wrap">
+        <div class="steps-bar">
+          <div class="step-t active" id="t1">
+            <div class="sn"><span>1</span></div>
+            <div class="si">
+              <div class="si-n">Paso 01</div>
+              <div class="si-t">Barbero</div>
+            </div>
+          </div>
+          <div class="step-t" id="t2">
+            <div class="sn"><span>2</span></div>
+            <div class="si">
+              <div class="si-n">Paso 02</div>
+              <div class="si-t">Fecha</div>
+            </div>
+          </div>
+          <div class="step-t" id="t3">
+            <div class="sn"><span>3</span></div>
+            <div class="si">
+              <div class="si-n">Paso 03</div>
+              <div class="si-t">Hora</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 1 -->
+        <div class="rsv-panel active" id="p1">
+          <div class="barb-opts">
+            <div class="barb-opt" data-name="Karlita" onclick="pickBarb(this)">
+              <div class="bo-av">K</div>
+              <div>
+                <div class="bo-name">Karlita</div>
+                <div class="bo-spec">Fundadora · Todos los servicios</div>
+              </div>
+            </div>
+            <div
+              class="barb-opt"
+              data-name="Barbero 2"
+              onclick="pickBarb(this)"
+            >
+              <div class="bo-av">B2</div>
+              <div>
+                <div class="bo-name">Barbero 2</div>
+                <div class="bo-spec">Corte y barba</div>
+              </div>
+            </div>
+            <div
+              class="barb-opt"
+              data-name="Sin preferencia"
+              onclick="pickBarb(this)"
+            >
+              <div class="bo-av" style="font-size: 0.7rem">✦</div>
+              <div>
+                <div class="bo-name">Sin preferencia</div>
+                <div class="bo-spec">Primer disponible</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2 -->
+        <div class="rsv-panel" id="p2">
+          <div class="cal-wrap">
+            <div class="cal-hd">
+              <button class="cal-btn" onclick="cm(-1)">‹</button>
+              <div class="cal-month" id="calTitle"></div>
+              <button class="cal-btn" onclick="cm(1)">›</button>
+            </div>
+            <div class="cal-g" id="calGrid"></div>
+          </div>
+          <p
+            style="
+              font-size: 0.72rem;
+              color: var(--gray);
+              margin-top: 0.8rem;
+              font-family: &quot;Oswald&quot;, sans-serif;
+              letter-spacing: 0.1em;
+            "
+          >
+            * Los domingos el horario es 11:00 — 13:00. Avísanos si necesitas
+            horario diferente.
+          </p>
+        </div>
+
+        <!-- Panel 3 -->
+        <div class="rsv-panel" id="p3">
+          <div class="slots-grid" id="slotsGrid"></div>
+        </div>
+
+        <!-- Resumen -->
+        <div class="rsv-sum" id="rsv-sum">
+          <div class="rs-head">✦ Resumen de tu reserva</div>
+          <div class="rs-row">
+            <span class="rs-k">Barbero</span
+            ><span class="rs-v" id="sBarb">—</span>
+          </div>
+          <div class="rs-row">
+            <span class="rs-k">Fecha</span
+            ><span class="rs-v" id="sDate">—</span>
+          </div>
+          <div class="rs-row">
+            <span class="rs-k">Hora</span><span class="rs-v" id="sTime">—</span>
+          </div>
+        </div>
+
+        <!-- Confirm -->
+        <div class="rsv-confirm">
+          <button id="btnConfirm" disabled>Confirmar Reservación</button>
+          <div class="rsv-note" id="rsv-note">
+            Completa los 3 pasos para habilitar tu reserva
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ RESEÑAS ══ -->
+    <section id="resenas">
+      <div class="s-label" style="justify-content: center">Lo que dicen</div>
+      <h2 style="text-align: center">
+        Clientes <span class="y">Satisfechos</span>
+      </h2>
+
+      <div class="rating-hero reveal">
+        <div>
+          <div class="rh-n">4.8</div>
+          <div class="rh-stars">★★★★★</div>
+          <div class="rh-l">Google Maps</div>
+        </div>
+        <div class="rh-sep"></div>
+        <div>
+          <div class="rh-n" style="font-size: 3.8rem">43+</div>
+          <div class="rh-l" style="margin-top: 0.4rem">Reseñas verificadas</div>
+        </div>
+        <div class="rh-sep"></div>
+        <div>
+          <div class="rh-n" style="font-size: 3.8rem">100%</div>
+          <div class="rh-l" style="margin-top: 0.4rem">Lo recomiendan</div>
+        </div>
+      </div>
+
+      <div class="rev-grid">
+        <div class="rev-card reveal">
+          <div class="rc-stars">★★★★★</div>
+          <p class="rc-txt">
+            "Excelente servicio de principio a fin. Desde que llegué me
+            atendieron con mucha amabilidad y profesionalismo. El corte quedó
+            exactamente como lo quería. Sin duda la mejor experiencia."
+          </p>
+          <div class="rc-name">Cliente verificado</div>
+          <div class="rc-src">Reseña Google</div>
+        </div>
+        <div class="rev-card reveal" style="transition-delay: 0.1s">
+          <div class="rc-stars">★★★★★</div>
+          <p class="rc-txt">
+            "Excelente atención, como siempre. La conocía de otra barbería y es
+            la mejor atención, buena platica, muy amable. Siempre salgo con el
+            corte perfecto."
+          </p>
+          <div class="rc-name">Cliente frecuente</div>
+          <div class="rc-src">Reseña Google</div>
+        </div>
+        <div class="rev-card reveal" style="transition-delay: 0.2s">
+          <div class="rc-stars">★★★★★</div>
+          <p class="rc-txt">
+            "Muy buen servicio. Muy amable y excelente ambiente. La barbería es
+            limpia, bien organizada y el trato es de primera. Definitivamente
+            volvería y la recomendaría."
+          </p>
+          <div class="rc-name">Cliente verificado</div>
+          <div class="rc-src">Reseña Google</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CONTACTO ══ -->
+    <section id="contacto">
+      <div class="ct-l">
+        <div class="s-label">Encuéntranos</div>
+        <h2>Visítanos <span class="y">en Constitución</span></h2>
+
+        <div class="ct-items">
+          <div class="ct-item">
+            <div class="ct-icon">Ubi</div>
+            <div>
+              <div class="ct-lbl">Dirección</div>
+              <div class="ct-val">
+                Calle Benito Juárez 125-A<br />Col. Constitución, Hermosillo,
+                Sonora 83150
+              </div>
+            </div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">Tel</div>
+            <div>
+              <div class="ct-lbl">Teléfono · Citas</div>
+              <div class="ct-val">
+                <a href="tel:6624040040">662 404 0040</a>
+              </div>
+            </div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">FB</div>
+            <div>
+              <div class="ct-lbl">Facebook</div>
+              <div class="ct-val">
+                <a
+                  href="https://www.facebook.com/p/Karlitas-Barber%C3%ADa-61557450353655/"
+                  target="_blank"
+                  >Karlitas Barbería</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">IG</div>
+            <div>
+              <div class="ct-lbl">Instagram</div>
+              <div class="ct-val">
+                <a
+                  href="https://www.instagram.com/karlitasbarberia/"
+                  target="_blank"
+                  >@karlitasbarberia</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-icon">Web</div>
+            <div>
+              <div class="ct-lbl">Sitio web</div>
+              <div class="ct-val">
+                <a href="https://karlitasbarberia.com" target="_blank"
+                  >karlitasbarberia.com</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <table class="hrs-table">
+          <tr>
+            <td>Lunes</td>
+            <td>08:30 — 19:00</td>
+          </tr>
+          <tr>
+            <td>Martes</td>
+            <td>08:30 — 19:00</td>
+          </tr>
+          <tr>
+            <td>Miércoles</td>
+            <td>08:30 — 19:00</td>
+          </tr>
+          <tr>
+            <td>Jueves</td>
+            <td>08:30 — 19:00</td>
+          </tr>
+          <tr>
+            <td>Viernes</td>
+            <td>08:30 — 19:00</td>
+          </tr>
+          <tr class="diff">
+            <td>Sábado</td>
+            <td>10:00 — 19:00</td>
+          </tr>
+          <tr class="diff">
+            <td>Domingo</td>
+            <td>11:00 — 13:00</td>
+          </tr>
+        </table>
+
+        <a href="tel:6624040040" class="phone-cta">
+          <div>
+            <div class="ph-lbl">Llama para tu cita</div>
+            <div class="ph-num">662 404 0040</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="ct-r">
+        <div class="logo-card">
+          <img
+            src="logo-karlita.png"
+            alt="Karlita's Barbería"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <div class="logo-card-ph" style="display: none"><span>K</span></div>
+          <div class="logo-card-name">Karlita's Barbería</div>
+          <div class="logo-card-est">Est. 2024 · Hermosillo, Sonora</div>
+          <p>
+            Tu lugar de confianza para corte, barba y cuidado personal. Atención
+            personalizada y ambiente donde todos son bienvenidos.
+          </p>
+        </div>
+
+        <div class="soc-pair">
+          <a
+            href="https://www.facebook.com/p/Karlitas-Barber%C3%ADa-61557450353655/"
+            target="_blank"
+            class="soc-a"
+            >Facebook</a
+          >
+          <a
+            href="https://www.instagram.com/karlitasbarberia/"
+            target="_blank"
+            class="soc-a"
+            >Instagram</a
+          >
+        </div>
+
+        <div class="cta-block">
+          <h3>¿Listo para tu próximo corte?</h3>
+          <p>
+            Llama o escríbenos para agendar tu cita. Nos adaptamos a tu horario
+            si lo necesitas.
+          </p>
+          <a href="tel:6624040040">Llamar ahora</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ MAP ══ -->
+    <div id="mapa">
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3487.5!2d-110.9640!3d29.0830!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86ce84f0b1234567%3A0x0!2sCalle+Benito+Ju%C3%A1rez+125-A%2C+Constituci%C3%B3n%2C+Hermosillo!5e0!3m2!1ses!2smx!4v1"
+          allowfullscreen=""
+          loading="lazy"
+        >
+        </iframe>
+        <div class="map-badge">
+          <strong>Karlita's Barbería</strong>
+          <span>Juárez 125-A · Col. Constitución · Hermosillo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ FOOTER ══ -->
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <div class="fb-logo">
+            <img
+              src="logo-karlita.png"
+              alt="Karlita's Barbería"
+              onerror="
+                this.style.display = 'none';
+                this.nextElementSibling.style.display = 'flex';
+              "
+            />
+            <div class="fb-logo-ph" style="display: none"><span>K</span></div>
+          </div>
+          <div class="fb-name">Karlita's Barbería</div>
+          <span class="fb-est">Est. 2024 · @karlitasbarberia</span>
+          <p class="fb-p">
+            Barbería en Col. Constitución, Hermosillo. Citas al 662 404 0040.
+            Lunes–Viernes 8:30–19h, Sábado 10–19h, Domingo 11–13h.
+          </p>
+        </div>
+        <div>
+          <div class="fc-h">Servicios</div>
+          <ul class="fc-ul">
+            <li><a href="#servicios">Corte de Cabello</a></li>
+            <li><a href="#servicios">Corte de Niño — $200</a></li>
+            <li><a href="#servicios">Barba — $250</a></li>
+            <li><a href="#servicios">Cabello y Barba — $450</a></li>
+            <li><a href="#servicios">Combo Estilo — $650</a></li>
+            <li><a href="#servicios">Tinte · Permanente · Facial</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="fc-h">Contacto</div>
+          <ul class="fc-ul">
+            <li>Juárez 125-A, Col. Constitución</li>
+            <li>Hermosillo, Sonora 83150</li>
+            <li><a href="tel:6624040040">662 404 0040</a></li>
+            <li>
+              <a href="https://karlitasbarberia.com" target="_blank"
+                >karlitasbarberia.com</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.facebook.com/p/Karlitas-Barber%C3%ADa-61557450353655/"
+                target="_blank"
+                >Facebook</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/karlitasbarberia/"
+                target="_blank"
+                >Instagram</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          © 2025 Karlita's Barbería · Est. 2024 · Hermosillo, Sonora · Todos los
+          derechos reservados.
+        </p>
+        <span class="footer-pole">💈</span>
+      </div>
+    </footer>
+
+    <script>
+      // ══ REVEAL ══
+      const obs = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              obs.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+
+      // ══ RESERVAS ══
+      const MONTHS = [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ];
+      const DAYS = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+      const SLOTS = [
+        "08:30",
+        "09:00",
+        "09:30",
+        "10:00",
+        "10:30",
+        "11:00",
+        "11:30",
+        "12:00",
+        "12:30",
+        "13:00",
+        "14:00",
+        "14:30",
+        "15:00",
+        "15:30",
+        "16:00",
+        "16:30",
+        "17:00",
+        "17:30",
+        "18:00",
+        "18:30",
+      ];
+      const OCC = ["10:00", "12:00", "14:30", "16:30"];
+
+      let S = { barb: null, date: null, time: null };
+      const today = new Date();
+      let cY = today.getFullYear(),
+        cM = today.getMonth();
+
+      function pickBarb(el) {
+        document
+          .querySelectorAll(".barb-opt")
+          .forEach((o) => o.classList.remove("sel"));
+        el.classList.add("sel");
+        S.barb = el.dataset.name;
+        S.date = null;
+        S.time = null;
+        goStep(2);
+        renderCal();
+        sync();
+        check();
+      }
+
+      function renderCal() {
+        document.getElementById("calTitle").textContent = MONTHS[cM] + " " + cY;
+        const g = document.getElementById("calGrid");
+        g.innerHTML = "";
+        DAYS.forEach((d) => {
+          const e = document.createElement("div");
+          e.className = "cal-dn";
+          e.textContent = d;
+          g.appendChild(e);
+        });
+        const fd = new Date(cY, cM, 1).getDay();
+        const td = new Date(cY, cM + 1, 0).getDate();
+        for (let i = 0; i < fd; i++) {
+          const e = document.createElement("div");
+          e.className = "cal-d emp";
+          g.appendChild(e);
+        }
+        for (let d = 1; d <= td; d++) {
+          const date = new Date(cY, cM, d);
+          const ds = `${cY}-${String(cM + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+          const past =
+            date <
+            new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          const isToday = date.toDateString() === today.toDateString();
+          const e = document.createElement("div");
+          e.className =
+            "cal-d" +
+            (past ? " dis" : "") +
+            (isToday ? " tod" : "") +
+            (S.date === ds ? " sel" : "");
+          e.textContent = d;
+          if (!past)
+            e.onclick = () => {
+              S.date = ds;
+              S.time = null;
+              renderCal();
+              goStep(3);
+              renderSlots(date.getDay());
+              sync();
+              check();
+            };
+          g.appendChild(e);
+        }
+      }
+
+      function cm(dir) {
+        cM += dir;
+        if (cM > 11) {
+          cM = 0;
+          cY++;
+        }
+        if (cM < 0) {
+          cM = 11;
+          cY--;
+        }
+        renderCal();
+      }
+
+      function renderSlots(dayOfWeek) {
+        const g = document.getElementById("slotsGrid");
+        g.innerHTML = "";
+        // Sunday: only 11-13h
+        let available = SLOTS;
+        if (dayOfWeek === 0) available = ["11:00", "11:30", "12:00", "12:30"];
+        else if (dayOfWeek === 6) available = SLOTS.filter((t) => t >= "10:00");
+        else available = SLOTS;
+
+        available.forEach((t) => {
+          const e = document.createElement("div");
+          const occ = OCC.includes(t);
+          e.className =
+            "slot" + (occ ? " occ" : "") + (S.time === t ? " sel" : "");
+          e.textContent = occ ? t + "\nOcupado" : t;
+          if (occ) {
+            e.style.whiteSpace = "pre";
+            e.style.lineHeight = "1.3";
+          } else
+            e.onclick = () => {
+              document
+                .querySelectorAll(".slot")
+                .forEach((s) => s.classList.remove("sel"));
+              e.classList.add("sel");
+              S.time = t;
+              sync();
+              check();
+            };
+          g.appendChild(e);
+        });
+      }
+
+      function goStep(step) {
+        [1, 2, 3].forEach((i) => {
+          const t = document.getElementById("t" + i);
+          t.classList.remove("active", "done");
+          if (i < step) t.classList.add("done");
+          if (i === step) t.classList.add("active");
+        });
+        document
+          .querySelectorAll(".rsv-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("p" + step).classList.add("active");
+      }
+
+      function sync() {
+        if (S.barb) document.getElementById("sBarb").textContent = S.barb;
+        if (S.date) {
+          const [y, m, d] = S.date.split("-");
+          document.getElementById("sDate").textContent =
+            `${parseInt(d)} de ${MONTHS[parseInt(m) - 1]} de ${y}`;
+        }
+        if (S.time)
+          document.getElementById("sTime").textContent = S.time + " hrs";
+        if (S.barb || S.date || S.time)
+          document.getElementById("rsv-sum").classList.add("on");
+      }
+
+      function check() {
+        const btn = document.getElementById("btnConfirm");
+        const note = document.getElementById("rsv-note");
+        if (S.barb && S.date && S.time) {
+          btn.classList.add("ready");
+          btn.disabled = false;
+          note.textContent = `Reserva lista · ${S.barb} · ${S.time} hrs`;
+        } else {
+          btn.classList.remove("ready");
+          btn.disabled = true;
+          note.textContent = "Completa los 3 pasos para habilitar tu reserva";
+        }
+      }
+
+      renderCal();
+    </script>
+  </body>
+</html>
