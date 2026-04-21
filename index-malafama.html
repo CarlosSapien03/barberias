@@ -1,0 +1,1356 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MALA FAMA® — Barbería Hermosillo</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --gold: #c9a84c;
+        --gold-light: #e8c97a;
+        --gold-pale: #f5edd5;
+        --black: #0d0d0d;
+        --white: #fafaf8;
+        --off-white: #f2f0eb;
+        --gray: #888;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--white);
+        color: var(--black);
+        font-family: "Montserrat", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.4rem 3.5rem;
+        background: rgba(250, 250, 248, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 0.18em;
+        color: var(--black);
+      }
+      .nav-logo span {
+        color: var(--gold);
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.4rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--black);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.25s;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+      .nav-cta {
+        background: var(--gold);
+        color: var(--black);
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 0.55rem 1.4rem;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: background 0.25s;
+      }
+      .nav-cta:hover {
+        background: var(--gold-light);
+      }
+
+      /* ── HERO ── */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-left {
+        background: var(--black);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10rem 5rem 6rem 5rem;
+        position: relative;
+      }
+      .hero-left::after {
+        content: "";
+        position: absolute;
+        right: -1px;
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        background: linear-gradient(to right, transparent, var(--white));
+        z-index: 2;
+      }
+      .hero-eyebrow {
+        font-size: 0.65rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 500;
+        margin-bottom: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .hero-eyebrow::before {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: var(--gold);
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(5rem, 8vw, 8.5rem);
+        line-height: 0.9;
+        color: var(--white);
+        letter-spacing: 0.04em;
+      }
+      .hero-title .gold-line {
+        color: var(--gold);
+      }
+      .hero-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1.15rem;
+        color: rgba(250, 250, 248, 0.55);
+        margin-top: 1.8rem;
+        line-height: 1.6;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 3rem;
+        align-items: center;
+      }
+      .btn-primary {
+        background: var(--gold);
+        color: var(--black);
+        padding: 0.85rem 2.2rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.25s;
+      }
+      .btn-primary:hover {
+        background: var(--gold-light);
+      }
+      .btn-ghost {
+        color: rgba(250, 250, 248, 0.65);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 500;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(250, 250, 248, 0.25);
+        padding-bottom: 2px;
+        transition: color 0.25s;
+      }
+      .btn-ghost:hover {
+        color: var(--gold);
+        border-color: var(--gold);
+      }
+
+      .hero-right {
+        background: var(--off-white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem 4rem;
+        position: relative;
+      }
+      .hero-photo-frame {
+        width: 100%;
+        max-width: 380px;
+        aspect-ratio: 3/4;
+        border: 1px solid rgba(201, 168, 76, 0.4);
+        position: relative;
+        overflow: hidden;
+        background: #e0dbd2;
+      }
+      .hero-photo-frame::before {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        z-index: 1;
+      }
+      /* Barberpole decorative element */
+      .hero-photo-frame .inner-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* SVG placeholder illustration */
+      .barber-svg {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-badge {
+        position: absolute;
+        bottom: -1.5rem;
+        right: -1.5rem;
+        width: 100px;
+        height: 100px;
+        background: var(--gold);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 3;
+      }
+      .hero-badge span:first-child {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        line-height: 1;
+        color: var(--black);
+      }
+      .hero-badge span:last-child {
+        font-size: 0.45rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(13, 13, 13, 0.7);
+        font-weight: 500;
+      }
+
+      /* ── STATS ── */
+      .stats {
+        background: var(--black);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .stat {
+        padding: 3rem;
+        border-right: 1px solid rgba(201, 168, 76, 0.15);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .stat:last-child {
+        border-right: none;
+      }
+      .stat-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3.5rem;
+        color: var(--gold);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(250, 250, 248, 0.45);
+        margin-top: 0.5rem;
+        text-align: center;
+        font-weight: 500;
+      }
+
+      /* ── SECTION HEADER ── */
+      .section-header {
+        text-align: center;
+        padding: 6rem 2rem 4rem;
+      }
+      .section-eyebrow {
+        font-size: 0.6rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.5rem, 4vw, 4rem);
+        letter-spacing: 0.08em;
+        color: var(--black);
+      }
+      .section-rule {
+        width: 50px;
+        height: 1px;
+        background: var(--gold);
+        margin: 1.5rem auto 0;
+      }
+
+      /* ── SERVICIOS ── */
+      #servicios {
+        background: var(--white);
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: rgba(201, 168, 76, 0.15);
+        max-width: 1100px;
+        margin: 0 auto 6rem;
+        border: 1px solid rgba(201, 168, 76, 0.15);
+      }
+      .service-card {
+        background: var(--white);
+        padding: 3rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        transition: background 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .service-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: width 0.4s ease;
+      }
+      .service-card:hover {
+        background: var(--gold-pale);
+      }
+      .service-card:hover::after {
+        width: 100%;
+      }
+      .service-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3rem;
+        color: rgba(201, 168, 76, 0.2);
+        line-height: 1;
+        margin-bottom: 1.2rem;
+      }
+      .service-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--black);
+        margin-bottom: 0.6rem;
+      }
+      .service-desc {
+        font-size: 0.75rem;
+        color: var(--gray);
+        line-height: 1.8;
+        flex-grow: 1;
+      }
+      .service-price {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        color: var(--gold);
+        margin-top: 1.5rem;
+        letter-spacing: 0.05em;
+      }
+
+      /* ── EXPERIENCIA ── */
+      #experiencia {
+        background: var(--black);
+        padding: 6rem 0;
+      }
+      #experiencia .section-title {
+        color: var(--white);
+      }
+      .exp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        max-width: 1100px;
+        margin: 3rem auto 0;
+        gap: 0;
+      }
+      .exp-image {
+        background: #1a1a1a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 480px;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Visual decorative interior recreation */
+      .exp-image-inner {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .exp-image-inner::before {
+        content: "✂";
+        font-size: 8rem;
+        opacity: 0.06;
+        position: absolute;
+      }
+      .exp-chair-icon {
+        width: 180px;
+        opacity: 0.35;
+      }
+      .exp-content {
+        background: #0d0d0d;
+        padding: 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 1px solid rgba(201, 168, 76, 0.1);
+      }
+      .exp-list {
+        list-style: none;
+        margin-top: 2rem;
+      }
+      .exp-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.2rem;
+        padding: 1.2rem 0;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+        font-size: 0.8rem;
+        color: rgba(250, 250, 248, 0.6);
+        line-height: 1.6;
+      }
+      .exp-list li::before {
+        content: "—";
+        color: var(--gold);
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+      .exp-lead {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1.3rem;
+        color: rgba(250, 250, 248, 0.75);
+        line-height: 1.6;
+        border-left: 2px solid var(--gold);
+        padding-left: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      /* ── HORARIOS / CONTACTO ── */
+      #contacto {
+        background: var(--off-white);
+        padding: 6rem 0;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        max-width: 1000px;
+        margin: 3rem auto 0;
+        gap: 3rem;
+        padding: 0 2rem;
+      }
+      .contact-block h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.4rem;
+        letter-spacing: 0.12em;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+      }
+      .hours-list {
+        list-style: none;
+      }
+      .hours-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        font-size: 0.78rem;
+        color: var(--gray);
+        letter-spacing: 0.05em;
+      }
+      .hours-list li span:first-child {
+        text-transform: uppercase;
+        font-weight: 500;
+        color: var(--black);
+      }
+      .hours-list .closed {
+        color: rgba(136, 136, 136, 0.5);
+      }
+      .contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.4rem;
+      }
+      .contact-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--gold);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 0.9rem;
+      }
+      .contact-text {
+        font-size: 0.78rem;
+        color: var(--gray);
+        line-height: 1.6;
+      }
+      .contact-text strong {
+        display: block;
+        color: var(--black);
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+      }
+      .contact-text a {
+        color: var(--gray);
+        text-decoration: none;
+      }
+      .contact-text a:hover {
+        color: var(--gold);
+      }
+
+      /* ── MAP placeholder ── */
+      .map-container {
+        max-width: 1100px;
+        margin: 4rem auto 0;
+        height: 280px;
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        overflow: hidden;
+        position: relative;
+      }
+      .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        filter: grayscale(30%) contrast(1.1);
+      }
+
+      /* ── CTA BANNER ── */
+      .cta-banner {
+        background: var(--gold);
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+      .cta-banner h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.2rem, 4vw, 3.5rem);
+        color: var(--black);
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+      }
+      .cta-banner p {
+        font-size: 0.8rem;
+        color: rgba(13, 13, 13, 0.65);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 2.5rem;
+      }
+      .btn-dark {
+        background: var(--black);
+        color: var(--white);
+        padding: 1rem 2.8rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.25s;
+      }
+      .btn-dark:hover {
+        background: #222;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--black);
+        padding: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(201, 168, 76, 0.15);
+      }
+      .footer-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.4rem;
+        letter-spacing: 0.15em;
+        color: var(--white);
+      }
+      .footer-logo span {
+        color: var(--gold);
+      }
+      .footer-copy {
+        font-size: 0.62rem;
+        color: rgba(250, 250, 248, 0.3);
+        letter-spacing: 0.1em;
+        text-align: center;
+      }
+      .footer-social {
+        display: flex;
+        gap: 1rem;
+      }
+      .social-link {
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: var(--gold);
+        font-size: 0.8rem;
+        transition:
+          background 0.25s,
+          border-color 0.25s;
+      }
+      .social-link:hover {
+        background: var(--gold);
+        color: var(--black);
+        border-color: var(--gold);
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .anim {
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards;
+      }
+      .anim-1 {
+        animation-delay: 0.1s;
+      }
+      .anim-2 {
+        animation-delay: 0.25s;
+      }
+      .anim-3 {
+        animation-delay: 0.4s;
+      }
+      .anim-4 {
+        animation-delay: 0.55s;
+      }
+      .anim-5 {
+        animation-delay: 0.7s;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 900px) {
+        nav {
+          padding: 1.2rem 1.8rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-right {
+          display: none;
+        }
+        .hero-left {
+          min-height: 100vh;
+          padding: 8rem 2.5rem 4rem;
+        }
+        .hero-left::after {
+          display: none;
+        }
+        .stats {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .exp-grid {
+          grid-template-columns: 1fr;
+        }
+        .exp-image {
+          min-height: 240px;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          flex-direction: column;
+          gap: 1.5rem;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">MALA <span>FAMA</span>®</div>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#experiencia">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <a class="nav-cta" href="tel:+526621234567">Reservar Cita</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <p class="hero-eyebrow anim anim-1">Barbería · Hermosillo, Sonora</p>
+        <h1 class="hero-title anim anim-2">
+          MALA<br />
+          <span class="gold-line">FAMA</span><br />
+          BARBER
+        </h1>
+        <p class="hero-sub anim anim-3">
+          El arte del corte perfecto.<br />
+          Tradición, estilo y precisión.
+        </p>
+        <div class="hero-actions anim anim-4">
+          <a class="btn-primary" href="#contacto">Agenda tu cita</a>
+          <a class="btn-ghost" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-photo-frame anim anim-2">
+          <!-- SVG decorative barbershop illustration -->
+          <svg
+            viewBox="0 0 380 500"
+            xmlns="http://www.w3.org/2000/svg"
+            style="width: 100%; height: 100%; background: #1a1a1a"
+          >
+            <!-- Background marble texture -->
+            <rect width="380" height="500" fill="#f5f0e8" />
+            <!-- Top ornamental band -->
+            <rect width="380" height="8" fill="#C9A84C" opacity="0.7" />
+            <rect y="12" width="380" height="2" fill="#C9A84C" opacity="0.3" />
+            <!-- Bottom band -->
+            <rect
+              y="490"
+              width="380"
+              height="10"
+              fill="#C9A84C"
+              opacity="0.7"
+            />
+            <rect y="486" width="380" height="2" fill="#C9A84C" opacity="0.3" />
+
+            <!-- Barber pole -->
+            <rect
+              x="170"
+              y="50"
+              width="40"
+              height="320"
+              rx="20"
+              fill="#0D0D0D"
+            />
+            <clipPath id="poleClip">
+              <rect x="170" y="50" width="40" height="320" rx="20" />
+            </clipPath>
+            <g clip-path="url(#poleClip)">
+              <rect
+                x="170"
+                y="50"
+                width="14"
+                height="320"
+                fill="#fff"
+                opacity="0.9"
+              />
+              <rect
+                x="184"
+                y="50"
+                width="14"
+                height="320"
+                fill="#C9A84C"
+                opacity="0.85"
+              />
+              <rect
+                x="198"
+                y="50"
+                width="12"
+                height="320"
+                fill="#fff"
+                opacity="0.9"
+              />
+              <!-- Diagonal stripes -->
+              <line
+                x1="160"
+                y1="70"
+                x2="220"
+                y2="120"
+                stroke="#C9A84C"
+                stroke-width="8"
+                opacity="0.4"
+              />
+              <line
+                x1="160"
+                y1="110"
+                x2="220"
+                y2="160"
+                stroke="#C9A84C"
+                stroke-width="8"
+                opacity="0.4"
+              />
+              <line
+                x1="160"
+                y1="150"
+                x2="220"
+                y2="200"
+                stroke="#C9A84C"
+                stroke-width="8"
+                opacity="0.4"
+              />
+              <line
+                x1="160"
+                y1="190"
+                x2="220"
+                y2="240"
+                stroke="#C9A84C"
+                stroke-width="8"
+                opacity="0.4"
+              />
+              <line
+                x1="160"
+                y1="230"
+                x2="220"
+                y2="280"
+                stroke="#C9A84C"
+                stroke-width="8"
+                opacity="0.4"
+              />
+              <line
+                x1="160"
+                y1="270"
+                x2="220"
+                y2="320"
+                stroke="#C9A84C"
+                stroke-width="8"
+                opacity="0.4"
+              />
+              <line
+                x1="160"
+                y1="310"
+                x2="220"
+                y2="360"
+                stroke="#C9A84C"
+                stroke-width="8"
+                opacity="0.4"
+              />
+            </g>
+            <!-- Pole top cap -->
+            <ellipse cx="190" cy="50" rx="22" ry="10" fill="#0D0D0D" />
+            <ellipse
+              cx="190"
+              cy="50"
+              rx="18"
+              ry="7"
+              fill="#C9A84C"
+              opacity="0.6"
+            />
+            <!-- Pole bottom -->
+            <ellipse cx="190" cy="370" rx="22" ry="10" fill="#0D0D0D" />
+
+            <!-- Decorative scissors -->
+            <g transform="translate(60,180) rotate(-30)">
+              <rect
+                x="-2"
+                y="-40"
+                width="4"
+                height="80"
+                rx="2"
+                fill="#0D0D0D"
+                opacity="0.5"
+              />
+              <rect
+                x="-20"
+                y="-2"
+                width="80"
+                height="4"
+                rx="2"
+                fill="#0D0D0D"
+                opacity="0.5"
+              />
+              <circle
+                cx="-2"
+                cy="-2"
+                r="8"
+                fill="none"
+                stroke="#0D0D0D"
+                stroke-width="3"
+                opacity="0.4"
+              />
+              <circle cx="-2" cy="-2" r="4" fill="#C9A84C" opacity="0.5" />
+            </g>
+
+            <!-- Word mark watermark -->
+            <text
+              x="190"
+              y="460"
+              font-family="Georgia, serif"
+              font-size="22"
+              fill="#0D0D0D"
+              opacity="0.12"
+              text-anchor="middle"
+              letter-spacing="8"
+              font-weight="300"
+            >
+              MALA FAMA
+            </text>
+
+            <!-- Golden ornamental frame lines -->
+            <rect
+              x="20"
+              y="20"
+              width="340"
+              height="460"
+              fill="none"
+              stroke="#C9A84C"
+              stroke-width="1"
+              opacity="0.35"
+            />
+            <rect
+              x="28"
+              y="28"
+              width="324"
+              height="444"
+              fill="none"
+              stroke="#C9A84C"
+              stroke-width="0.5"
+              opacity="0.2"
+            />
+          </svg>
+          <div class="hero-badge">
+            <span>✂</span>
+            <span>Premium</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">1K+</div>
+        <div class="stat-label">Clientes satisfechos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Dedicación al detalle</div>
+      </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+      <div class="section-header">
+        <p class="section-eyebrow">Lo que hacemos</p>
+        <h2 class="section-title">NUESTROS SERVICIOS</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-num">01</div>
+          <div class="service-name">Corte Clásico</div>
+          <p class="service-desc">
+            Corte de cabello personalizado con técnica clásica y acabado limpio.
+            Incluye lavado y secado.
+          </p>
+          <div class="service-price">DESDE $150</div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">02</div>
+          <div class="service-name">Barba & Perfilado</div>
+          <p class="service-desc">
+            Diseño y perfilado de barba con navaja y técnica de precisión para
+            un look impecable.
+          </p>
+          <div class="service-price">DESDE $120</div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03</div>
+          <div class="service-name">Corte + Barba</div>
+          <p class="service-desc">
+            Combo completo. Corte de cabello y arreglo de barba en una sola
+            visita al mejor precio.
+          </p>
+          <div class="service-price">DESDE $250</div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">04</div>
+          <div class="service-name">Fade & Degradado</div>
+          <p class="service-desc">
+            Degradado de alta precisión, skin fade, mid fade o high fade.
+            Acabado que habla por sí solo.
+          </p>
+          <div class="service-price">DESDE $180</div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">05</div>
+          <div class="service-name">Cejas & Acabados</div>
+          <p class="service-desc">
+            Perfilado y diseño de cejas. Detallado completo para lucir siempre a
+            la altura.
+          </p>
+          <div class="service-price">DESDE $80</div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">06</div>
+          <div class="service-name">Experiencia VIP</div>
+          <p class="service-desc">
+            Paquete completo: corte, barba, cejas, masaje capilar y productos
+            premium. Para los que merecen lo mejor.
+          </p>
+          <div class="service-price">DESDE $380</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA -->
+    <section id="experiencia">
+      <div class="section-header">
+        <p class="section-eyebrow" style="color: var(--gold)">
+          Por qué elegirnos
+        </p>
+        <h2 class="section-title">LA EXPERIENCIA<br />MALA FAMA</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="exp-grid">
+        <div class="exp-image">
+          <div class="exp-image-inner">
+            <svg
+              viewBox="0 0 400 480"
+              xmlns="http://www.w3.org/2000/svg"
+              style="width: 320px; opacity: 0.5"
+            >
+              <!-- Barber chair stylized -->
+              <rect
+                x="150"
+                y="100"
+                width="100"
+                height="200"
+                rx="8"
+                fill="#C9A84C"
+                opacity="0.3"
+              />
+              <rect
+                x="140"
+                y="280"
+                width="120"
+                height="20"
+                rx="4"
+                fill="#C9A84C"
+                opacity="0.4"
+              />
+              <rect
+                x="155"
+                y="300"
+                width="15"
+                height="100"
+                rx="4"
+                fill="#C9A84C"
+                opacity="0.3"
+              />
+              <rect
+                x="230"
+                y="300"
+                width="15"
+                height="100"
+                rx="4"
+                fill="#C9A84C"
+                opacity="0.3"
+              />
+              <rect
+                x="120"
+                y="390"
+                width="160"
+                height="12"
+                rx="4"
+                fill="#C9A84C"
+                opacity="0.35"
+              />
+              <!-- Head rest -->
+              <rect
+                x="160"
+                y="85"
+                width="80"
+                height="30"
+                rx="6"
+                fill="#C9A84C"
+                opacity="0.4"
+              />
+              <!-- armrests -->
+              <rect
+                x="120"
+                y="200"
+                width="30"
+                height="12"
+                rx="4"
+                fill="#C9A84C"
+                opacity="0.3"
+              />
+              <rect
+                x="250"
+                y="200"
+                width="30"
+                height="12"
+                rx="4"
+                fill="#C9A84C"
+                opacity="0.3"
+              />
+              <!-- scissors large -->
+              <g transform="translate(200,240)">
+                <line
+                  x1="-50"
+                  y1="-50"
+                  x2="50"
+                  y2="50"
+                  stroke="#C9A84C"
+                  stroke-width="6"
+                  opacity="0.25"
+                />
+                <line
+                  x1="50"
+                  y1="-50"
+                  x2="-50"
+                  y2="50"
+                  stroke="#C9A84C"
+                  stroke-width="6"
+                  opacity="0.25"
+                />
+                <circle
+                  cx="-35"
+                  cy="35"
+                  r="12"
+                  fill="none"
+                  stroke="#C9A84C"
+                  stroke-width="4"
+                  opacity="0.3"
+                />
+                <circle
+                  cx="35"
+                  cy="35"
+                  r="12"
+                  fill="none"
+                  stroke="#C9A84C"
+                  stroke-width="4"
+                  opacity="0.3"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="exp-content">
+          <p
+            class="section-eyebrow"
+            style="color: var(--gold); text-align: left"
+          >
+            Nuestra filosofía
+          </p>
+          <h3
+            style="
+              font-family: &quot;Bebas Neue&quot;, sans-serif;
+              font-size: 2rem;
+              color: var(--white);
+              letter-spacing: 0.08em;
+              margin-top: 0.5rem;
+            "
+          >
+            MÁS QUE UN<br />CORTE DE PELO
+          </h3>
+          <ul class="exp-list">
+            <li>
+              Barberos con años de experiencia y técnica perfeccionada en los
+              mejores estilos del momento.
+            </li>
+            <li>
+              Ambiente exclusivo, limpio y cómodo diseñado para que disfrutes
+              cada visita.
+            </li>
+            <li>
+              Productos premium de las mejores marcas del mercado para el
+              cuidado de tu imagen.
+            </li>
+            <li>
+              Atención personalizada, sin prisas, porque tu tiempo y tu look
+              merecen lo mejor.
+            </li>
+          </ul>
+          <p class="exp-lead">"En Mala Fama, el trabajo vale la pena."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <div class="section-header">
+        <p class="section-eyebrow">Encuéntranos</p>
+        <h2 class="section-title">HORARIOS & CONTACTO</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-block">
+          <h3>Horarios</h3>
+          <ul class="hours-list">
+            <li><span>Lunes</span><span>9:00 am – 7:00 pm</span></li>
+            <li><span>Martes</span><span>9:00 am – 7:00 pm</span></li>
+            <li><span>Miércoles</span><span>9:00 am – 7:00 pm</span></li>
+            <li><span>Jueves</span><span>9:00 am – 7:00 pm</span></li>
+            <li><span>Viernes</span><span>9:00 am – 7:00 pm</span></li>
+            <li><span>Sábado</span><span>10:00 am – 6:00 pm</span></li>
+            <li><span>Domingo</span><span class="closed">Cerrado</span></li>
+          </ul>
+        </div>
+        <div class="contact-block">
+          <h3>Dónde estamos</h3>
+          <div class="contact-info-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <strong>Dirección</strong>
+              Av. Plan de Ayala 312, Col. Ley 57<br />
+              Hermosillo, Sonora, México
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">📱</div>
+            <div class="contact-text">
+              <strong>Instagram</strong>
+              <a href="https://instagram.com/mala_famamx" target="_blank"
+                >@mala_famamx</a
+              >
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">💬</div>
+            <div class="contact-text">
+              <strong>Reservaciones</strong>
+              Escríbenos en Instagram para agendar tu cita y garantizar tu
+              lugar.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="map-container"
+        style="padding: 0 2rem; max-width: 1000px; margin: 3rem auto 0"
+      >
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3564.7!2d-110.9726494!3d29.1241511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86ce87db8571c3df%3A0xad915ba53b0e7686!2sMala+Fama+Barberia!5e0!3m2!1ses!2smx!4v1700000000000"
+          allowfullscreen=""
+          loading="lazy"
+        >
+        </iframe>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+      <h2>RESERVA TU LUGAR HOY</h2>
+      <p>Cupos limitados · Atención personalizada · Hermosillo, Son.</p>
+      <a
+        class="btn-dark"
+        href="https://instagram.com/mala_famamx"
+        target="_blank"
+        >📲 Contactar en Instagram</a
+      >
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">MALA <span>FAMA</span>®</div>
+      <div class="footer-copy">
+        © 2025 Mala Fama Barbería · Hermosillo, Sonora, México<br />
+        Av. Plan de Ayala 312, Col. Ley 57
+      </div>
+      <div class="footer-social">
+        <a
+          class="social-link"
+          href="https://instagram.com/mala_famamx"
+          target="_blank"
+          title="Instagram"
+          >IG</a
+        >
+        <a
+          class="social-link"
+          href="https://maps.google.com/?q=Mala+Fama+Barberia+Hermosillo"
+          target="_blank"
+          title="Maps"
+          >📍</a
+        >
+      </div>
+    </footer>
+
+    <script>
+      // Intersection Observer for scroll animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+
+      document
+        .querySelectorAll(".service-card, .stat, .exp-content, .contact-block")
+        .forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(24px)";
+          el.style.transition = "opacity 0.7s ease, transform 0.7s ease";
+          observer.observe(el);
+        });
+
+      // Stagger service cards
+      document.querySelectorAll(".service-card").forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.08}s`;
+      });
+    </script>
+  </body>
+</html>
