@@ -1,0 +1,2008 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MB Barbería — Since 2014</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ── ROOT ── */
+      :root {
+        --black: #0a0a0a;
+        --black-mid: #111111;
+        --black-soft: #1a1a1a;
+        --black-card: #161616;
+        --white: #f5f5f0;
+        --white-dim: rgba(245, 245, 240, 0.65);
+        --white-faint: rgba(245, 245, 240, 0.1);
+        --accent: #ffffff;
+        --hex: rgba(255, 255, 255, 0.06);
+        --hex-glow: rgba(255, 255, 255, 0.18);
+        --border: rgba(255, 255, 255, 0.08);
+        --border-hot: rgba(255, 255, 255, 0.35);
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--black);
+        color: var(--white);
+        font-family: "Barlow", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* ── CUSTOM CURSOR ── */
+      .cursor {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: var(--white);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.2s,
+          height 0.2s,
+          background 0.2s;
+        mix-blend-mode: difference;
+      }
+      .cursor-ring {
+        position: fixed;
+        width: 36px;
+        height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.08s linear,
+          width 0.3s,
+          height 0.3s,
+          border-color 0.3s;
+      }
+      body:hover .cursor {
+        opacity: 1;
+      }
+
+      /* ── HEXAGON BG PATTERN ── */
+      .hex-bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .hex-bg svg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0.04;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 800;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        height: 68px;
+        background: rgba(10, 10, 10, 0.9);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        transition: border-color 0.3s;
+      }
+      nav.scrolled {
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        text-decoration: none;
+      }
+      .nav-logo-badge {
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--border-hot);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .nav-logo-text {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 600;
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--white-dim);
+        line-height: 1.3;
+      }
+      .nav-logo-text span {
+        display: block;
+        font-weight: 300;
+        font-size: 0.55rem;
+        letter-spacing: 0.25em;
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.4rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--white-dim);
+        text-decoration: none;
+        transition: color 0.3s;
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--white);
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--white);
+      }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+
+      .nav-cta {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--black);
+        background: var(--white);
+        border: none;
+        padding: 0.55rem 1.6rem;
+        cursor: none;
+        transition:
+          background 0.3s,
+          transform 0.15s;
+      }
+      .nav-cta:hover {
+        background: var(--white-dim);
+        transform: translateY(-1px);
+      }
+
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: none;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 24px;
+        height: 1px;
+        background: var(--white-dim);
+        transition: 0.3s;
+      }
+
+      /* ── HERO ── */
+      #hero {
+        min-height: 100vh;
+        background: var(--black);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 120px 5% 80px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* hexagon lights — top center like the photo */
+      .hex-lights {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 700px;
+        pointer-events: none;
+        opacity: 0.18;
+      }
+
+      /* bandana texture overlay */
+      #hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(
+            circle at 20% 80%,
+            rgba(255, 255, 255, 0.02) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 255, 255, 0.02) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+      }
+
+      .hero-tag {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 1.8rem;
+        animation: fadeUp 0.7s ease both;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .hero-tag::before {
+        content: "";
+        display: inline-block;
+        width: 30px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(4.5rem, 13vw, 13rem);
+        line-height: 0.88;
+        letter-spacing: 0.01em;
+        color: var(--white);
+        animation: fadeUp 0.7s 0.1s ease both;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-title .outline {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+        color: transparent;
+      }
+
+      .hero-sub {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-top: 3rem;
+        position: relative;
+        z-index: 2;
+        animation: fadeUp 0.7s 0.2s ease both;
+      }
+
+      .hero-desc {
+        font-family: "Barlow", sans-serif;
+        font-size: 1.05rem;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--white-dim);
+        max-width: 380px;
+        line-height: 1.7;
+      }
+      .hero-desc strong {
+        font-style: normal;
+        font-weight: 500;
+        color: var(--white);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 1rem;
+      }
+      .hero-rating {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        color: rgba(255, 255, 255, 0.35);
+        text-align: right;
+      }
+      .hero-rating .num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        color: var(--white);
+        letter-spacing: 0;
+        display: block;
+        line-height: 1;
+      }
+
+      .btn-white {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--black);
+        background: var(--white);
+        border: none;
+        padding: 1rem 2.4rem;
+        cursor: none;
+        text-decoration: none;
+        display: inline-block;
+        transition:
+          opacity 0.3s,
+          transform 0.2s;
+      }
+      .btn-white:hover {
+        opacity: 0.85;
+        transform: translateY(-2px);
+      }
+
+      .btn-ghost {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--white-dim);
+        background: transparent;
+        border: 1px solid var(--border);
+        padding: 1rem 2.4rem;
+        cursor: none;
+        text-decoration: none;
+        display: inline-block;
+        transition:
+          border-color 0.3s,
+          color 0.3s;
+      }
+      .btn-ghost:hover {
+        border-color: rgba(255, 255, 255, 0.4);
+        color: var(--white);
+      }
+
+      .hero-since {
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        transform: translateY(-50%) rotate(90deg);
+        transform-origin: center;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.4em;
+        color: rgba(255, 255, 255, 0.15);
+        text-transform: uppercase;
+        animation: fadeUp 0.7s 0.35s ease both;
+      }
+
+      /* ── SCROLL LINE ── */
+      .scroll-line {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 5%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.3em;
+        color: rgba(255, 255, 255, 0.2);
+        text-transform: uppercase;
+        animation: fadeUp 0.7s 0.4s ease both;
+      }
+      .scroll-line::before {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(255, 255, 255, 0.3)
+        );
+        animation: scrollPulse 2s infinite;
+      }
+      @keyframes scrollPulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* ── SECTION BASE ── */
+      section {
+        padding: 100px 5%;
+      }
+
+      .label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 500;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+      }
+      .label::before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.8rem, 6vw, 5.5rem);
+        line-height: 0.9;
+        letter-spacing: 0.02em;
+        color: var(--white);
+      }
+
+      /* ── NOSOTROS ── */
+      #nosotros {
+        background: var(--black-mid);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nos-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .nos-left {
+        position: relative;
+      }
+
+      .nos-visual {
+        position: relative;
+        background: var(--black-card);
+        border: 1px solid var(--border);
+        padding: 3rem;
+        overflow: hidden;
+      }
+      .nos-visual::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+      }
+      /* hex light inside card */
+      .nos-hex-light {
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 240px;
+        height: 240px;
+        pointer-events: none;
+        opacity: 0.05;
+      }
+
+      .nos-stat {
+        margin-bottom: 2.5rem;
+      }
+      .nos-stat:last-child {
+        margin-bottom: 0;
+      }
+      .nos-stat .big {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4.5rem;
+        line-height: 1;
+        color: var(--white);
+      }
+      .nos-stat .big .thin {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 300;
+        font-size: 1rem;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.35);
+        vertical-align: super;
+        margin-left: 0.3rem;
+      }
+      .nos-stat .lbl {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        margin-top: 0.1rem;
+      }
+
+      .nos-divider {
+        width: 100%;
+        height: 1px;
+        background: var(--border);
+        margin: 2rem 0;
+      }
+
+      .nos-right h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2.6rem;
+        line-height: 1;
+        margin-bottom: 1.5rem;
+      }
+      .nos-right h3 .dim {
+        color: rgba(255, 255, 255, 0.3);
+      }
+      .nos-right p {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.85;
+        color: var(--white-dim);
+        margin-bottom: 1.2rem;
+      }
+
+      .nos-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 2rem;
+      }
+      .nos-tag {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        border: 1px solid var(--border);
+        padding: 0.4rem 1rem;
+        transition:
+          border-color 0.3s,
+          color 0.3s;
+      }
+      .nos-tag:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        color: var(--white);
+      }
+
+      /* ── SERVICIOS ── */
+      #servicios {
+        background: var(--black);
+        position: relative;
+      }
+
+      .srv-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 4rem;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .srv-header-right {
+        font-size: 0.9rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.35);
+        text-align: right;
+        max-width: 260px;
+        line-height: 1.7;
+      }
+
+      .srv-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .srv-card {
+        background: var(--black-card);
+        padding: 2.5rem 2rem;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.35s;
+      }
+      .srv-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--white);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+        transform-origin: left;
+      }
+      .srv-card:hover {
+        background: var(--black-soft);
+      }
+      .srv-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      .srv-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4rem;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.04);
+        position: absolute;
+        right: 1.5rem;
+        top: 1rem;
+        transition: color 0.35s;
+      }
+      .srv-card:hover .srv-num {
+        color: rgba(255, 255, 255, 0.07);
+      }
+
+      .srv-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.4rem;
+        letter-spacing: 0.03em;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+      .srv-desc {
+        font-size: 0.85rem;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 1.5rem;
+      }
+      .srv-price {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        color: var(--white);
+        line-height: 1;
+      }
+      .srv-price .currency {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.35);
+        vertical-align: super;
+      }
+
+      /* ── GALERÍA ── */
+      #galeria {
+        background: var(--black-mid);
+        padding: 100px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      #galeria .gal-header {
+        padding: 0 5%;
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+      #galeria .gal-header a {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 2px;
+        transition:
+          color 0.3s,
+          border-color 0.3s;
+      }
+      #galeria .gal-header a:hover {
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .gal-strip {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 3px;
+      }
+      .gal-item {
+        aspect-ratio: 3/4;
+        background: var(--black-card);
+        position: relative;
+        overflow: hidden;
+        cursor: none;
+      }
+      .gal-item:first-child {
+        aspect-ratio: auto;
+        grid-row: span 2;
+      }
+      .gal-inner {
+        width: 100%;
+        height: 100%;
+        min-height: 180px;
+        background: var(--black-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+      }
+      /* Bandana pattern as bg for gallery items */
+      .gal-inner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 255, 255, 0.015) 10px,
+          rgba(255, 255, 255, 0.015) 11px
+        );
+      }
+      .gal-item:hover .gal-inner {
+        transform: scale(1.04);
+      }
+      .gal-icon {
+        font-size: 2.5rem;
+        opacity: 0.1;
+        color: var(--white);
+        position: relative;
+        z-index: 1;
+      }
+      .gal-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.8) 0%,
+          transparent 55%
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+        display: flex;
+        align-items: flex-end;
+        padding: 1.2rem 1.5rem;
+      }
+      .gal-item:hover .gal-overlay {
+        opacity: 1;
+      }
+      .gal-label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* ── MARQUEE ── */
+      .marquee-wrap {
+        overflow: hidden;
+        background: var(--white);
+        padding: 1rem 0;
+        margin: 0;
+      }
+      .marquee-track {
+        display: flex;
+        gap: 0;
+        animation: marquee 18s linear infinite;
+        white-space: nowrap;
+      }
+      .marquee-item {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
+        color: var(--black);
+        padding: 0 2.5rem;
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+      }
+      .marquee-dot {
+        width: 5px;
+        height: 5px;
+        background: var(--black);
+        border-radius: 50%;
+        opacity: 0.3;
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ── RESERVAR ── */
+      #reservar {
+        background: var(--black);
+        position: relative;
+        overflow: hidden;
+      }
+      #reservar::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+      }
+
+      .rsv-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: start;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .rsv-left h2 {
+        margin-bottom: 1.5rem;
+      }
+      .rsv-left p {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.85;
+        color: var(--white-dim);
+        margin-bottom: 2.5rem;
+      }
+
+      .rsv-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+      .rsv-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .rsv-info-item:last-child {
+        border-bottom: none;
+      }
+      .rsv-icon {
+        font-size: 1rem;
+        width: 20px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .rsv-info-item h4 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        margin-bottom: 0.2rem;
+      }
+      .rsv-info-item p {
+        font-size: 0.95rem;
+        font-weight: 300;
+        color: var(--white-dim);
+        margin-bottom: 0;
+        line-height: 1.5;
+      }
+      .rsv-info-item a {
+        color: var(--white-dim);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .rsv-info-item a:hover {
+        color: var(--white);
+      }
+
+      .form-box {
+        background: var(--black-card);
+        border: 1px solid var(--border);
+        padding: 3rem;
+        position: relative;
+      }
+      .form-box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(to right, var(--white), transparent);
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .form-group.full {
+        grid-column: span 2;
+      }
+      .form-group label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.58rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        font-family: "Barlow", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 300;
+        padding: 0.85rem 1rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        color: var(--white);
+        outline: none;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+        width: 100%;
+        -webkit-appearance: none;
+      }
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+        color: rgba(255, 255, 255, 0.2);
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.07);
+      }
+      .form-group select {
+        cursor: none;
+      }
+      .form-group select option {
+        background: #1a1a1a;
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+
+      .form-submit {
+        margin-top: 1.5rem;
+      }
+      .form-submit button {
+        width: 100%;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--black);
+        background: var(--white);
+        border: none;
+        padding: 1.1rem;
+        cursor: none;
+        transition:
+          background 0.3s,
+          transform 0.2s;
+      }
+      .form-submit button:hover {
+        background: rgba(245, 245, 240, 0.85);
+        transform: translateY(-1px);
+      }
+
+      .form-alt {
+        text-align: center;
+        margin-top: 1.2rem;
+        font-size: 0.8rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.25);
+      }
+      .form-alt a {
+        color: rgba(255, 255, 255, 0.45);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .form-alt a:hover {
+        color: var(--white);
+      }
+
+      /* ── CONTACTO ── */
+      #contacto {
+        background: var(--black-mid);
+        border-top: 1px solid var(--border);
+        padding: 80px 5%;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 4rem;
+        max-width: 1200px;
+        margin: 0 auto 4rem;
+      }
+
+      .contact-brand .logo-big {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4rem;
+        letter-spacing: 0.03em;
+        line-height: 1;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+      .contact-brand .since {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.2);
+        margin-bottom: 1.2rem;
+      }
+      .contact-brand p {
+        font-size: 0.9rem;
+        font-weight: 300;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.7;
+        max-width: 260px;
+      }
+
+      .contact-col h4 {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+        margin-bottom: 1.2rem;
+      }
+      .contact-col ul {
+        list-style: none;
+      }
+      .contact-col ul li {
+        font-size: 0.9rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.55);
+        margin-bottom: 0.7rem;
+        line-height: 1.5;
+      }
+      .contact-col ul li a {
+        color: rgba(255, 255, 255, 0.55);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .contact-col ul li a:hover {
+        color: var(--white);
+      }
+
+      .contact-bottom {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--border);
+      }
+      .contact-copy {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.15);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+      .social-link {
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.58rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        padding: 0.5rem 1rem;
+        transition:
+          border-color 0.3s,
+          color 0.3s;
+      }
+      .social-link:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        color: var(--white);
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--white);
+        color: var(--black);
+        padding: 1rem 1.5rem;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        transform: translateX(200%);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 9000;
+      }
+      .toast.show {
+        transform: translateX(0);
+      }
+
+      /* ── REVEAL ANIMATION ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.75s ease,
+          transform 0.75s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay {
+        transition-delay: 0.12s;
+      }
+      .reveal-delay2 {
+        transition-delay: 0.24s;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 960px) {
+        .nav-links,
+        .nav-cta {
+          display: none;
+        }
+        .nav-toggle {
+          display: flex;
+        }
+        .nos-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .srv-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .gal-strip {
+          grid-template-columns: 1fr 1fr;
+        }
+        .gal-item:first-child {
+          grid-column: span 2;
+        }
+        .rsv-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .contact-bottom {
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        .hero-since {
+          display: none;
+        }
+        .hero-sub {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 2rem;
+        }
+        .hero-actions {
+          align-items: flex-start;
+        }
+        section {
+          padding: 70px 5%;
+        }
+      }
+      @media (max-width: 580px) {
+        .srv-grid {
+          grid-template-columns: 1fr;
+        }
+        .gal-strip {
+          grid-template-columns: 1fr 1fr;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .form-group.full {
+          grid-column: span 1;
+        }
+        .form-box {
+          padding: 2rem 1.5rem;
+        }
+        .srv-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CURSOR -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ─── NAV ─── -->
+    <nav id="mainNav">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-badge">
+            <img src="logo-mb.png" alt="MB" style="width:38px;height:38px;object-fit:cover;">
+          </div>
+        <div class="nav-logo-text">
+          Barbería MB
+          <span>Since 2014 · Hermosillo</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#reservar">Reservar</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <button
+        class="nav-cta"
+        onclick="
+          document
+            .getElementById('reservar')
+            .scrollIntoView({ behavior: 'smooth' })
+        "
+      >
+        Reservar
+      </button>
+      <div class="nav-toggle" onclick="toggleMenu()" id="navToggle">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <!-- ─── HERO ─── -->
+    <section id="hero">
+      <!-- Hexagonal light ceiling SVG -->
+      <svg
+        class="hex-lights"
+        viewBox="0 0 700 300"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+      >
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- Row 1 -->
+        <polygon
+          points="110,10 150,33 150,80 110,103 70,80 70,33"
+          stroke="white"
+          stroke-width="1.5"
+          filter="url(#glow)"
+        />
+        <polygon
+          points="200,10 240,33 240,80 200,103 160,80 160,33"
+          stroke="white"
+          stroke-width="1.5"
+          filter="url(#glow)"
+        />
+        <polygon
+          points="290,10 330,33 330,80 290,103 250,80 250,33"
+          stroke="white"
+          stroke-width="1.5"
+          filter="url(#glow)"
+        />
+        <polygon
+          points="380,10 420,33 420,80 380,103 340,80 340,33"
+          stroke="white"
+          stroke-width="1.5"
+          filter="url(#glow)"
+        />
+        <polygon
+          points="470,10 510,33 510,80 470,103 430,80 430,33"
+          stroke="white"
+          stroke-width="1.5"
+          filter="url(#glow)"
+        />
+        <polygon
+          points="560,10 600,33 600,80 560,103 520,80 520,33"
+          stroke="white"
+          stroke-width="1.5"
+          filter="url(#glow)"
+        />
+        <!-- Row 2 offset -->
+        <polygon
+          points="155,103 195,126 195,173 155,196 115,173 115,126"
+          stroke="white"
+          stroke-width="1"
+          opacity="0.5"
+        />
+        <polygon
+          points="245,103 285,126 285,173 245,196 205,173 205,126"
+          stroke="white"
+          stroke-width="1"
+          opacity="0.5"
+        />
+        <polygon
+          points="335,103 375,126 375,173 335,196 295,173 295,126"
+          stroke="white"
+          stroke-width="1"
+          opacity="0.5"
+        />
+        <polygon
+          points="425,103 465,126 465,173 425,196 385,173 385,126"
+          stroke="white"
+          stroke-width="1"
+          opacity="0.5"
+        />
+        <polygon
+          points="515,103 555,126 555,173 515,196 475,173 475,126"
+          stroke="white"
+          stroke-width="1"
+          opacity="0.5"
+        />
+      </svg>
+
+      <div class="hero-tag">Hermosillo, Sonora · Desde 2014</div>
+
+      <div class="hero-title">
+        <span class="outline">MB</span><br />
+        BARBERÍA
+      </div>
+
+      <div class="hero-sub">
+        <p class="hero-desc">
+          <strong>Porque un buen corte<br />te da una mejor actitud.</strong
+          ><br />
+          Cortes de precisión, ambiente premium y la cultura del buen estilo.
+        </p>
+        <div class="hero-actions">
+          <div class="hero-rating">
+            <span class="num">4.5</span>
+            ★★★★½ · 153 RESEÑAS GOOGLE
+          </div>
+          <div style="display: flex; gap: 0.8rem; flex-wrap: wrap">
+            <a href="#reservar" class="btn-white">Reservar cita</a>
+            <a href="#servicios" class="btn-ghost">Ver servicios</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-line">Scroll</div>
+      <div class="hero-since">Since 2014 — Hermosillo, Son.</div>
+    </section>
+
+    <!-- ─── MARQUEE ─── -->
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <div class="marquee-item">
+          Corte Premium <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          Diseño de Barba <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          MB Barbería <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          Desde 2014 <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          Hermosillo <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          4.5 ★ Google <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          Corte Premium <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          Diseño de Barba <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          MB Barbería <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          Desde 2014 <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          Hermosillo <span class="marquee-dot"></span>
+        </div>
+        <div class="marquee-item">
+          4.5 ★ Google <span class="marquee-dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── NOSOTROS ─── -->
+    <section id="nosotros">
+      <div class="nos-grid">
+        <div class="nos-left reveal">
+          <div class="label">Quiénes somos</div>
+          <div class="nos-visual">
+            <!-- mini hex svg -->
+            <svg
+              class="nos-hex-light"
+              viewBox="0 0 200 200"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+            >
+              <polygon
+                points="100,10 140,33 140,80 100,103 60,80 60,33"
+                stroke="white"
+                stroke-width="1.5"
+              />
+              <polygon
+                points="100,20 132,39 132,75 100,93 68,75 68,39"
+                stroke="white"
+                stroke-width="0.5"
+                opacity="0.5"
+              />
+            </svg>
+            <div class="nos-stat">
+              <div class="big">10+ <span class="thin">años</span></div>
+              <div class="lbl">Experiencia en el arte del corte</div>
+            </div>
+            <div class="nos-divider"></div>
+            <div class="nos-stat">
+              <div class="big">4.5 <span class="thin">★</span></div>
+              <div class="lbl">153 reseñas en Google Maps</div>
+            </div>
+            <div class="nos-divider"></div>
+            <div class="nos-stat">
+              <div class="big">100%</div>
+              <div class="lbl">Dedicación en cada corte</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nos-right reveal reveal-delay">
+          <div class="label">La historia</div>
+          <h3 class="section-title" style="margin-bottom: 1.5rem">
+            Más que<br /><span class="dim">una barbería.</span>
+          </h3>
+          <p>
+            Desde 2014, MB Barbería ha sido el punto de encuentro de quienes
+            entienden que el estilo no es vanidad — es actitud. Nacimos en
+            Hermosillo con una visión clara: elevar el estándar del corte
+            masculino.
+          </p>
+          <p>
+            Nuestro espacio combina la precisión técnica de los mejores barberos
+            con un ambiente diseñado para hacerte sentir en otra categoría.
+            Luces hexagonales, sillas premium, atención al detalle.
+          </p>
+          <div class="nos-tags">
+            <div class="nos-tag">Cortes de precisión</div>
+            <div class="nos-tag">Diseño de barba</div>
+            <div class="nos-tag">Ambiente premium</div>
+            <div class="nos-tag">Desde 2014</div>
+            <div class="nos-tag">Hermosillo, Son.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SERVICIOS ─── -->
+    <section id="servicios">
+      <div class="srv-header reveal">
+        <div>
+          <div class="label">Lo que hacemos</div>
+          <h2 class="section-title">Servicios</h2>
+        </div>
+        <div class="srv-header-right">
+          Todos los precios incluyen lavado y peinado de cortesía. Sin cita o
+          con cita — siempre el mismo nivel.
+        </div>
+      </div>
+
+      <div class="srv-grid reveal">
+        <div class="srv-card">
+          <div class="srv-num">01</div>
+          <div class="srv-name">Corte Clásico</div>
+          <div class="srv-desc">
+            Tijera y máquina con delineado y acabado perfecto. El estándar que
+            nos hizo conocidos.
+          </div>
+          <div class="srv-price"><span class="currency">MXN $</span>150</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-num">02</div>
+          <div class="srv-name">Corte + Barba</div>
+          <div class="srv-desc">
+            Corte completo más perfilado y diseño de barba. El combo más pedido
+            del local.
+          </div>
+          <div class="srv-price"><span class="currency">MXN $</span>220</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-num">03</div>
+          <div class="srv-name">Diseño de Barba</div>
+          <div class="srv-desc">
+            Perfilado, diseño y rasurado con navaja. Define tu estilo facial con
+            precisión.
+          </div>
+          <div class="srv-price"><span class="currency">MXN $</span>100</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-num">04</div>
+          <div class="srv-name">Tratamiento Capilar</div>
+          <div class="srv-desc">
+            Hidratación profunda y tratamiento para cuero cabelludo. Cabello
+            sano, estilo duradero.
+          </div>
+          <div class="srv-price"><span class="currency">MXN $</span>120</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-num">05</div>
+          <div class="srv-name">Corte Infantil</div>
+          <div class="srv-desc">
+            Para los más jóvenes del crew. Atención especial, resultado
+            impecable.
+          </div>
+          <div class="srv-price"><span class="currency">MXN $</span>120</div>
+        </div>
+        <div class="srv-card">
+          <div class="srv-num">06</div>
+          <div class="srv-name">Corte Premium VIP</div>
+          <div class="srv-desc">
+            Experiencia completa: corte, barba, tratamiento y masaje capilar. El
+            full package.
+          </div>
+          <div class="srv-price"><span class="currency">MXN $</span>300</div>
+        </div>
+      </div>
+
+      <p
+        style="
+          text-align: center;
+          margin-top: 1.5rem;
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.2);
+          font-family: &quot;Barlow Condensed&quot;, sans-serif;
+          letter-spacing: 0.15em;
+          max-width: 1200px;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      >
+        * Los precios son referenciales. Consulta precios exactos al reservar tu
+        cita.
+      </p>
+    </section>
+
+    <!-- ─── GALERÍA ─── -->
+    <section id="galeria" style="padding: 0">
+      <div class="gal-header reveal">
+        <div>
+          <div class="label" style="margin-bottom: 0.8rem">Nuestro trabajo</div>
+          <h2 class="section-title">Galería</h2>
+        </div>
+        <a href="https://www.instagram.com/mb.barberiahmo" target="_blank"
+          >@mb.barberiahmo ↗</a
+        >
+      </div>
+      <div class="gal-strip reveal">
+        <div class="gal-item">
+          <div class="gal-inner" style="min-height: 400px">
+            <img src="mb-1.png" alt="Interior MB Barbería" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="gal-overlay">
+            <div class="gal-label">Interior MB Barbería</div>
+          </div>
+        </div>
+        <div class="gal-item">
+          <div class="gal-inner">
+            <img src="mb-2.png" alt="Cortes Premium" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="gal-overlay">
+            <div class="gal-label">Cortes Premium</div>
+          </div>
+        </div>
+        <div class="gal-item">
+          <div class="gal-inner">
+            <img src="mb-3.png" alt="Diseño de Barba" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="gal-overlay">
+            <div class="gal-label">Diseño de Barba</div>
+          </div>
+        </div>
+        <div class="gal-item">
+          <div class="gal-inner">
+            <img src="mb-2.png" alt="Acabados" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="gal-overlay"><div class="gal-label">Acabados</div></div>
+        </div>
+        <div class="gal-item">
+          <div class="gal-inner">
+            <img src="mb-3.png" alt="Estilo Urbano" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+          <div class="gal-overlay">
+            <div class="gal-label">Estilo Urbano</div>
+          </div>
+        </div>
+      </div>
+      <p
+        style="
+          text-align: center;
+          padding: 2rem 5%;
+          font-size: 0.8rem;
+          font-family: &quot;Barlow Condensed&quot;, sans-serif;
+          letter-spacing: 0.2em;
+          color: rgba(255, 255, 255, 0.2);
+        "
+      >
+        VE MÁS EN INSTAGRAM —
+        <a
+          href="https://www.instagram.com/mb.barberiahmo"
+          target="_blank"
+          style="
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            transition: color 0.3s;
+          "
+          >@MB.BARBERIAHMO</a
+        >
+      </p>
+    </section>
+
+    <!-- ─── RESERVAR ─── -->
+    <section id="reservar">
+      <div class="rsv-grid">
+        <div class="rsv-left reveal">
+          <div class="label">Agenda tu visita</div>
+          <h2 class="section-title" style="margin-bottom: 1.5rem">
+            Reserva<br />tu cita.
+          </h2>
+          <p>
+            Sin filas. Sin esperas innecesarias. Elige tu servicio y horario —
+            te confirmamos por WhatsApp al instante.
+          </p>
+          <div class="rsv-info">
+            <div class="rsv-info-item">
+              <div class="rsv-icon">📍</div>
+              <div>
+                <h4>Dirección</h4>
+                <p>
+                  Plaza Ley El Sahuaro, Blvd. Solidaridad 26, Local 20-B<br />Col.
+                  Sahuaro, 83170 Hermosillo, Son.
+                </p>
+              </div>
+            </div>
+            <div class="rsv-info-item">
+              <div class="rsv-icon">📞</div>
+              <div>
+                <h4>Teléfono / WhatsApp</h4>
+                <p>
+                  <a href="tel:6623014962">662 301 4962</a> — Llamada local<br />
+                  <a href="https://wa.me/526621737773" target="_blank"
+                    >662 173 7773</a
+                  >
+                  — WhatsApp
+                </p>
+              </div>
+            </div>
+            <div class="rsv-info-item">
+              <div class="rsv-icon">🕐</div>
+              <div>
+                <h4>Horario</h4>
+                <p>Lunes – Domingo<br />11:00 am – 7:00 pm</p>
+              </div>
+            </div>
+            <div class="rsv-info-item">
+              <div class="rsv-icon">📸</div>
+              <div>
+                <h4>Instagram</h4>
+                <p>
+                  <a
+                    href="https://www.instagram.com/mb.barberiahmo"
+                    target="_blank"
+                    >@mb.barberiahmo</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay">
+          <div class="form-box">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" id="f-nombre" placeholder="Tu nombre" />
+              </div>
+              <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" id="f-tel" placeholder="662 xxx xxxx" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Servicio</label>
+                <select id="f-servicio">
+                  <option value="">— Elige un servicio —</option>
+                  <option>Corte Clásico — $150</option>
+                  <option>Corte + Barba — $220</option>
+                  <option>Diseño de Barba — $100</option>
+                  <option>Tratamiento Capilar — $120</option>
+                  <option>Corte Infantil — $120</option>
+                  <option>Corte Premium VIP — $300</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Fecha</label>
+                <input type="date" id="f-fecha" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label>Hora preferida</label>
+                <select id="f-hora">
+                  <option value="">— Selecciona —</option>
+                  <option>11:00 am</option>
+                  <option>12:00 pm</option>
+                  <option>1:00 pm</option>
+                  <option>2:00 pm</option>
+                  <option>3:00 pm</option>
+                  <option>4:00 pm</option>
+                  <option>5:00 pm</option>
+                  <option>6:00 pm</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label>Notas (opcional)</label>
+                <textarea
+                  id="f-notas"
+                  placeholder="Estilo, referencias, preferencias..."
+                ></textarea>
+              </div>
+            </div>
+            <div class="form-submit">
+              <button onclick="submitForm()">Enviar por WhatsApp →</button>
+            </div>
+            <p class="form-alt">
+              O llama directo al <a href="tel:6623014962">662 301 4962</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CONTACTO ─── -->
+    <section id="contacto">
+      <div class="contact-grid reveal">
+        <div class="contact-brand">
+          <div class="logo-big">MB</div>
+          <div class="since">Barbería · Since 2014 · Hermosillo</div>
+          <p>"Porque un buen corte te da una mejor actitud."</p>
+        </div>
+        <div class="contact-col">
+          <h4>Ubicación</h4>
+          <ul>
+            <li>Plaza Ley El Sahuaro</li>
+            <li>Blvd. Solidaridad 26, Local 20-B</li>
+            <li>Col. Sahuaro, 83170</li>
+            <li>Hermosillo, Sonora</li>
+          </ul>
+        </div>
+        <div class="contact-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="tel:6623014962">662 301 4962 (Local)</a></li>
+            <li>
+              <a href="https://wa.me/526621737773" target="_blank"
+                >662 173 7773 (WA)</a
+              >
+            </li>
+            <li>
+              <a href="https://www.instagram.com/mb.barberiahmo" target="_blank"
+                >@mb.barberiahmo</a
+              >
+            </li>
+            <li>Lun–Dom: 11am – 7pm</li>
+          </ul>
+        </div>
+      </div>
+      <div class="contact-bottom">
+        <div class="contact-copy">© 2025 MB Barbería — Hermosillo, Sonora</div>
+        <div class="social-links">
+          <a
+            href="https://www.instagram.com/mb.barberiahmo"
+            target="_blank"
+            class="social-link"
+            >Instagram</a
+          >
+          <a
+            href="https://wa.me/526621737773"
+            target="_blank"
+            class="social-link"
+            >WhatsApp</a
+          >
+          <a href="tel:6623014962" class="social-link">Llamar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">✓ Redirigiendo a WhatsApp...</div>
+
+    <script>
+      /* ── CURSOR ── */
+      const cursor = document.getElementById("cursor");
+      const ring = document.getElementById("cursorRing");
+      let rx = 0,
+        ry = 0,
+        cx = 0,
+        cy = 0;
+      document.addEventListener("mousemove", (e) => {
+        cx = e.clientX;
+        cy = e.clientY;
+        cursor.style.left = cx + "px";
+        cursor.style.top = cy + "px";
+      });
+      (function animRing() {
+        rx += (cx - rx) * 0.12;
+        ry += (cy - ry) * 0.12;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(animRing);
+      })();
+      document
+        .querySelectorAll(
+          "a,button,input,select,textarea,.srv-card,.gal-item,.nos-tag",
+        )
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.style.width = "18px";
+            cursor.style.height = "18px";
+            ring.style.width = "52px";
+            ring.style.height = "52px";
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.style.width = "10px";
+            cursor.style.height = "10px";
+            ring.style.width = "36px";
+            ring.style.height = "36px";
+          });
+        });
+
+      /* ── NAV SCROLL ── */
+      window.addEventListener("scroll", () => {
+        document
+          .getElementById("mainNav")
+          .classList.toggle("scrolled", window.scrollY > 60);
+      });
+
+      /* ── MOBILE MENU ── */
+      let menuOpen = false;
+      function toggleMenu() {
+        menuOpen = !menuOpen;
+        const links = document.querySelector(".nav-links");
+        if (menuOpen) {
+          links.style.cssText =
+            "display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:rgba(10,10,10,.97);padding:2rem 5%;gap:1.5rem;border-bottom:1px solid rgba(255,255,255,.08);";
+          links.querySelectorAll("a").forEach((a) =>
+            a.addEventListener(
+              "click",
+              () => {
+                menuOpen = false;
+                links.style.cssText = "";
+              },
+              { once: true },
+            ),
+          );
+        } else {
+          links.style.cssText = "";
+        }
+      }
+
+      /* ── SCROLL REVEAL ── */
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((r) => obs.observe(r));
+
+      /* ── FORM → WHATSAPP ── */
+      function submitForm() {
+        const nombre = document.getElementById("f-nombre").value.trim();
+        const tel = document.getElementById("f-tel").value.trim();
+        const srv = document.getElementById("f-servicio").value;
+        if (!nombre || !tel || !srv) {
+          alert("Por favor completa nombre, teléfono y servicio.");
+          return;
+        }
+        const fecha =
+          document.getElementById("f-fecha").value || "Por confirmar";
+        const hora = document.getElementById("f-hora").value || "Por confirmar";
+        const notas = document.getElementById("f-notas").value || "";
+        const msg = encodeURIComponent(
+          `Hola MB Barbería! 👋 Quiero reservar una cita.\n\n*Nombre:* ${nombre}\n*Teléfono:* ${tel}\n*Servicio:* ${srv}\n*Fecha:* ${fecha}\n*Hora:* ${hora}${notas ? "\n*Notas:* " + notas : ""}`,
+        );
+        window.open(`https://wa.me/526621737773?text=${msg}`, "_blank");
+        const t = document.getElementById("toast");
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3500);
+      }
+
+      document.getElementById("f-fecha").min = new Date()
+        .toISOString()
+        .split("T")[0];
+    </script>
+  </body>
+</html>
