@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Legión Barbahan — Barber Shop Hermosillo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    /* ────────────────────────────────────────────
+       DESIGN DIRECTION: Dark Gentleman's Club
+       — Near-black charcoal base
+       — Warm walnut / amber wood tones as accent
+       — Ivory white typography
+       — Serif display + geometric body pairing
+       — Felt/leather textures via CSS gradients
+       — Refined, slow, confident
+    ─────────────────────────────────────────── */
+    :root {
+      --ink:       #0d0b09;
+      --ink-mid:   #131009;
+      --ink-card:  #181410;
+      --ink-warm:  #211c14;
+      --wood:      #7a5c38;
+      --wood-light:#a07848;
+      --wood-pale: #c4944c;
+      --wood-glow: rgba(160,120,72,0.18);
+      --ivory:     #f0ebe2;
+      --ivory-dim: rgba(240,235,226,0.6);
+      --ivory-faint:rgba(240,235,226,0.08);
+      --border:    rgba(240,235,226,0.07);
+      --border-wood:rgba(160,120,72,0.3);
+      --shadow:    0 24px 80px rgba(0,0,0,0.6);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--ivory);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* Wood grain texture overlay — pure CSS */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          92deg,
+          transparent 0px,
+          transparent 28px,
+          rgba(100,70,30,0.015) 28px,
+          rgba(100,70,30,0.015) 29px
+        ),
+        repeating-linear-gradient(
+          88deg,
+          transparent 0px,
+          transparent 60px,
+          rgba(80,50,20,0.01) 60px,
+          rgba(80,50,20,0.01) 61px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: rgba(13,11,9,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: border-color .4s;
+    }
+    nav.scrolled { border-color: var(--border-wood); }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .nav-brand .top {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      color: var(--wood-pale);
+      letter-spacing: 0.08em;
+    }
+    .nav-brand .main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ivory);
+      letter-spacing: 0.06em;
+    }
+    .nav-brand .sub {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.5rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.3);
+      margin-top: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.6rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ivory-dim);
+      text-decoration: none;
+      transition: color .3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 100%; height: 1px;
+      background: var(--wood-pale);
+      transform: scaleX(0);
+      transition: transform .3s;
+    }
+    .nav-links a:hover { color: var(--ivory); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--wood-pale);
+      border: none;
+      padding: 0.6rem 1.6rem;
+      cursor: pointer;
+      transition: background .3s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--wood-light); transform: translateY(-1px); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--ivory-dim);
+      transition: .3s;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 5% 8%;
+      overflow: hidden;
+      background: var(--ink-mid);
+    }
+
+    /* Layered warm atmosphere */
+    .hero-atmosphere {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-atmosphere::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: -10%;
+      width: 60%; height: 70%;
+      background: radial-gradient(ellipse at bottom left, rgba(122,92,56,0.12) 0%, transparent 70%);
+    }
+    .hero-atmosphere::after {
+      content: '';
+      position: absolute;
+      top: 0; right: -5%;
+      width: 50%; height: 60%;
+      background: radial-gradient(ellipse at top right, rgba(160,120,72,0.06) 0%, transparent 70%);
+    }
+
+    /* Decorative diagonal rule */
+    .hero-rule {
+      position: absolute;
+      top: 0; right: 30%;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--border-wood) 40%, var(--border-wood) 60%, transparent);
+      opacity: 0.4;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--wood-pale);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      animation: fadeUp .8s ease both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: var(--wood-pale);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.01em;
+      margin-bottom: 2.5rem;
+      animation: fadeUp .8s .1s ease both;
+    }
+    .hero-title .line1 {
+      display: block;
+      font-size: clamp(3rem, 8vw, 8rem);
+      font-style: italic;
+      color: var(--ivory);
+    }
+    .hero-title .line2 {
+      display: block;
+      font-size: clamp(4rem, 12vw, 12rem);
+      color: var(--ivory);
+    }
+    .hero-title .line3 {
+      display: block;
+      font-size: clamp(2rem, 5vw, 5rem);
+      font-style: italic;
+      -webkit-text-stroke: 1px rgba(240,235,226,0.25);
+      color: transparent;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 3rem;
+      animation: fadeUp .8s .2s ease both;
+    }
+
+    .hero-tagline {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-style: italic;
+      color: var(--ivory-dim);
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .hero-badge {
+      text-align: right;
+      border-right: 2px solid var(--wood);
+      padding-right: 1rem;
+    }
+    .hero-badge .stars {
+      color: var(--wood-pale);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+    .hero-badge .score {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--ivory);
+      line-height: 1;
+    }
+    .hero-badge .reviews {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.35);
+    }
+
+    .btn-primary {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--wood-pale);
+      border: none;
+      padding: 1rem 2.4rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .3s, transform .2s, box-shadow .3s;
+      box-shadow: 0 6px 30px rgba(160,120,72,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--wood-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(160,120,72,0.4);
+    }
+
+    .btn-outline {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ivory-dim);
+      background: transparent;
+      border: 1px solid var(--border-wood);
+      padding: 1rem 2.4rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color .3s, color .3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--wood-pale);
+      color: var(--ivory);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem;
+      right: 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.2);
+      animation: fadeUp .8s .4s ease both;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--border-wood), transparent);
+      animation: scrollLine 2s infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { opacity: .3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* ── DIVIDER STRIP ── */
+    .strip {
+      background: var(--ink-warm);
+      border-top: 1px solid var(--border-wood);
+      border-bottom: 1px solid var(--border-wood);
+      padding: 0.9rem 0;
+      overflow: hidden;
+    }
+    .strip-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+    .strip-item {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--wood-pale);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .strip-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--wood);
+      flex-shrink: 0;
+    }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTION ── */
+    section { padding: 110px 5%; position: relative; z-index: 1; }
+
+    .eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--wood-pale);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--wood-pale);
+    }
+
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--ivory);
+    }
+    .sec-title em {
+      font-style: italic;
+      color: var(--wood-pale);
+    }
+
+    /* ── NOSOTROS ── */
+    #nosotros { background: var(--ink-card); }
+
+    .nos-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: center;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .nos-stats-box {
+      background: var(--ink-warm);
+      border: 1px solid var(--border-wood);
+      padding: 3.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    /* Leather texture feel */
+    .nos-stats-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          transparent 0px, transparent 8px,
+          rgba(122,92,56,0.04) 8px, rgba(122,92,56,0.04) 9px
+        );
+      pointer-events: none;
+    }
+    .nos-stats-box::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--wood), var(--wood-pale), var(--wood));
+    }
+
+    .nos-stat { margin-bottom: 2.8rem; position: relative; z-index: 1; }
+    .nos-stat:last-child { margin-bottom: 0; }
+    .nos-stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--wood-pale);
+      line-height: 1;
+    }
+    .nos-stat .lbl {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.35);
+      margin-top: 0.2rem;
+    }
+    .nos-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border-wood);
+      margin: 2rem 0;
+    }
+
+    .nos-text { }
+    .nos-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ivory);
+      margin-bottom: 1.4rem;
+      line-height: 1.2;
+    }
+    .nos-text h3 em { font-style: italic; color: var(--wood-pale); }
+    .nos-text p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--ivory-dim);
+      margin-bottom: 1rem;
+    }
+
+    .nos-pillars {
+      margin-top: 2.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .pillar {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-left: 2px solid var(--wood);
+      background: rgba(122,92,56,0.06);
+    }
+    .pillar-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .pillar-text h5 {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      margin-bottom: 0.2rem;
+    }
+    .pillar-text p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(240,235,226,0.45);
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios { background: var(--ink); }
+
+    .srv-header {
+      max-width: 1240px;
+      margin: 0 auto 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+    }
+    .srv-note {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(240,235,226,0.3);
+      max-width: 260px;
+      text-align: right;
+      line-height: 1.7;
+    }
+
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border-wood);
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .srv-card {
+      background: var(--ink-card);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background .4s;
+      cursor: default;
+    }
+    .srv-card:hover { background: var(--ink-warm); }
+    .srv-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--wood), var(--wood-pale));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s ease;
+    }
+    .srv-card:hover::before { transform: scaleX(1); }
+
+    .srv-n {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: rgba(122,92,56,0.08);
+      line-height: 1;
+      margin-bottom: -0.8rem;
+      transition: color .4s;
+    }
+    .srv-card:hover .srv-n { color: rgba(122,92,56,0.14); }
+    .srv-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .srv-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ivory);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+    .srv-desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(240,235,226,0.4);
+      margin-bottom: 1.4rem;
+    }
+    .srv-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--wood-pale);
+      line-height: 1;
+    }
+    .srv-price .curr {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: rgba(196,148,76,0.6);
+      vertical-align: super;
+      margin-right: 2px;
+    }
+
+    .srv-extras {
+      max-width: 1240px;
+      margin: 1px auto 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border-wood);
+    }
+    .srv-extra-card {
+      background: var(--ink-warm);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .extra-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .extra-name {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+        color: var(--ivory);
+      margin-bottom: 0.1rem;
+    }
+    .extra-sub {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(240,235,226,0.35);
+    }
+
+    /* ── GALERÍA ── */
+    #galeria {
+      background: var(--ink-card);
+      padding: 110px 0;
+    }
+
+    .gal-head {
+      padding: 0 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      max-width: 1240px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 5% 3rem;
+    }
+    .gal-head a {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--wood-pale);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-wood);
+      padding-bottom: 3px;
+      transition: color .3s, border-color .3s;
+    }
+    .gal-head a:hover { color: var(--ivory); border-color: var(--wood-pale); }
+
+    .gal-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      grid-template-rows: 320px 280px;
+      gap: 3px;
+      padding: 0 5%;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .gal-cell {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--ink-warm);
+    }
+    .gal-cell:first-child { grid-row: span 2; }
+
+    .gal-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .7s cubic-bezier(.25,.46,.45,.94), filter .5s;
+      filter: brightness(0.85) saturate(0.9);
+    }
+    .gal-cell:hover .gal-img {
+      transform: scale(1.06);
+      filter: brightness(0.75) saturate(0.8);
+    }
+
+    /* Placeholder for when images aren't loaded */
+    .gal-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: var(--ink-warm);
+      transition: transform .7s cubic-bezier(.25,.46,.45,.94);
+    }
+    .gal-cell:hover .gal-placeholder { transform: scale(1.03); }
+    .gal-ph-icon { font-size: 2.5rem; opacity: 0.12; color: var(--wood-pale); }
+    .gal-ph-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(196,148,76,0.3);
+    }
+
+    .gal-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,11,9,0.85) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.4rem;
+    }
+    .gal-cell:hover .gal-overlay { opacity: 1; }
+    .gal-overlay-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--wood-pale);
+    }
+
+    .gal-note {
+      text-align: center;
+      padding: 2rem 5% 0;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: rgba(240,235,226,0.2);
+    }
+    .gal-note a {
+      color: var(--wood-pale);
+      text-decoration: none;
+      transition: color .3s;
+    }
+    .gal-note a:hover { color: var(--ivory); }
+
+    /* ── RESERVAR ── */
+    #reservar { background: var(--ink); }
+
+    .rsv-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 6rem;
+      align-items: start;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .rsv-left p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--ivory-dim);
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .rsv-info { display: flex; flex-direction: column; gap: 0; }
+    .rsv-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .rsv-row:last-child { border-bottom: none; }
+    .rsv-row-icon { font-size: 1rem; color: var(--wood-pale); flex-shrink: 0; margin-top: 2px; }
+    .rsv-row-body h5 {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.3);
+      margin-bottom: 0.3rem;
+    }
+    .rsv-row-body p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--ivory-dim);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .rsv-row-body a {
+      color: var(--ivory-dim);
+      text-decoration: none;
+      transition: color .3s;
+    }
+    .rsv-row-body a:hover { color: var(--wood-pale); }
+
+    .form-panel {
+      background: var(--ink-card);
+      border: 1px solid var(--border-wood);
+      padding: 3.5rem;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+    .form-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--wood), var(--wood-pale), var(--wood));
+    }
+    .form-panel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ivory);
+      margin-bottom: 2rem;
+    }
+    .form-panel-title em { font-style: italic; color: var(--wood-pale); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.56rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.3);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      padding: 0.85rem 1rem;
+      background: rgba(240,235,226,0.04);
+      border: 1px solid var(--border);
+      color: var(--ivory);
+      outline: none;
+      transition: border-color .3s, background .3s;
+      width: 100%;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(240,235,226,0.18); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--border-wood);
+      background: rgba(122,92,56,0.07);
+    }
+    .form-group select option { background: #181410; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .form-submit { margin-top: 1.5rem; }
+    .form-submit button {
+      width: 100%;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--wood-pale);
+      border: none;
+      padding: 1.1rem;
+      cursor: pointer;
+      transition: background .3s, transform .2s, box-shadow .3s;
+      box-shadow: 0 4px 24px rgba(160,120,72,0.25);
+    }
+    .form-submit button:hover {
+      background: var(--wood-light);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(160,120,72,0.35);
+    }
+    .form-alt {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(240,235,226,0.25);
+    }
+    .form-alt a { color: var(--wood-pale); text-decoration: none; transition: color .3s; }
+    .form-alt a:hover { color: var(--ivory); }
+
+    /* ── CONTACTO ── */
+    #contacto {
+      background: var(--ink-mid);
+      border-top: 1px solid var(--border-wood);
+      padding: 80px 5%;
+    }
+
+    .contact-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 5rem;
+      max-width: 1240px;
+      margin: 0 auto 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ct-brand .wordmark {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--ivory);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .ct-brand .wordmark em { font-style: italic; color: var(--wood-pale); }
+    .ct-brand .tagline-sm {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.52rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.25);
+      margin-bottom: 1.4rem;
+    }
+    .ct-brand p {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: rgba(240,235,226,0.35);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .ct-col h6 {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.56rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--wood-pale);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .ct-col h6::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-wood);
+    }
+    .ct-col ul { list-style: none; }
+    .ct-col ul li {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: rgba(240,235,226,0.5);
+      margin-bottom: 0.65rem;
+      line-height: 1.5;
+    }
+    .ct-col ul li a {
+      color: rgba(240,235,226,0.5);
+      text-decoration: none;
+      transition: color .3s;
+    }
+    .ct-col ul li a:hover { color: var(--wood-pale); }
+
+    .contact-bottom {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .copy {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.15);
+    }
+    .socials { display: flex; gap: 0.8rem; }
+    .soc-btn {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(240,235,226,0.35);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      transition: border-color .3s, color .3s;
+    }
+    .soc-btn:hover { border-color: var(--border-wood); color: var(--wood-pale); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      background: var(--ink-warm);
+      border: 1px solid var(--border-wood);
+      border-left: 3px solid var(--wood-pale);
+      color: var(--ivory);
+      padding: 1rem 1.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      transform: translateX(200%);
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+      z-index: 9000;
+      box-shadow: var(--shadow);
+    }
+    .toast.show { transform: translateX(0); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay1 { transition-delay: .12s; }
+    .delay2 { transition-delay: .24s; }
+    .delay3 { transition-delay: .36s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .srv-grid { grid-template-columns: repeat(2, 1fr); }
+      .srv-extras { grid-template-columns: repeat(2, 1fr); }
+      .gal-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 280px 280px 280px; }
+      .gal-cell:first-child { grid-row: span 1; }
+    }
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-toggle { display: flex; }
+      .nos-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .rsv-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-top { grid-template-columns: 1fr 1fr; }
+      .contact-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2rem; }
+      .hero-right { align-items: flex-start; }
+      section { padding: 75px 5%; }
+    }
+    @media (max-width: 620px) {
+      .srv-grid { grid-template-columns: 1fr; }
+      .srv-extras { grid-template-columns: 1fr 1fr; }
+      .gal-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .gal-cell { min-height: 240px; }
+      .gal-cell:first-child { grid-row: span 1; }
+      .contact-top { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+      .form-panel { padding: 2rem 1.5rem; }
+      .srv-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="mainNav">
+  <a href="#" class="nav-brand">
+    <span class="top">La Legión</span>
+    <span class="main">BARBAHAN</span>
+    <span class="sub">Barber Shop · Hermosillo</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#reservar">Reservar</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('reservar').scrollIntoView({behavior:'smooth'})">Agendar Cita</button>
+  <div class="nav-toggle" onclick="toggleMenu()" id="navToggle">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-atmosphere"></div>
+  <div class="hero-rule"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Barber Shop · Hermosillo, Sonora · Desde 2019</p>
+    <h1 class="hero-title">
+      <span class="line1">La Legión</span>
+      <span class="line2">BARBAHAN</span>
+      <span class="line3">Barber Shop</span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-tagline">
+        Un espacio creado para el caballero moderno — donde la tradición del buen corte se vive con madera, cuero y licor de cortesía.
+      </p>
+      <div class="hero-right">
+        <div class="hero-badge">
+          <div class="stars">★★★★½</div>
+          <div class="score">4.5</div>
+          <div class="reviews">141 reseñas · Google Maps</div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap;justify-content:flex-end;">
+          <a href="#reservar" class="btn-primary">Agendar Cita</a>
+          <a href="#servicios" class="btn-outline">Ver Servicios</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ─── STRIP ─── -->
+<div class="strip">
+  <div class="strip-track">
+    <div class="strip-item">Corte Clásico <span class="strip-dot"></span></div>
+    <div class="strip-item">Diseño de Barba <span class="strip-dot"></span></div>
+    <div class="strip-item">La Legión Barbahan <span class="strip-dot"></span></div>
+    <div class="strip-item">Manicure &amp; Pedicure <span class="strip-dot"></span></div>
+    <div class="strip-item">Spa Facial <span class="strip-dot"></span></div>
+    <div class="strip-item">Bebidas de Cortesía <span class="strip-dot"></span></div>
+    <div class="strip-item">Plaza Cantabria · Hermosillo <span class="strip-dot"></span></div>
+    <div class="strip-item">Corte Clásico <span class="strip-dot"></span></div>
+    <div class="strip-item">Diseño de Barba <span class="strip-dot"></span></div>
+    <div class="strip-item">La Legión Barbahan <span class="strip-dot"></span></div>
+    <div class="strip-item">Manicure &amp; Pedicure <span class="strip-dot"></span></div>
+    <div class="strip-item">Spa Facial <span class="strip-dot"></span></div>
+    <div class="strip-item">Bebidas de Cortesía <span class="strip-dot"></span></div>
+    <div class="strip-item">Plaza Cantabria · Hermosillo <span class="strip-dot"></span></div>
+  </div>
+</div>
+
+<!-- ─── NOSOTROS ─── -->
+<section id="nosotros">
+  <div class="nos-wrap">
+    <div class="reveal">
+      <div class="nos-stats-box">
+        <div class="nos-stat">
+          <div class="num">2019</div>
+          <div class="lbl">Año de fundación</div>
+        </div>
+        <div class="nos-divider"></div>
+        <div class="nos-stat">
+          <div class="num">4.5★</div>
+          <div class="lbl">141 reseñas en Google Maps</div>
+        </div>
+        <div class="nos-divider"></div>
+        <div class="nos-stat">
+          <div class="num">8+</div>
+          <div class="lbl">Servicios especializados</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal delay1">
+      <div class="eyebrow">Quiénes somos</div>
+      <h2 class="sec-title" style="margin-bottom:1.4rem">
+        El lugar del<br><em>caballero moderno.</em>
+      </h2>
+      <div class="nos-text">
+        <p>La Legión Barbahan nació con una visión clara: rescatar la experiencia de la barbería clásica y llevarla a otro nivel. Sillones de piel, muebles de madera, y una atmósfera que evoca los mejores establecimientos de antaño.</p>
+        <p>Más que un corte — es una experiencia de <em>grooming</em> completa. Bebidas de cortesía incluidas, porque los detalles son los que hacen la diferencia entre un lugar ordinario y La Legión.</p>
+      </div>
+      <div class="nos-pillars">
+        <div class="pillar">
+          <div class="pillar-text">
+            <h5>Bebidas de cortesía</h5>
+            <p>Licor y bebidas seleccionadas para una experiencia completa.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-text">
+            <h5>Ambiente premium</h5>
+            <p>Sillones de piel, muebles de madera y ambientación clásica.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-text">
+            <h5>Grooming completo</h5>
+            <p>Desde corte y barba hasta manicure, spa y tratamientos capilares.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICIOS ─── -->
+<section id="servicios">
+  <div class="srv-header reveal">
+    <div>
+      <div class="eyebrow">Lo que ofrecemos</div>
+      <h2 class="sec-title">Servicios</h2>
+    </div>
+    <p class="srv-note">Todos los cortes incluyen lavado y peinado. Bebidas de cortesía en cada visita.</p>
+  </div>
+
+  <div class="srv-grid reveal">
+    <div class="srv-card">
+      <div class="srv-n">01</div>
+      <div class="srv-name">Corte Clásico</div>
+      <div class="srv-desc">Tijera y máquina con acabado impecable. Delineado y contornos incluidos.</div>
+      <div class="srv-price"><span class="curr">MXN $</span>180</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-n">02</div>
+      <div class="srv-name">Corte + Barba</div>
+      <div class="srv-desc">El paquete completo: corte profesional más diseño y perfilado de barba.</div>
+      <div class="srv-price"><span class="curr">MXN $</span>260</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-n">03</div>
+      <div class="srv-name">Diseño de Barba</div>
+      <div class="srv-desc">Perfilado, diseño y afeitado con navaja. Acabado fino con toalla caliente.</div>
+      <div class="srv-price"><span class="curr">MXN $</span>120</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-n">04</div>
+      <div class="srv-name">Afeitado Premium</div>
+      <div class="srv-desc">Afeitado con toalla caliente y navaja recta. Tratamiento refrescante post-afeite.</div>
+      <div class="srv-price"><span class="curr">MXN $</span>150</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-n">05</div>
+      <div class="srv-name">Manicure</div>
+      <div class="srv-desc">Cuidado completo de manos y uñas. Corte, limado y crema hidratante.</div>
+      <div class="srv-price"><span class="curr">MXN $</span>130</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-n">06</div>
+      <div class="srv-name">Pedicure</div>
+      <div class="srv-desc">Tratamiento completo de pies. Exfoliación, corte y cuidado profesional.</div>
+      <div class="srv-price"><span class="curr">MXN $</span>150</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-n">07</div>
+      <div class="srv-name">Spa Facial</div>
+      <div class="srv-desc">Limpieza profunda, mascarilla de barro y tratamiento revitalizador de piel.</div>
+      <div class="srv-price"><span class="curr">MXN $</span>200</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-n">08</div>
+      <div class="srv-name">Tratamiento Capilar</div>
+      <div class="srv-desc">Tratamiento regenerador y revitalizador de cuero cabelludo. Matizado incluido.</div>
+      <div class="srv-price"><span class="curr">MXN $</span>220</div>
+    </div>
+  </div>
+
+  <div class="srv-extras reveal" style="margin-top:1px">
+    <div class="srv-extra-card">
+      <div>
+        <div class="extra-name">Corte Infantil</div>
+        <div class="extra-sub">Hasta 12 años · precio especial</div>
+      </div>
+    </div>
+    <div class="srv-extra-card">
+      <div>
+        <div class="extra-name">Gift Cards</div>
+        <div class="extra-sub">10% descuento · válidas en todos los servicios</div>
+      </div>
+    </div>
+    <div class="srv-extra-card">
+      <div>
+        <div class="extra-name">Afeitado de Cabeza</div>
+        <div class="extra-sub">Máquina o navaja · acabado brillante</div>
+      </div>
+    </div>
+    <div class="srv-extra-card">
+      <div>
+        <div class="extra-name">Cejas y Bigote</div>
+        <div class="extra-sub">Delineado y arreglo · complemento de visita</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin-top:1.5rem;font-size:0.75rem;font-family:'Jost',sans-serif;letter-spacing:0.15em;color:rgba(240,235,226,0.2);max-width:1240px;margin-left:auto;margin-right:auto;">
+    * Precios referenciales. Consulta el precio exacto al reservar tu cita.
+  </p>
+</section>
+
+<!-- ─── GALERÍA ─── -->
+<section id="galeria">
+  <div class="gal-head reveal">
+    <div>
+      <div class="eyebrow">Nuestro trabajo</div>
+      <h2 class="sec-title">Galería</h2>
+    </div>
+    <a href="https://www.instagram.com/lalegionbarbahan/" target="_blank">Ver más en Instagram ↗</a>
+  </div>
+
+  <div class="gal-grid reveal">
+    <!-- Imagen 1 — grande vertical -->
+    <div class="gal-cell">
+      <img src="barbahan1.png" alt="La Legión Barbahan — Interior" class="gal-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="gal-placeholder" style="display:none;">
+        <div class="gal-ph-label">barbahan1.png</div>
+      </div>
+      <div class="gal-overlay"><div class="gal-overlay-label">Interior · Ambiente Premium</div></div>
+    </div>
+    <!-- Imagen 2 -->
+    <div class="gal-cell">
+      <img src="barbahan2.png" alt="Corte de cabello" class="gal-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="gal-placeholder" style="display:none;">
+        <div class="gal-ph-label">barbahan2.png</div>
+      </div>
+      <div class="gal-overlay"><div class="gal-overlay-label">Corte Clásico</div></div>
+    </div>
+    <!-- Imagen 3 -->
+    <div class="gal-cell">
+      <img src="barbahan3.png" alt="Diseño de barba" class="gal-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="gal-placeholder" style="display:none;">
+        <div class="gal-ph-label">barbahan3.png</div>
+      </div>
+      <div class="gal-overlay"><div class="gal-overlay-label">Diseño de Barba</div></div>
+    </div>
+    <!-- Imagen 4 -->
+    <div class="gal-cell">
+      <img src="barbahan4.png" alt="Spa facial" class="gal-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="gal-placeholder" style="display:none;">
+        <div class="gal-ph-label">barbahan4.png</div>
+      </div>
+      <div class="gal-overlay"><div class="gal-overlay-label">Spa &amp; Grooming</div></div>
+    </div>
+    <!-- Imagen 5 -->
+    <div class="gal-cell">
+      <img src="barbahan5.png" alt="Ambiente barbería" class="gal-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="gal-placeholder" style="display:none;">
+        <div class="gal-ph-label">barbahan5.png</div>
+      </div>
+      <div class="gal-overlay"><div class="gal-overlay-label">Ambiente &amp; Detalle</div></div>
+    </div>
+  </div>
+  <p class="gal-note">Síguenos en Instagram para ver más — <a href="https://www.instagram.com/lalegionbarbahan/" target="_blank">@lalegionbarbahan</a></p>
+</section>
+
+<!-- ─── RESERVAR ─── -->
+<section id="reservar">
+  <div class="rsv-wrap">
+    <div class="reveal">
+      <div class="eyebrow">Agenda tu visita</div>
+      <h2 class="sec-title" style="margin-bottom:0">Reserva<br>tu <em>cita.</em></h2>
+      <p>Sin esperas innecesarias. Elige tu servicio, día y hora — y te confirmamos directo por WhatsApp o llamada en minutos.</p>
+      <div class="rsv-info">
+        <div class="rsv-row">
+          <div class="rsv-row-icon">📍</div>
+          <div class="rsv-row-body">
+            <h5>Dirección</h5>
+            <p>Blvd. Luis Donaldo Colosio Murrieta 829, Local 5<br>Plaza Cantabria, Valle Grande, 83224<br>Hermosillo, Sonora</p>
+          </div>
+        </div>
+        <div class="rsv-row">
+          <div class="rsv-row-icon">📞</div>
+          <div class="rsv-row-body">
+            <h5>Teléfono</h5>
+            <p>
+              <a href="tel:6622648890">662 264 8890</a><br>
+              <a href="https://wa.me/526622648890" target="_blank">WhatsApp: 662 264 8890</a>
+            </p>
+          </div>
+        </div>
+        <div class="rsv-row">
+          <div class="rsv-row-icon">🕐</div>
+          <div class="rsv-row-body">
+            <h5>Horario</h5>
+            <p>Lunes a Viernes — 8:00 am a 8:00 pm<br>Sábados — 9:00 am a 8:00 pm<br>Domingos — Cerrado</p>
+          </div>
+        </div>
+        <div class="rsv-row">
+          <div class="rsv-row-icon">✉️</div>
+          <div class="rsv-row-body">
+            <h5>Email</h5>
+            <p><a href="mailto:info@lalegionbarbahan.com">info@lalegionbarbahan.com</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal delay1">
+      <div class="form-panel">
+        <div class="form-panel-title">Solicitar <em>cita</em></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" id="f-nombre" placeholder="Tu nombre" />
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" id="f-tel" placeholder="662 xxx xxxx" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Servicio</label>
+            <select id="f-servicio">
+              <option value="">— Selecciona —</option>
+              <option>Corte Clásico — $180</option>
+              <option>Corte + Barba — $260</option>
+              <option>Diseño de Barba — $120</option>
+              <option>Afeitado Premium — $150</option>
+              <option>Manicure — $130</option>
+              <option>Pedicure — $150</option>
+              <option>Spa Facial — $200</option>
+              <option>Tratamiento Capilar — $220</option>
+              <option>Corte Infantil</option>
+              <option>Afeitado de Cabeza</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Fecha</label>
+            <input type="date" id="f-fecha" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label>Hora preferida</label>
+            <select id="f-hora">
+              <option value="">— Selecciona —</option>
+              <option>8:00 am</option><option>9:00 am</option><option>10:00 am</option>
+              <option>11:00 am</option><option>12:00 pm</option><option>1:00 pm</option>
+              <option>2:00 pm</option><option>3:00 pm</option><option>4:00 pm</option>
+              <option>5:00 pm</option><option>6:00 pm</option><option>7:00 pm</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label>Notas adicionales (opcional)</label>
+            <textarea id="f-notas" placeholder="Estilo de corte, referencias, preferencias..."></textarea>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button onclick="submitForm()">Reservar vía WhatsApp →</button>
+        </div>
+        <p class="form-alt">O llama al <a href="tel:6622648890">662 264 8890</a> · <a href="mailto:info@lalegionbarbahan.com">Enviar email</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACTO ─── -->
+<section id="contacto">
+  <div class="contact-top reveal">
+    <div class="ct-brand">
+      <div class="wordmark"><em>La Legión</em> BARBAHAN</div>
+      <div class="tagline-sm">Barber Shop · Hermosillo, Sonora · Est. 2019</div>
+      <p>"Un lugar que evoca la clásica ambientación de las barberías antiguas, con sillones de piel, muebles de madera y bebidas de cortesía — para una experiencia de grooming única."</p>
+    </div>
+    <div class="ct-col">
+      <h6>Información</h6>
+      <ul>
+        <li>Blvd. Colosio 829, Local 5</li>
+        <li>Plaza Cantabria, Valle Grande</li>
+        <li>83224 Hermosillo, Son.</li>
+        <li style="margin-top:.5rem"><a href="tel:6622648890">662 264 8890</a></li>
+        <li><a href="mailto:info@lalegionbarbahan.com">info@lalegionbarbahan.com</a></li>
+      </ul>
+    </div>
+    <div class="ct-col">
+      <h6>Horarios</h6>
+      <ul>
+        <li>Lun–Vie: 8:00 am – 8:00 pm</li>
+        <li>Sábado: 9:00 am – 8:00 pm</li>
+        <li>Domingo: Cerrado</li>
+      </ul>
+      <h6 style="margin-top:1.5rem">Síguenos</h6>
+      <ul>
+        <li><a href="https://www.instagram.com/lalegionbarbahan/" target="_blank">@lalegionbarbahan</a></li>
+        <li><a href="https://www.facebook.com/lalegionbarbahan/" target="_blank">La Legión Barbahan</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="contact-bottom">
+    <div class="copy">© 2025 La Legión Barbahan Barber Shop — Hermosillo, Sonora</div>
+    <div class="socials">
+      <a href="https://www.instagram.com/lalegionbarbahan/" target="_blank" class="soc-btn">Instagram</a>
+      <a href="https://wa.me/526622648890" target="_blank" class="soc-btn">WhatsApp</a>
+      <a href="tel:6622648890" class="soc-btn">Llamar</a>
+    </div>
+  </div>
+</section>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Abriendo WhatsApp...</div>
+
+<script>
+  /* ── NAV SCROLL ── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  /* ── MOBILE MENU ── */
+  let menuOpen = false;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    const links = document.querySelector('.nav-links');
+    if (menuOpen) {
+      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(13,11,9,.97);padding:2rem 5%;gap:1.8rem;border-bottom:1px solid rgba(122,92,56,0.2);backdrop-filter:blur(16px);';
+      links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        menuOpen = false; links.style.cssText = '';
+      }, { once: true }));
+    } else {
+      links.style.cssText = '';
+    }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(r => revObs.observe(r));
+
+  /* ── FORM → WHATSAPP ── */
+  function submitForm() {
+    const nombre  = document.getElementById('f-nombre').value.trim();
+    const tel     = document.getElementById('f-tel').value.trim();
+    const servicio= document.getElementById('f-servicio').value;
+    if (!nombre || !tel || !servicio) { alert('Por favor completa nombre, teléfono y servicio.'); return; }
+    const fecha   = document.getElementById('f-fecha').value || 'Por confirmar';
+    const hora    = document.getElementById('f-hora').value  || 'Por confirmar';
+    const notas   = document.getElementById('f-notas').value || '';
+    const msg = encodeURIComponent(
+      `Hola La Legión Barbahan! 💈 Quisiera reservar una cita.\n\n*Nombre:* ${nombre}\n*Teléfono:* ${tel}\n*Servicio:* ${servicio}\n*Fecha:* ${fecha}\n*Hora:* ${hora}${notas ? '\n*Notas:* ' + notas : ''}`
+    );
+    window.open(`https://wa.me/526622648890?text=${msg}`, '_blank');
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  /* ── MIN DATE ── */
+  document.getElementById('f-fecha').min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
