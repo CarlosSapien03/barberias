@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barbería 2|3|2 — Hermosillo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --black: #0a0a0a;
+        --white: #fafafa;
+        --gray-100: #f4f4f2;
+        --gray-200: #e8e8e4;
+        --gray-400: #aaa9a4;
+        --gray-600: #6b6b66;
+        --accent: #1a1a1a;
+        --gold: #b89a6e;
+        --font-display: "Cormorant Garamond", serif;
+        --font-body: "Jost", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background: var(--white);
+        color: var(--black);
+        font-weight: 300;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 3rem;
+        background: rgba(250, 250, 250, 0.94);
+        backdrop-filter: blur(12px);
+        border-bottom: 0.5px solid var(--gray-200);
+        transition: padding 0.3s;
+      }
+
+      .nav-logo {
+        font-family: var(--font-body);
+        font-weight: 200;
+        font-size: 1.05rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--black);
+        text-decoration: none;
+      }
+      .nav-logo span {
+        font-weight: 500;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--gray-600);
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--black);
+      }
+
+      .nav-cta {
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--black);
+        padding: 0.6rem 1.5rem;
+        text-decoration: none;
+        transition: background 0.25s;
+      }
+      .nav-cta:hover {
+        background: var(--gray-600);
+      }
+
+      /* ── HERO ── */
+      #inicio {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 8rem 2rem 5rem;
+        position: relative;
+        background: var(--white);
+      }
+
+      .hero-eyebrow {
+        font-family: var(--font-body);
+        font-size: 0.68rem;
+        font-weight: 400;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+        display: block;
+        margin-bottom: 2rem;
+      }
+
+      .hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(4rem, 10vw, 9rem);
+        font-weight: 300;
+        line-height: 0.9;
+        letter-spacing: -0.01em;
+        color: var(--black);
+        margin-bottom: 0.15em;
+      }
+      .hero-title .pipe {
+        color: var(--gray-400);
+        font-weight: 200;
+      }
+      .hero-title .sup {
+        font-size: 0.45em;
+        vertical-align: super;
+        letter-spacing: 0.05em;
+      }
+
+      .hero-sub {
+        font-family: var(--font-display);
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+        font-weight: 300;
+        font-style: italic;
+        color: var(--gray-600);
+        margin: 2rem 0 3.5rem;
+        letter-spacing: 0.02em;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1.25rem;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--black);
+        padding: 1rem 2.5rem;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.25s;
+      }
+      .btn-primary:hover {
+        background: var(--gray-600);
+      }
+
+      .btn-ghost {
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--black);
+        border: 0.5px solid var(--black);
+        padding: 1rem 2.5rem;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.25s;
+      }
+      .btn-ghost:hover {
+        background: var(--black);
+        color: var(--white);
+      }
+
+      .hero-divider {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        opacity: 0.35;
+      }
+      .hero-divider span {
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+      }
+      .scroll-line {
+        width: 0.5px;
+        height: 40px;
+        background: var(--gray-400);
+        animation: scrollLine 1.6s ease-in-out infinite;
+      }
+      @keyframes scrollLine {
+        0%,
+        100% {
+          transform: scaleY(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scaleY(0.4);
+          opacity: 0.4;
+        }
+      }
+
+      /* ── SECTION BASE ── */
+      section {
+        padding: 6rem 2rem;
+      }
+
+      .section-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+        display: block;
+        margin-bottom: 1rem;
+      }
+
+      .section-title {
+        font-family: var(--font-display);
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        font-weight: 300;
+        line-height: 1.05;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      /* ── NOSOTROS ── */
+      #nosotros {
+        background: var(--gray-100);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .about-text p {
+        font-size: 1rem;
+        color: var(--gray-600);
+        margin-bottom: 1.25rem;
+        line-height: 1.85;
+      }
+
+      .about-stat {
+        display: flex;
+        flex-direction: column;
+      }
+      .about-stat strong {
+        font-family: var(--font-display);
+        font-size: 3.5rem;
+        font-weight: 300;
+        color: var(--black);
+        line-height: 1;
+      }
+      .about-stat span {
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+        margin-top: 0.25rem;
+      }
+
+      .about-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        padding-top: 2rem;
+        border-top: 0.5px solid var(--gray-200);
+        margin-top: 2rem;
+      }
+
+      .about-visual {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .about-block {
+        background: var(--white);
+        padding: 2.5rem;
+        position: relative;
+      }
+      .about-block::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2px;
+        height: 100%;
+        background: var(--black);
+      }
+      .about-block p {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-style: italic;
+        color: var(--gray-600);
+        line-height: 1.6;
+      }
+
+      /* ── SERVICIOS ── */
+      #servicios {
+        background: var(--white);
+      }
+
+      .services-header {
+        max-width: 1100px;
+        margin: 0 auto 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .services-grid {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        border: 0.5px solid var(--gray-200);
+      }
+
+      .service-item {
+        padding: 2rem 2.5rem;
+        border-right: 0.5px solid var(--gray-200);
+        border-bottom: 0.5px solid var(--gray-200);
+        transition: background 0.2s;
+        cursor: default;
+      }
+      .service-item:hover {
+        background: var(--gray-100);
+      }
+      .service-item:nth-child(3n) {
+        border-right: none;
+      }
+
+      .service-name {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: var(--black);
+        margin-bottom: 0.25rem;
+      }
+
+      .service-desc {
+        font-size: 0.75rem;
+        color: var(--gray-400);
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+      }
+
+      .service-price {
+        font-family: var(--font-body);
+        font-size: 1.1rem;
+        font-weight: 200;
+        color: var(--black);
+        letter-spacing: 0.05em;
+      }
+      .service-price span {
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+        margin-left: 0.4rem;
+      }
+
+      /* ── RESERVAS ── */
+      #reservas {
+        background: var(--black);
+        color: var(--white);
+        padding: 7rem 2rem;
+      }
+
+      #reservas .section-label {
+        color: var(--gray-400);
+      }
+      #reservas .section-title {
+        color: var(--white);
+      }
+      #reservas .section-title em {
+        color: var(--gold);
+        font-style: italic;
+      }
+
+      .reservas-sub {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-style: italic;
+        color: var(--gray-400);
+        margin-bottom: 3.5rem;
+      }
+
+      .booking-wrapper {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      /* Steps */
+      .booking-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-bottom: 3rem;
+        border: 0.5px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .step {
+        padding: 1.25rem 1.5rem;
+        border-right: 0.5px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .step:last-child {
+        border-right: none;
+      }
+      .step.active {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .step-number {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        border: 0.5px solid rgba(255, 255, 255, 0.25);
+        color: var(--gray-400);
+        flex-shrink: 0;
+        transition: all 0.2s;
+      }
+      .step.active .step-number,
+      .step.done .step-number {
+        background: var(--white);
+        color: var(--black);
+        border-color: var(--white);
+      }
+
+      .step-info {
+      }
+      .step-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+      }
+      .step.active .step-label {
+        color: var(--gray-200);
+      }
+      .step-name {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 0.1rem;
+      }
+      .step.active .step-name {
+        color: var(--white);
+      }
+
+      /* Booking panels */
+      .booking-panel {
+        display: none;
+      }
+      .booking-panel.active {
+        display: block;
+      }
+
+      .panel-title {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-style: italic;
+        color: var(--gray-400);
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.03em;
+      }
+
+      /* Panel 1: barbero */
+      .barbers-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .barber-card {
+        border: 0.5px solid rgba(255, 255, 255, 0.12);
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+      }
+      .barber-card:hover {
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+      .barber-card.selected {
+        border-color: var(--white);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .barber-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0 auto 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 300;
+        color: var(--white);
+        letter-spacing: 0.05em;
+      }
+
+      .barber-name {
+        font-size: 0.82rem;
+        color: var(--white);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.2rem;
+      }
+      .barber-role {
+        font-size: 0.68rem;
+        color: var(--gray-400);
+        letter-spacing: 0.05em;
+      }
+
+      /* Panel 2: fecha */
+      .calendar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+      }
+      .cal-nav {
+        background: none;
+        border: 0.5px solid rgba(255, 255, 255, 0.2);
+        color: var(--white);
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+      .cal-nav:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .cal-month {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        color: var(--white);
+        font-style: italic;
+        letter-spacing: 0.05em;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        margin-bottom: 2rem;
+      }
+      .cal-day-label {
+        text-align: center;
+        font-size: 0.62rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+        padding: 0.4rem 0;
+      }
+      .cal-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.55);
+        cursor: pointer;
+        transition: all 0.15s;
+        border: 0.5px solid transparent;
+      }
+      .cal-day:hover:not(.empty):not(.past) {
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+      .cal-day.selected {
+        background: var(--white);
+        color: var(--black);
+      }
+      .cal-day.today {
+        color: var(--gold);
+      }
+      .cal-day.empty,
+      .cal-day.past {
+        cursor: default;
+        opacity: 0.25;
+      }
+
+      /* Panel 3: hora */
+      .hours-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.6rem;
+        margin-bottom: 2rem;
+      }
+      .hour-slot {
+        padding: 0.75rem;
+        border: 0.5px solid rgba(255, 255, 255, 0.15);
+        text-align: center;
+        font-size: 0.78rem;
+        color: var(--white);
+        cursor: pointer;
+        transition: all 0.15s;
+        letter-spacing: 0.05em;
+      }
+      .hour-slot:hover {
+        border-color: rgba(255, 255, 255, 0.45);
+      }
+      .hour-slot.selected {
+        background: var(--white);
+        color: var(--black);
+      }
+      .hour-slot.taken {
+        opacity: 0.2;
+        cursor: not-allowed;
+        text-decoration: line-through;
+      }
+
+      /* Confirmation */
+      .booking-confirm {
+        border-top: 0.5px solid rgba(255, 255, 255, 0.12);
+        padding-top: 2rem;
+        margin-top: 1rem;
+      }
+      .confirm-title {
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+        margin-bottom: 1rem;
+      }
+      .confirm-summary {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+      }
+      .confirm-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+      .confirm-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+      }
+      .confirm-value {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        color: var(--white);
+        font-style: italic;
+      }
+      .confirm-value.empty {
+        color: var(--gray-600);
+        font-style: normal;
+        font-size: 0.8rem;
+      }
+
+      /* Booking actions */
+      .booking-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+      .btn-book {
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--black);
+        background: var(--white);
+        padding: 0.9rem 2.5rem;
+        border: none;
+        cursor: pointer;
+        transition: background 0.25s;
+      }
+      .btn-book:hover {
+        background: var(--gray-200);
+      }
+      .btn-book:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .btn-wa {
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: transparent;
+        border: 0.5px solid rgba(255, 255, 255, 0.25);
+        padding: 0.9rem 2rem;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s;
+      }
+      .btn-wa:hover {
+        border-color: var(--white);
+      }
+
+      .next-btn {
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--black);
+        background: var(--white);
+        border: none;
+        padding: 0.9rem 2rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 1rem;
+      }
+      .next-btn:hover {
+        background: var(--gray-200);
+      }
+      .next-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      /* ── GALERÍA ── */
+      #galeria {
+        background: var(--gray-100);
+      }
+
+      .gallery-header {
+        max-width: 1100px;
+        margin: 0 auto 3rem;
+      }
+
+      .gallery-mosaic {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+      }
+
+      .gallery-cell {
+        background: var(--gray-200);
+        overflow: hidden;
+        position: relative;
+        aspect-ratio: 1;
+      }
+      .gallery-cell:first-child {
+        grid-column: span 2;
+        grid-row: span 2;
+        aspect-ratio: unset;
+      }
+
+      .gallery-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .gallery-cell:hover .gallery-img {
+        transform: scale(1.04);
+      }
+
+      .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 1.25rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 55%);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .gallery-cell:hover .gallery-overlay {
+        opacity: 1;
+      }
+
+      .gallery-icon {
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #fff;
+        opacity: 0.9;
+      }
+
+      /* ── UBICACION ── */
+      #ubicacion {
+        background: var(--white);
+      }
+
+      .location-grid {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: start;
+      }
+
+      .location-info h3 {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 300;
+        font-style: italic;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+      }
+
+      .location-row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 0.5px solid var(--gray-200);
+      }
+      .location-row:last-child {
+        border-bottom: none;
+      }
+
+      .loc-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gray-400);
+        margin-bottom: 0.4rem;
+      }
+      .loc-value {
+        font-size: 0.88rem;
+        color: var(--black);
+        line-height: 1.6;
+      }
+
+      .map-placeholder {
+        background: var(--gray-100);
+        height: 340px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .map-inner {
+        text-align: center;
+      }
+      .map-pin {
+        width: 1px;
+        height: 40px;
+        background: var(--black);
+        margin: 0 auto 0.75rem;
+        position: relative;
+      }
+      .map-pin::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: -7px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: var(--black);
+      }
+      .map-address {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+      }
+
+      .map-link {
+        display: inline-block;
+        margin-top: 1rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--black);
+        text-decoration: none;
+        border-bottom: 0.5px solid var(--black);
+        padding-bottom: 2px;
+        transition: opacity 0.2s;
+      }
+      .map-link:hover {
+        opacity: 0.5;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--black);
+        color: var(--gray-400);
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+
+      .footer-logo {
+        font-family: var(--font-body);
+        font-weight: 200;
+        font-size: 1.2rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        list-style: none;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+      }
+      .footer-links a {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gray-600);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--white);
+      }
+
+      .footer-copy {
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        color: var(--gray-600);
+      }
+
+      /* ── BOOKING SUCCESS ── */
+      .booking-success {
+        display: none;
+        text-align: center;
+        padding: 3rem 0;
+      }
+      .success-icon {
+        width: 60px;
+        height: 60px;
+        border: 0.5px solid var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 1.5rem;
+      }
+      .success-title {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 300;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+      .success-sub {
+        font-size: 0.8rem;
+        color: var(--gray-400);
+        letter-spacing: 0.1em;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        nav {
+          padding: 1rem 1.25rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .services-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .service-item:nth-child(3n) {
+          border-right: 0.5px solid var(--gray-200);
+        }
+        .service-item:nth-child(2n) {
+          border-right: none;
+        }
+        .barbers-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .hours-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .booking-steps {
+          grid-template-columns: 1fr;
+        }
+        .step {
+          border-right: none;
+          border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+        }
+        .step:last-child {
+          border-bottom: none;
+        }
+        .gallery-mosaic {
+          grid-template-columns: 1fr 1fr;
+        }
+        .gallery-cell:first-child {
+          grid-column: span 2;
+          grid-row: span 1;
+          aspect-ratio: 2 / 1;
+        }
+        .location-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .confirm-summary {
+          gap: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .service-item:nth-child(n) {
+          border-right: none;
+        }
+        .barbers-grid {
+          grid-template-columns: 1fr;
+        }
+        .hours-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* ── ANIMATIONS ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a class="nav-logo" href="#inicio">BARBERÍA <span>2|3|2</span></a>
+      <ul class="nav-links">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#ubicacion">Ubicación</a></li>
+      </ul>
+      <a class="nav-cta" href="#reservas">Reservar</a>
+    </nav>
+
+    <!-- HERO -->
+    <section id="inicio">
+      <div style="text-align: center; max-width: 900px; margin: 0 auto">
+        <span class="hero-eyebrow">Andenes Hermosillo — Sonora, México</span>
+        <h1 class="hero-title">
+          BARBERÍA<br /><span class="pipe"
+            >2<span>|</span>3<span>|</span>2</span
+          >
+        </h1>
+        <p class="hero-sub">Donde el detalle define al hombre.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#reservas">Agenda tu cita</a>
+          <a class="btn-ghost" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+      <div class="hero-divider">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section id="nosotros">
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <span class="section-label">Nuestra historia</span>
+          <h2 class="section-title">Precisión elevada<br />a ritual.</h2>
+          <p>
+            Barbería 2|3|2 nació con una visión clara: crear un espacio donde el
+            cuidado masculino se convierte en una experiencia, no sólo en un
+            servicio. Ubicados en Andenes Hermosillo, combinamos técnica,
+            estética y atención al detalle.
+          </p>
+          <p>Cada corte es una decisión. Cada visita, un estándar.</p>
+          <div class="about-stats">
+            <div class="about-stat">
+              <strong>4.8</strong>
+              <span>Calificación Google</span>
+            </div>
+            <div class="about-stat">
+              <strong>42+</strong>
+              <span>Reseñas verificadas</span>
+            </div>
+            <div class="about-stat">
+              <strong>Lun–Sáb</strong>
+              <span>Horario de atención</span>
+            </div>
+            <div class="about-stat">
+              <strong>8 pm</strong>
+              <span>Cierre entre semana</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual fade-in">
+          <div class="about-block">
+            <p>"Cada cliente merece precisión. Cada detalle, intención."</p>
+          </div>
+          <div class="about-block">
+            <p>"La barbería como arquitectura del estilo personal."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+      <div class="services-header fade-in">
+        <div>
+          <span class="section-label">Lo que ofrecemos</span>
+          <h2 class="section-title">Servicios</h2>
+        </div>
+        <p
+          style="
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            max-width: 240px;
+            text-align: right;
+            line-height: 1.6;
+          "
+        >
+          Precios en pesos mexicanos. Todos los servicios con cita previa.
+        </p>
+      </div>
+      <div class="services-grid fade-in">
+        <div class="service-item">
+          <div class="service-name">Corte</div>
+          <div class="service-desc">Clásico o moderno</div>
+          <div class="service-price">$220 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Corte desvanecido</div>
+          <div class="service-desc">Fade premium</div>
+          <div class="service-price">$240 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Corte y barba</div>
+          <div class="service-desc">Combo completo</div>
+          <div class="service-price">$320 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Corte desvanecido y barba</div>
+          <div class="service-desc">Fade + perfilado</div>
+          <div class="service-price">$340 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Barba</div>
+          <div class="service-desc">Diseño y perfilado</div>
+          <div class="service-price">$150 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Afeitado de cabello</div>
+          <div class="service-desc">Navaja al cero</div>
+          <div class="service-price">$220 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Afeitado de barba</div>
+          <div class="service-desc">Con toalla caliente</div>
+          <div class="service-price">$150 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Depilación con cera</div>
+          <div class="service-desc">Cejas / nariz / orejas</div>
+          <div class="service-price">$100 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Facial sencillo</div>
+          <div class="service-desc">Limpieza básica</div>
+          <div class="service-price">$200 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Facial completo</div>
+          <div class="service-desc">Tratamiento profundo</div>
+          <div class="service-price">$400 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Tinte en cabello</div>
+          <div class="service-desc">Color y acabado</div>
+          <div class="service-price">$150 <span>MXN</span></div>
+        </div>
+        <div class="service-item">
+          <div class="service-name">Tinte en barba</div>
+          <div class="service-desc">Color natural</div>
+          <div class="service-price">$100 <span>MXN</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESERVAS -->
+    <section id="reservas">
+      <div class="booking-wrapper">
+        <div class="fade-in">
+          <span class="section-label">Agenda tu visita</span>
+          <h2 class="section-title">Reserva tu <em>ritual</em></h2>
+          <p class="reservas-sub">
+            Elige tu fecha y hora. Tu tiempo es sagrado — nosotros lo
+            respetamos.
+          </p>
+        </div>
+
+        <!-- Steps indicator -->
+        <div class="booking-steps" id="bookingSteps">
+          <div class="step active" data-step="1">
+            <div class="step-number">1</div>
+            <div class="step-info">
+              <div class="step-label">Paso 1</div>
+              <div class="step-name">Barbero</div>
+            </div>
+          </div>
+          <div class="step" data-step="2">
+            <div class="step-number">2</div>
+            <div class="step-info">
+              <div class="step-label">Paso 2</div>
+              <div class="step-name">Fecha</div>
+            </div>
+          </div>
+          <div class="step" data-step="3">
+            <div class="step-number">3</div>
+            <div class="step-info">
+              <div class="step-label">Paso 3</div>
+              <div class="step-name">Hora</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 1: Barbero -->
+        <div class="booking-panel active" id="panel1">
+          <p class="panel-title">¿Con quién quieres tu cita?</p>
+          <div class="barbers-grid">
+            <div class="barber-card" data-barber="cualquiera">
+              <div class="barber-avatar">✦</div>
+              <div class="barber-name">Cualquier barbero</div>
+              <div class="barber-role">Disponibilidad amplia</div>
+            </div>
+            <div class="barber-card" data-barber="carlos">
+              <div class="barber-avatar">CG</div>
+              <div class="barber-name">Carlos</div>
+              <div class="barber-role">Especialista en fade</div>
+            </div>
+            <div class="barber-card" data-barber="miguel">
+              <div class="barber-avatar">MR</div>
+              <div class="barber-name">Miguel</div>
+              <div class="barber-role">Barba & diseño</div>
+            </div>
+          </div>
+          <button class="next-btn" id="nextToDate" disabled>Continuar →</button>
+        </div>
+
+        <!-- Panel 2: Fecha -->
+        <div class="booking-panel" id="panel2">
+          <p class="panel-title">Selecciona el día</p>
+          <div class="calendar-header">
+            <button class="cal-nav" id="prevMonth">←</button>
+            <span class="cal-month" id="calMonth"></span>
+            <button class="cal-nav" id="nextMonth">→</button>
+          </div>
+          <div class="calendar-grid" id="calGrid"></div>
+          <button class="next-btn" id="nextToTime" disabled>Continuar →</button>
+        </div>
+
+        <!-- Panel 3: Hora -->
+        <div class="booking-panel" id="panel3">
+          <p class="panel-title">Elige tu horario</p>
+          <div class="hours-grid" id="hoursGrid"></div>
+          <button class="next-btn" id="nextToConfirm" disabled>
+            Ver resumen →
+          </button>
+        </div>
+
+        <!-- Confirmación -->
+        <div class="booking-panel" id="panelConfirm">
+          <p class="panel-title">Confirma tu reservación</p>
+          <div class="booking-confirm">
+            <p class="confirm-title">Resumen de tu cita</p>
+            <div class="confirm-summary">
+              <div class="confirm-item">
+                <span class="confirm-label">Barbero</span>
+                <span class="confirm-value" id="sumBarber">—</span>
+              </div>
+              <div class="confirm-item">
+                <span class="confirm-label">Fecha</span>
+                <span class="confirm-value" id="sumDate">—</span>
+              </div>
+              <div class="confirm-item">
+                <span class="confirm-label">Hora</span>
+                <span class="confirm-value" id="sumTime">—</span>
+              </div>
+            </div>
+            <div class="booking-actions">
+              <button class="btn-book" id="confirmBtn">
+                Confirmar por WhatsApp
+              </button>
+              <a class="btn-wa" href="#reservas" id="resetBtn">← Editar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Éxito -->
+        <div class="booking-success" id="bookingSuccess">
+          <div class="success-icon">✓</div>
+          <div class="success-title">¡Reservación enviada!</div>
+          <p class="success-sub">
+            Te contactaremos por WhatsApp para confirmar tu cita.
+          </p>
+        </div>
+
+        <!-- WhatsApp alternativo -->
+        <div
+          style="
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+          "
+          id="waAlt"
+        >
+          <p
+            style="
+              font-size: 0.72rem;
+              color: var(--gray-600);
+              letter-spacing: 0.1em;
+              margin-bottom: 1rem;
+            "
+          >
+            ¿Prefieres agendar directamente?
+          </p>
+          <a
+            class="btn-wa"
+            href="https://wa.me/526621234567?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Barber%C3%ADa%20232"
+            target="_blank"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+            Contactar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="galeria">
+      <div class="gallery-header fade-in">
+        <span class="section-label">Nuestro trabajo</span>
+        <h2 class="section-title">Galería</h2>
+      </div>
+      <div class="gallery-mosaic fade-in">
+        <div class="gallery-cell">
+          <img src="corte-destacado.png" alt="Corte Destacado" class="gallery-img" />
+          <div class="gallery-overlay">
+            <span class="gallery-icon">Corte Destacado</span>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <img src="corte-1.png" alt="Fade" class="gallery-img" />
+          <div class="gallery-overlay">
+            <span class="gallery-icon">Fade</span>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <img src="corte-2.png" alt="Barba" class="gallery-img" />
+          <div class="gallery-overlay">
+            <span class="gallery-icon">Barba</span>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <img src="corte-3.png" alt="Skin Fade" class="gallery-img" />
+          <div class="gallery-overlay">
+            <span class="gallery-icon">Skin Fade</span>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <img src="corte-4.png" alt="Clásico" class="gallery-img" />
+          <div class="gallery-overlay">
+            <span class="gallery-icon">Clásico</span>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <img src="corte-5.png" alt="Estilo" class="gallery-img" />
+          <div class="gallery-overlay">
+            <span class="gallery-icon">Estilo</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 2.5rem">
+        <a
+          href="https://www.instagram.com/barberia.232"
+          target="_blank"
+          class="btn-ghost"
+          style="display: inline-block"
+          >Ver más en Instagram</a
+        >
+      </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section id="ubicacion">
+      <div class="location-grid">
+        <div class="fade-in">
+          <span class="section-label">Encuéntranos</span>
+          <h2 class="section-title">Dónde<br />estamos</h2>
+          <div style="margin-top: 2.5rem">
+            <div class="location-row">
+              <span class="loc-label">Dirección</span>
+              <span class="loc-value"
+                >Bulevar Luis D. Colosio 671<br />Interior 232, Andenes
+                Hermosillo<br />Hermosillo, Son. C.P. 83249</span
+              >
+            </div>
+            <div class="location-row">
+              <span class="loc-label">Horario</span>
+              <span class="loc-value"
+                >Lunes – Sábado<br />Cierra a las 8:00 p.m.</span
+              >
+            </div>
+            <div class="location-row">
+              <span class="loc-label">Contacto</span>
+              <span class="loc-value">
+                <a
+                  href="https://www.instagram.com/barberia.232"
+                  target="_blank"
+                  style="
+                    color: var(--black);
+                    text-decoration: none;
+                    border-bottom: 0.5px solid var(--gray-200);
+                  "
+                  >@barberia.232</a
+                >
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in">
+          <div class="map-placeholder">
+            <div class="map-inner">
+              <div class="map-pin"></div>
+              <div class="map-address">
+                Andenes Hermosillo<br />Interior 232
+              </div>
+              <a
+                class="map-link"
+                href="https://maps.google.com/?q=Bulevar+Luis+D.+Colosio+671+Interior+232+Hermosillo"
+                target="_blank"
+                >Ver en Google Maps</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">BARBERÍA 2|3|2</div>
+      <ul class="footer-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#reservas">Reservas</a></li>
+        <li>
+          <a href="https://www.instagram.com/barberia.232" target="_blank"
+            >Instagram</a
+          >
+        </li>
+      </ul>
+      <p class="footer-copy">© 2025 Barbería 2|3|2 — Hermosillo, Sonora</p>
+    </footer>
+
+    <script>
+      // ── BOOKING LOGIC ──
+      const state = { barber: null, date: null, time: null };
+      let calYear, calMonth;
+
+      const today = new Date();
+      calYear = today.getFullYear();
+      calMonth = today.getMonth();
+
+      const MONTHS_ES = [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ];
+      const DAYS_ES = ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"];
+      const HOURS = [
+        "10:00",
+        "10:30",
+        "11:00",
+        "11:30",
+        "12:00",
+        "12:30",
+        "13:00",
+        "13:30",
+        "14:00",
+        "14:30",
+        "15:00",
+        "15:30",
+        "16:00",
+        "16:30",
+        "17:00",
+        "17:30",
+        "18:00",
+        "18:30",
+        "19:00",
+        "19:30",
+      ];
+      const TAKEN = ["11:00", "13:30", "15:00", "17:00"];
+
+      function showPanel(id) {
+        document
+          .querySelectorAll(".booking-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+        if (id === "panelConfirm") {
+          const names = {
+            cualquiera: "Cualquier barbero",
+            carlos: "Carlos",
+            miguel: "Miguel",
+          };
+          document.getElementById("sumBarber").textContent =
+            names[state.barber] || "—";
+          document.getElementById("sumDate").textContent = state.date || "—";
+          document.getElementById("sumTime").textContent = state.time || "—";
+        }
+      }
+
+      function setStep(n) {
+        document.querySelectorAll(".step").forEach((s, i) => {
+          s.classList.remove("active", "done");
+          if (i + 1 < n) s.classList.add("done");
+          if (i + 1 === n) s.classList.add("active");
+        });
+      }
+
+      // Barber selection
+      document.querySelectorAll(".barber-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          document
+            .querySelectorAll(".barber-card")
+            .forEach((c) => c.classList.remove("selected"));
+          card.classList.add("selected");
+          state.barber = card.dataset.barber;
+          document.getElementById("nextToDate").disabled = false;
+        });
+      });
+
+      document.getElementById("nextToDate").addEventListener("click", () => {
+        if (!state.barber) return;
+        showPanel("panel2");
+        setStep(2);
+        renderCalendar();
+      });
+
+      // Calendar
+      function renderCalendar() {
+        const grid = document.getElementById("calGrid");
+        grid.innerHTML = "";
+        document.getElementById("calMonth").textContent =
+          MONTHS_ES[calMonth] + " " + calYear;
+
+        DAYS_ES.forEach((d) => {
+          const el = document.createElement("div");
+          el.className = "cal-day-label";
+          el.textContent = d;
+          grid.appendChild(el);
+        });
+
+        const firstDay = new Date(calYear, calMonth, 1).getDay();
+        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+        for (let i = 0; i < firstDay; i++) {
+          const el = document.createElement("div");
+          el.className = "cal-day empty";
+          grid.appendChild(el);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const el = document.createElement("div");
+          const date = new Date(calYear, calMonth, d);
+          const isPast =
+            date <
+            new Date(today.getFullYear(), today.getMonth(), today.getDate());
+          const isSun = date.getDay() === 0;
+          const isToday = date.toDateString() === today.toDateString();
+          const dateStr = `${d} de ${MONTHS_ES[calMonth]}`;
+
+          el.className =
+            "cal-day" +
+            (isPast || isSun ? " past" : "") +
+            (isToday ? " today" : "");
+          el.textContent = d;
+
+          if (!isPast && !isSun) {
+            el.addEventListener("click", () => {
+              document
+                .querySelectorAll(".cal-day")
+                .forEach((c) => c.classList.remove("selected"));
+              el.classList.add("selected");
+              state.date = dateStr;
+              document.getElementById("nextToTime").disabled = false;
+            });
+          }
+          grid.appendChild(el);
+        }
+      }
+
+      document.getElementById("prevMonth").addEventListener("click", () => {
+        calMonth--;
+        if (calMonth < 0) {
+          calMonth = 11;
+          calYear--;
+        }
+        renderCalendar();
+      });
+      document.getElementById("nextMonth").addEventListener("click", () => {
+        calMonth++;
+        if (calMonth > 11) {
+          calMonth = 0;
+          calYear++;
+        }
+        renderCalendar();
+      });
+
+      document.getElementById("nextToTime").addEventListener("click", () => {
+        showPanel("panel3");
+        setStep(3);
+        renderHours();
+      });
+
+      // Hours
+      function renderHours() {
+        const grid = document.getElementById("hoursGrid");
+        grid.innerHTML = "";
+        HOURS.forEach((h) => {
+          const el = document.createElement("div");
+          const isTaken = TAKEN.includes(h);
+          el.className = "hour-slot" + (isTaken ? " taken" : "");
+          el.textContent = h;
+          if (!isTaken) {
+            el.addEventListener("click", () => {
+              document
+                .querySelectorAll(".hour-slot")
+                .forEach((s) => s.classList.remove("selected"));
+              el.classList.add("selected");
+              state.time = h;
+              document.getElementById("nextToConfirm").disabled = false;
+            });
+          }
+          grid.appendChild(el);
+        });
+      }
+
+      document.getElementById("nextToConfirm").addEventListener("click", () => {
+        showPanel("panelConfirm");
+        document.getElementById("bookingSteps").style.display = "none";
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        state.barber = null;
+        state.date = null;
+        state.time = null;
+        document
+          .querySelectorAll(".barber-card")
+          .forEach((c) => c.classList.remove("selected"));
+        document.getElementById("nextToDate").disabled = true;
+        document.getElementById("bookingSteps").style.display = "grid";
+        showPanel("panel1");
+        setStep(1);
+      });
+
+      document.getElementById("confirmBtn").addEventListener("click", () => {
+        const names = {
+          cualquiera: "Cualquier barbero",
+          carlos: "Carlos",
+          miguel: "Miguel",
+        };
+        const msg = `Hola! Quiero agendar una cita en Barbería 232.%0ABarbero: ${names[state.barber]}%0AFecha: ${state.date}%0AHora: ${state.time}`;
+        window.open("https://wa.me/526621234567?text=" + msg, "_blank");
+        document.getElementById("panelConfirm").style.display = "none";
+        document.getElementById("bookingSuccess").style.display = "block";
+        document.getElementById("waAlt").style.display = "none";
+      });
+
+      // ── FADE IN OBSERVER ──
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 },
+      );
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
